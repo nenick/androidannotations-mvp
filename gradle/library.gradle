@@ -1,0 +1,8 @@
+ext.AndroidAnnotationsVersion = "4.2.0"
+
+ext {
+    library = [
+            AndroidAnnotations   : "org.androidannotations:androidannotations:4.2.0",
+            AndroidAnnotationsApi: "org.androidannotations:androidannotations-api:4.2.0"
+    ]
+}

@@ -1,0 +1,32 @@
+package de.nenick.androidannotations.plugin.mvp.sample.multiview;
+
+import android.support.v7.app.AppCompatActivity;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+
+import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
+import de.nenick.androidannotations.plugin.mvp.MvpView;
+import de.nenick.androidannotations.plugin.mvp.R;
+
+
+@EMvpPresenter
+@EActivity(R.layout.activity_main)
+public class MainActivity extends AppCompatActivity implements MainView.Callback {
+
+    @MvpView
+    MainView myView;
+
+    @MvpView
+    MainSubView mySubView;
+
+    @AfterViews
+    void initView() {
+        mySubView.showMessage("It's connected!");
+    }
+
+    @Override
+    public void onClickButton() {
+        mySubView.showMessage("Button click feedback!");
+    }
+}

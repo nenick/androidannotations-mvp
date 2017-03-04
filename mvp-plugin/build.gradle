@@ -1,0 +1,6 @@
+apply plugin: 'java'
+
+dependencies {
+    compile library.AndroidAnnotations
+    compile project(':mvp-plugin-api')
+}
