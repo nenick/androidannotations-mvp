@@ -1,4 +1,19 @@
 apply plugin: 'java'
+apply plugin: 'maven'
+apply from: "$project.rootDir/gradle/projectLocalRepo.gradle"
+
+version '1.0.0-SNAPSHOT'
+group = "de.nenick"
+tasks.install.repositories.mavenDeployer.pom.artifactId = 'androidannotations-mvp-api'
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
+
+tasks.withType(JavaCompile) {
+    if(name.toLowerCase().contains("test")) {
+        dependsOn install
+    }
+}
 
 dependencies {
     compile library.AndroidAnnotationsApi
