@@ -1,4 +1,4 @@
-package testtool.android
+package tools.android
 
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryPlugin
@@ -43,10 +43,10 @@ class AndroidProjectConfiguration {
         else
             libraryVariant = variant
 
-        def manifestFile = projectVariant.outputs.processManifest.manifestOutputFile
+        File manifestFile = projectVariant.outputs.processManifest.manifestOutputFile[0]
         applicationId = readApplicationIdFromAndroidManifest(manifestFile)
 
-        def testManifestFile = projectVariant.testVariant.outputs.processManifest.manifestOutputFile
+        File testManifestFile = projectVariant.testVariant.outputs.processManifest.manifestOutputFile[0]
         testApplicationId = readApplicationIdFromAndroidManifest(testManifestFile)
 
         return this
@@ -56,7 +56,7 @@ class AndroidProjectConfiguration {
         return hasAppPlugin ? androidProject.applicationVariants : androidProject.libraryVariants
     }
 
-    private static def readApplicationIdFromAndroidManifest(file) {
+    private static def readApplicationIdFromAndroidManifest(File file) {
         new XmlSlurper().parse(file).@package
     }
 }

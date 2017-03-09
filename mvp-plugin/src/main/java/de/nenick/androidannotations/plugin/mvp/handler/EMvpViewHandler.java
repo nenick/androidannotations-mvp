@@ -38,8 +38,6 @@ public class EMvpViewHandler extends BaseAnnotationHandler<EComponentHolder> {
         List<Class<? extends Annotation>> validAnnotations = new ArrayList<>();
         validAnnotations.add(EBean.class);
         validatorHelper.hasOneOfAnnotations(element, element, validAnnotations, validation);
-        //validatorHelper.typeOrTargetValueHasAnnotation(EMvpView.class, element, validation);
-        validatorHelper.isNotPrivate(element, validation);
 
     }
 

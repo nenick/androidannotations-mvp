@@ -9,6 +9,7 @@ import com.helger.jcodemodel.JInvocation;
 import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 
+import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
 import org.androidannotations.annotations.Bean;
@@ -54,6 +55,7 @@ public class MvpFragmentHandler extends BaseAnnotationHandler<EComponentWithView
         }
 
         validatorHelper.enclosingElementHasEActivityOrEFragment(element, validation);
+        validatorHelper.typeOrTargetValueHasAnnotation(EMvpPresenter.class, element, validation);
         validatorHelper.typeOrTargetValueHasAnnotation(EFragment.class, element, validation);
         validatorHelper.isNotPrivate(element, validation);
     }

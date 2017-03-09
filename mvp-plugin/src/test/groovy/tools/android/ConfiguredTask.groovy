@@ -1,4 +1,4 @@
-package testtool.android
+package tools.android
 
 import org.gradle.api.DefaultTask
 

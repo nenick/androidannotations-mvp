@@ -57,6 +57,7 @@ public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupp
 
         validatorHelper.enclosingElementHasEActivityOrEFragment(element, validation);
         validatorHelper.typeOrTargetValueHasAnnotation(EMvpView.class, element, validation);
+        validatorHelper.typeOrTargetValueHasAnnotation(EBean.class, element, validation);
         validatorHelper.isNotPrivate(element, validation);
     }
 
