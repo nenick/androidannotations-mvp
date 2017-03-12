@@ -124,7 +124,7 @@ class MvpViewSpec extends BaseSpecification {
         assert ex.message.contains('Element myView invalidated by MvpViewHandler')
     }
 
-    def "Call onCreate with empty view does not throw"() {
+    def "Call onCreate when view implements no interfaces does not throw"() {
         given:
         def mainViewClass = view(MAIN_VIEW)
                 .annotate(EBean.class)
