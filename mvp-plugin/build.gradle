@@ -15,6 +15,7 @@ def androidPluginVersion = "2.2.3"
 tasks.withType(JavaCompile) {
     if (name.toLowerCase().contains("test")) {
         dependsOn install
+        dependsOn(":mvp-plugin-api:install")
         dependsOn(":mvp-plugin-sample:mockableAndroidJar")
     }
 }
