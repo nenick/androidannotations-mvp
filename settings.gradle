@@ -1,1 +1,1 @@
-include ':mvp-plugin-test', ':mvp-plugin-api', ':mvp-plugin'
+include ':mvp-plugin-sample', ':mvp-plugin-api', ':mvp-plugin'
