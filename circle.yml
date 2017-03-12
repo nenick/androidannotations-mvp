@@ -1,0 +1,3 @@
+general:
+  artifacts:
+    - "mvp-plugin/build/reports/tests"
