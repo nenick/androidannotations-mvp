@@ -21,7 +21,7 @@ trait ProjectFilesHelper implements TestProperties, GroovyHelper {
         )
     }
 
-    InterfaceBuilder presenter(String interfaceName) {
+    InterfaceBuilder callback(String interfaceName) {
         new InterfaceBuilder(name: interfaceName)
     }
 
@@ -43,5 +43,9 @@ trait ProjectFilesHelper implements TestProperties, GroovyHelper {
 
     AndroidManifestBuilder androidManifest() {
         new AndroidManifestBuilder()
+    }
+
+    AndroidManifestBuilder androidManifest(ActivityBuilder startActivity) {
+        new AndroidManifestBuilder().with(startActivity)
     }
 }

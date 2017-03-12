@@ -7,58 +7,91 @@ import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.EBean
 import org.androidannotations.annotations.EFragment
 import tools.BaseSpecification
+import tools.builder.ActivityBuilder
+import tools.builder.FragmentBuilder
+import tools.builder.ViewBuilder
 
 class MvpViewSpec extends BaseSpecification {
 
-    def "@MvpView for @EMvpView"() {
+
+    public static final String MAIN_VIEW = "MainView"
+    public static final String MAIN_ACTIVITY = "MainActivity"
+    public static final String MAIN_FRAGMENT = "MainFragment"
+
+    def "Accept in Activity with @EMvpPresenter"() {
         given:
-        def mainView = view("MainView")
+        def mainViewClass = view(MAIN_VIEW)
                 .annotate(EBean.class)
                 .annotate(EMvpView.class)
 
-        def mainActivity = activity("MainActivity")
+        def mainActivityClass = activity(MAIN_ACTIVITY)
                 .annotate(EActivity.class, "R.layout.activity_main")
                 .annotate(EMvpPresenter.class)
-                .with(mainView, "myView", MvpView.class)
+                .with(mainViewClass, "myView", MvpView.class)
 
-        def androidManifest = androidManifest()
-                .with(mainActivity)
-
-        androidProjectBuilder()
-                .with(gradleScript())
-                .with(androidManifest)
-                .with(layout("activity_main"))
-                .with(mainActivity)
-                .with(mainView)
-                .create()
+        androidProjectWith(mainActivityClass, mainViewClass)
 
         when:
         run(assembleDebugTask)
 
         then:
-        assert containsGeneratedClass("MainView")
+        assert containsGeneratedClassFor(MAIN_VIEW)
+        assert containsGeneratedClassFor(MAIN_ACTIVITY)
     }
 
-    def "@MvpView missing @EMvpView"() {
+    def "Accept in Fragment with @EMvpPresenter"() {
         given:
-        def mainView = view("MainView")
+        def mainViewClass = view(MAIN_VIEW)
+                .annotate(EBean.class)
+                .annotate(EMvpView.class)
+
+        def mainFragmentClass = fragment(MAIN_FRAGMENT)
+                .annotate(EFragment.class, "R.layout.fragment_main")
+                .annotate(EMvpPresenter.class)
+                .with(mainViewClass, "myView", MvpView.class)
+
+        androidProjectWith(mainFragmentClass, mainViewClass)
+
+        when:
+        run(assembleDebugTask)
+
+        then:
+        assert containsGeneratedClassFor(MAIN_VIEW)
+        assert containsGeneratedClassFor(MAIN_FRAGMENT)
+    }
+
+    def "Invalidate when missing @EMvpPresenter"() {
+        given:
+        def mainViewClass = view(MAIN_VIEW)
+                .annotate(EBean.class)
+                .annotate(EMvpView.class)
+
+        def mainActivityClass = activity(MAIN_ACTIVITY)
+                .annotate(EActivity.class, "R.layout.activity_main")
+                .with(mainViewClass, "myView", MvpView.class)
+
+        androidProjectWith(mainActivityClass, mainViewClass)
+
+        when:
+        run(assembleDebugTask)
+
+        then:
+        Exception ex = thrown()
+        assert ex.message.contains("MvpView can only be used in a class annotated with @de.nenick.androidannotations.plugin.mvp.EMvpPresenter.")
+        assert ex.message.contains('Element myView invalidated by MvpViewHandler')
+    }
+
+    def "Invalidate when reference miss @EMvpView"() {
+        given:
+        def mainViewClass = view(MAIN_VIEW)
                 .annotate(EBean.class)
 
-        def mainActivity = activity("MainActivity")
+        def mainActivityClass = activity(MAIN_ACTIVITY)
                 .annotate(EActivity.class, "R.layout.activity_main")
                 .annotate(EMvpPresenter.class)
-                .with(mainView, "myView", MvpView.class)
+                .with(mainViewClass, "myView", MvpView.class)
 
-        def androidManifest = androidManifest()
-                .with(mainActivity)
-
-        androidProjectBuilder()
-                .with(gradleScript())
-                .with(androidManifest)
-                .with(layout("activity_main"))
-                .with(mainActivity)
-                .with(mainView)
-                .create()
+        androidProjectWith(mainActivityClass, mainViewClass)
 
         when:
         run(assembleDebugTask)
@@ -69,26 +102,17 @@ class MvpViewSpec extends BaseSpecification {
         assert ex.message.contains('Element myView invalidated by MvpViewHandler')
     }
 
-    def "@MvpView missing @EBean"() {
+    def "Invalidate when reference miss @EBean"() {
         given:
-        def mainView = view("MainView")
+        def mainViewClass = view(MAIN_VIEW)
                 .annotate(EMvpView.class)
 
-        def mainActivity = activity("MainActivity")
+        def mainActivityClass = activity(MAIN_ACTIVITY)
                 .annotate(EActivity.class, "R.layout.activity_main")
                 .annotate(EMvpPresenter.class)
-                .with(mainView, "myView", MvpView.class)
+                .with(mainViewClass, "myView", MvpView.class)
 
-        def androidManifest = androidManifest()
-                .with(mainActivity)
-
-        androidProjectBuilder()
-                .with(gradleScript())
-                .with(androidManifest)
-                .with(layout("activity_main"))
-                .with(mainActivity)
-                .with(mainView)
-                .create()
+        androidProjectWith(mainActivityClass, mainViewClass)
 
         when:
         run(assembleDebugTask)
@@ -99,56 +123,49 @@ class MvpViewSpec extends BaseSpecification {
         assert ex.message.contains('Element myView invalidated by MvpViewHandler')
     }
 
-    def "@MvpView in Fragment"() {
+    def "Call onCreate skip setCallback when not provided"() {
         given:
-        def mainView = view("MainView")
+        def mainViewClass = view(MAIN_VIEW)
                 .annotate(EBean.class)
                 .annotate(EMvpView.class)
 
-        def mainFragment = fragment("MainFragment")
-                .annotate(EFragment.class, "R.layout.fragment_main")
+        def mainActivityClass = activity(MAIN_ACTIVITY)
+                .annotate(EActivity.class, "R.layout.activity_main")
                 .annotate(EMvpPresenter.class)
-                .with(mainView, "myView", MvpView.class)
+                .with(mainViewClass, "myView", MvpView.class)
+
+        androidProjectWith(mainActivityClass, mainViewClass)
+
+        run(assembleDebugTask)
+
+        def mainActivity = activityInstance(MAIN_ACTIVITY)
+
+        when:
+        mainActivity.onCreate()
+
+        then:
+        noExceptionThrown()
+    }
+
+    private androidProjectWith(ActivityBuilder mainActivityClass, ViewBuilder mainViewClass) {
+        androidProjectBuilder()
+                .with(gradleScript())
+                .with(androidManifest(mainActivityClass))
+                .with(layout("activity_main"))
+                .with(mainActivityClass)
+                .with(mainViewClass)
+                .create()
+    }
+
+    private androidProjectWith(FragmentBuilder mainFragmentClass, ViewBuilder mainViewClass) {
 
         androidProjectBuilder()
                 .with(gradleScript())
                 .with(androidManifest())
                 .with(layout("fragment_main"))
-                .with(mainFragment)
-                .with(mainView)
+                .with(mainFragmentClass)
+                .with(mainViewClass)
                 .create()
-
-        when:
-        run(assembleDebugTask)
-
-        then:
-        assert containsGeneratedClass("MainView")
-    }
-
-    def "@MvpView in Activity"() {
-        given:
-        def mainView = view("MainView")
-                .annotate(EBean.class)
-                .annotate(EMvpView.class)
-
-        def mainFragment = activity("MainActivity")
-                .annotate(EActivity.class, "R.layout.activity_main")
-                .annotate(EMvpPresenter.class)
-                .with(mainView, "myView", MvpView.class)
-
-        androidProjectBuilder()
-                .with(gradleScript())
-                .with(androidManifest())
-                .with(layout("activity_main"))
-                .with(mainFragment)
-                .with(mainView)
-                .create()
-
-        when:
-        run(assembleDebugTask)
-
-        then:
-        assert containsGeneratedClass("MainView")
     }
 }
 

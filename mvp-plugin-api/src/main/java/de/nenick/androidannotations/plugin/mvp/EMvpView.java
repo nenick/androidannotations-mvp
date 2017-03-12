@@ -6,11 +6,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Enhance class for elementary view operations.
+ * Enhance a simple EBean as the View class.
  *
- * Available annotations:
- * - @ViewById
- * - @ViewByName
+ * <pre>
+ * &#64;EBean
+ * &#64;EMvpView
+ * public class MainView {
+ * }
+ * </pre>
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)

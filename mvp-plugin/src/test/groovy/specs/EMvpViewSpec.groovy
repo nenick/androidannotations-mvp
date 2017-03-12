@@ -3,40 +3,43 @@ package specs
 import de.nenick.androidannotations.plugin.mvp.EMvpView
 import org.androidannotations.annotations.EBean
 import tools.BaseSpecification
+import tools.builder.ViewBuilder
 
 class EMvpViewSpec extends BaseSpecification {
 
-    def "@EMvpView with @EBean"() {
+
+    public static final String MAIN_VIEW = "MainView"
+
+    def "Accept with @EBean"() {
         given:
-        def mainView = view("MainView")
+        def mainViewClass = view(MAIN_VIEW)
                 .annotate(EBean.class)
                 .annotate(EMvpView.class)
 
-        androidProjectBuilder()
-                .with(gradleScript())
-                .with(androidManifest())
-                .with(layout("android_annotations_need_an_generated_r_class"))
-                .with(mainView)
-                .create()
+        androidProjectWith(mainViewClass)
 
         when:
         run(assembleDebugTask)
 
         then:
-        assert containsGeneratedClass("MainView")
+        assert containsGeneratedClassFor(MAIN_VIEW)
     }
 
-    def "Just @EMvpView"() {
-        given:
-        def mainView = view("MainView")
-                .annotate(EMvpView.class)
-
+    private androidProjectWith(ViewBuilder mainViewClass) {
         androidProjectBuilder()
                 .with(gradleScript())
                 .with(androidManifest())
                 .with(layout("android_annotations_need_an_generated_r_class"))
-                .with(mainView)
+                .with(mainViewClass)
                 .create()
+    }
+
+    def "Invalidate when missing @EBean"() {
+        given:
+        def mainViewClass = view(MAIN_VIEW)
+                .annotate(EMvpView.class)
+
+        androidProjectWith(mainViewClass)
 
         when:
         run(assembleDebugTask)

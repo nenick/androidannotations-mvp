@@ -23,7 +23,7 @@ dependencies {
     compile library.AndroidAnnotations
     compile project(':mvp-plugin-api')
 
-    testCompile "com.google.android:android:2.3.1"
+    //testCompile "com.google.android:android:2.3.1"
     testCompile "com.android.tools.build:gradle:$androidPluginVersion"
     //testCompile localGroovy()
     //testCompile gradleApi()
@@ -31,5 +31,6 @@ dependencies {
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4', {
         exclude group: "org.codehaus.groovy", module: 'groovy-all'
     }
+    testCompile files("../build/generated/mockable-android-25.default-values.jar")
     testCompile gradleTestKit()
 }

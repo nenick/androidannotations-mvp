@@ -6,16 +6,16 @@ import tools.BaseSpecification
 
 class EMvpPresenterFragmentSpec extends BaseSpecification {
 
-    def "@EMvpPresenter with @Fragment"() {
+    def "Accept with @Fragment"() {
         given:
-        def mainFragment = fragment("MainFragment")
+        def mainFragmentClass = fragment("MainFragment")
                 .annotate(EFragment.class, "R.layout.fragment_main")
                 .annotate(EMvpPresenter.class)
 
         androidProjectBuilder()
                 .with(gradleScript())
                 .with(androidManifest())
-                .with(mainFragment)
+                .with(mainFragmentClass)
                 .with(layout("fragment_main"))
                 .create()
 
@@ -23,18 +23,18 @@ class EMvpPresenterFragmentSpec extends BaseSpecification {
         run(assembleDebugTask)
 
         then:
-        assert containsGeneratedClass("MainFragment")
+        assert containsGeneratedClassFor("MainFragment")
     }
 
-    def "Just @EMvpPresenter"() {
+    def "Invalidate when missing @EFragment"() {
         given:
-        def mainFragment = fragment("MainFragment")
+        def mainFragmentClass = fragment("MainFragment")
                 .annotate(EMvpPresenter.class)
 
         androidProjectBuilder()
                 .with(gradleScript())
                 .with(androidManifest())
-                .with(mainFragment)
+                .with(mainFragmentClass)
                 .with(layout("fragment_main"))
                 .create()
 

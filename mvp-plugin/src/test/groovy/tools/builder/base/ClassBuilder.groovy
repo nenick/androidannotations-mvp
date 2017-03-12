@@ -22,8 +22,8 @@ abstract class ClassBuilder<Subclass extends ClassBuilder> implements Builder {
     List<Class> fieldsAnnotations = []
 
 
-    Subclass with(ClassBuilder field, String name, Class annotation) {
-        fields.add(field)
+    Subclass with(ClassBuilder fieldClass, String name, Class annotation) {
+        fields.add(fieldClass)
         fieldsNames.add(name)
         fieldsAnnotations.add(annotation);
         return (Subclass) this

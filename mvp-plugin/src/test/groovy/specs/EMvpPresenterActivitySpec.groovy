@@ -8,23 +8,31 @@ import tools.builder.ActivityBuilder
 
 class EMvpPresenterActivitySpec extends BaseSpecification {
 
-    def "@EMvpPresenter with @EActivity"() {
+
+    public static final String MAIN_ACTIVITY = "MainActivity"
+
+    def "Accept with @EActivity"() {
         given:
-        projectWith(activity("MainActivity")
+
+        def mainActivityClass = activity(MAIN_ACTIVITY)
                 .annotate(EActivity.class, "R.layout.activity_main")
-                .annotate(EMvpPresenter.class))
+                .annotate(EMvpPresenter.class)
+
+        androidProjectWith(mainActivityClass)
 
         when:
         run(assembleDebugTask)
 
         then:
-        assert containsGeneratedClass("MainActivity")
+        assert containsGeneratedClassFor(MAIN_ACTIVITY)
     }
 
-    def "Just @EMvpPresenter"() {
+    def "Invalidate when missing @EActivity"() {
         given:
-        projectWith(activity("MainActivity")
-                .annotate(EMvpPresenter.class))
+        def mainActivityClass = activity(MAIN_ACTIVITY)
+                .annotate(EMvpPresenter.class)
+
+        androidProjectWith(mainActivityClass)
 
         when:
         run(assembleDebugTask)
@@ -36,14 +44,11 @@ class EMvpPresenterActivitySpec extends BaseSpecification {
         assert ex.message.contains('MainActivity invalidated by EMvpPresenterHandler')
     }
 
-    private void projectWith(ActivityBuilder mainActivity) {
-        def androidManifest = androidManifest()
-                .with(mainActivity)
-
+    private androidProjectWith(ActivityBuilder mainActivityClass) {
         androidProjectBuilder()
                 .with(gradleScript())
-                .with(androidManifest)
-                .with(mainActivity)
+                .with(androidManifest(mainActivityClass))
+                .with(mainActivityClass)
                 .with(layout("activity_main"))
                 .create()
     }
