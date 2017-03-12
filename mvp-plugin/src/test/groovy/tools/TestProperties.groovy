@@ -9,5 +9,5 @@ trait TestProperties implements TestProperties1 {
     def pluginVersion = "1.0.0-SNAPSHOT"
     def androidPluginVersion = "2.2.3"
     def compileSdkVersion = "25"
-    def buildToolsVersion = "25.0.2"
+    def buildToolsVersion = "25.0.1"
 }
