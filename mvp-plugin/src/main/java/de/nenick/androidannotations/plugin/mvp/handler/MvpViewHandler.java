@@ -55,8 +55,12 @@ public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupp
         String methodName = fieldName + "Update";
         JMethod toString = holder.getGeneratedClass().method(JMod.PRIVATE, Void.TYPE, methodName);
 
-        toString.body().directStatement("((de.nenick.androidannotations.plugin.mvp.HasMvpViewType) " + fieldName + ").setViewCallback(this);");
-        toString.body().directStatement("((OnViewChangedListener) " + fieldName + ").onViewChanged((HasViews) this);");
+        toString.body().directStatement("if(" + fieldName + " instanceof de.nenick.androidannotations.plugin.mvp.HasMvpViewType) {");
+        toString.body().directStatement("   ((de.nenick.androidannotations.plugin.mvp.HasMvpViewType) " + fieldName + ").setViewCallback(this);");
+        toString.body().directStatement("}");
+        toString.body().directStatement("if(" + fieldName + " instanceof OnViewChangedListener) {");
+        toString.body().directStatement("   ((OnViewChangedListener) " + fieldName + ").onViewChanged((HasViews) this);");
+        toString.body().directStatement("}");
         holder.getOnViewChangedBodyBeforeInjectionBlock().invoke(methodName);
     }
 

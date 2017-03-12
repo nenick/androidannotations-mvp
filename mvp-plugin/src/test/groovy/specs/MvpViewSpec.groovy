@@ -2,6 +2,7 @@ package specs
 
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter
 import de.nenick.androidannotations.plugin.mvp.EMvpView
+import de.nenick.androidannotations.plugin.mvp.HasMvpViewType
 import de.nenick.androidannotations.plugin.mvp.MvpView
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.EBean
@@ -123,7 +124,7 @@ class MvpViewSpec extends BaseSpecification {
         assert ex.message.contains('Element myView invalidated by MvpViewHandler')
     }
 
-    def "Call onCreate skip setCallback when not provided"() {
+    def "Call onCreate with empty view does not throw"() {
         given:
         def mainViewClass = view(MAIN_VIEW)
                 .annotate(EBean.class)
