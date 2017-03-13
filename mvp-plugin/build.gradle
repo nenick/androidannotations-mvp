@@ -1,7 +1,9 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'maven'
+
 apply from: "$project.rootDir/gradle/projectLocalRepo.gradle"
+apply from: "$project.rootDir/gradle/jacocoCoverage.gradle"
 
 sourceCompatibility = JavaVersion.VERSION_1_7
 targetCompatibility = JavaVersion.VERSION_1_7
