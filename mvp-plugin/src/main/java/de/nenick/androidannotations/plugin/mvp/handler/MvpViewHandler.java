@@ -78,22 +78,7 @@ public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupp
         AbstractJClass generatedClass = generatedClassToInject(element, param);
         JInvocation beanInstance = generatedClass.staticInvoke(EBeanHolder.GET_INSTANCE_METHOD_NAME).arg(holder.getContextRef());
         IJStatement assignment = fieldRef.assign(beanInstance);
-
-        assignment = addNonConfigurationInstanceHandling(targetBlock, fieldRef, element, param, assignment);
         targetBlock.add(assignment);
-    }
-
-    private IJStatement addNonConfigurationInstanceHandling(JBlock targetBlock, IJAssignmentTarget fieldRef, Element element, Element param, IJStatement assignment) {
-        IJStatement resultAssigment = assignment;
-        if (param.getKind() == ElementKind.FIELD) {
-            boolean hasNonConfigurationInstanceAnnotation = element.getAnnotation(NonConfigurationInstance.class) != null;
-            if (hasNonConfigurationInstanceAnnotation) {
-                JConditional conditional = targetBlock._if(fieldRef.eq(_null()));
-                conditional._then().add(assignment);
-                resultAssigment = conditional;
-            }
-        }
-        return resultAssigment;
     }
 
     private AbstractJClass generatedClassToInject(Element element, Element param) {

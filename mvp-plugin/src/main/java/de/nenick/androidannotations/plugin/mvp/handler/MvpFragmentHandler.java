@@ -60,22 +60,7 @@ public class MvpFragmentHandler extends BaseAnnotationHandler<EComponentWithView
         JInvocation fragmentBuilder = generatedClass.staticInvoke("builder");
         JInvocation fragmentInstance = fragmentBuilder.invoke("build");
         IJStatement assignment = fieldRef.assign(fragmentInstance);
-
-        assignment = addNonConfigurationInstanceHandling(targetBlock, fieldRef, element, param, assignment);
         targetBlock.add(assignment);
-    }
-
-    private IJStatement addNonConfigurationInstanceHandling(JBlock targetBlock, IJAssignmentTarget fieldRef, Element element, Element param, IJStatement assignment) {
-        IJStatement resultAssigment = assignment;
-        if (param.getKind() == ElementKind.FIELD) {
-            boolean hasNonConfigurationInstanceAnnotation = element.getAnnotation(NonConfigurationInstance.class) != null;
-            if (hasNonConfigurationInstanceAnnotation) {
-                JConditional conditional = targetBlock._if(fieldRef.eq(_null()));
-                conditional._then().add(assignment);
-                resultAssigment = conditional;
-            }
-        }
-        return resultAssigment;
     }
 
     private AbstractJClass generatedClassToInject(Element element, Element param) {
