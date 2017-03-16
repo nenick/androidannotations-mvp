@@ -4,11 +4,15 @@ List of all the annotations provided by this Plugin, with links to their documen
 
 ## Enhanced components
 
-* [EMvpPresenter](EnhanceAsPresenter.md)
-* [EMvpView](EnhanceAsView.md)
+Annotation | Short Description
+---|---
+[EMvpPresenter](EnhanceAsPresenter.md) | Enhance activity or fragment class as presenter.
+[EMvpView](EnhanceAsView.md) | Enhance bean class as view.
 
 ## Injections
 
-* MvpFragment
-* MvpView
-* MvpViewCallback
+Annotation | Short Description
+---|---
+[MvpFragment](EnhanceAsPresenter.md) | Inject fragment enhanced with `@EMvpPresenter`.
+[MvpView](EnhanceAsPresenter.md) | Inject view enhanced with `@EMvpView`.
+[MvpViewCallback](EnhanceAsView.md) | Provide setter for a callback instance.

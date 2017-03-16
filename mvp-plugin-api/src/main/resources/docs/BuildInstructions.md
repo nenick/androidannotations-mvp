@@ -1,18 +1,11 @@
 # Build Instructions
 
-After you clone the project ..
-You need a device or emulator for instrumentation tests
+## Test Plugin
 
-### Command Line
+From project root execute `./gradlew check`.
 
-Run inside project root `./gradlew build` to check that all is working.
+When all is fine we are sure all is working and you can start customizing.
 
-* mvp-plugin-api
-    * build plugin api
-* mvp-plugin
-    * build plugin
-* mvp-plugin-test
-    * build module with plugin
-    * run lint checks
-    * run unit tests
-    * run instrumentation tests
+## Run Sample
+
+Connect a device/emulator and execute `./gradlew connectedCheck`.

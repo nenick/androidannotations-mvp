@@ -1,7 +1,7 @@
 # Activity/Fragment as Presenter?
 
 Most guides and blog articles follow the approach to call Activity and Fragment the View.
-And suggest to create a new Presenter class. Activities and Fragments contains so much control
+And suggest to create a new plain Presenter class. Activities and Fragments contains so much control
 logic that we often need to delegate lifecycle events (onResume, ...) to the Presenter class.
 For some features (start new View, ...) you need again an Activity or Fragment instance.
 

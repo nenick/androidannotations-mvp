@@ -1,5 +1,6 @@
 general:
   artifacts:
+    # save test result (TODO instead move it to test result output dir)
     - "mvp-plugin/build/reports/tests"
 
 test:
