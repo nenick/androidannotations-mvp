@@ -27,6 +27,6 @@ public class EMvpViewHandler extends BaseAnnotationHandler<EComponentHolder> {
 
     @Override
     public void process(Element element, EComponentHolder holder) {
-
+        // current it has no explicit jop, just mark class as view
     }
 }
