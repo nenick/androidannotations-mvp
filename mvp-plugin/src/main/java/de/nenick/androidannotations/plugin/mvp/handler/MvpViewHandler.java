@@ -34,9 +34,6 @@ public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupp
     @Override
     public void validate(Element element, ElementValidation validation) {
         injectHelper.validate(MvpView.class, element, validation);
-        if (!validation.isValid()) {
-            return;
-        }
 
         validatorHelper.enclosingElementHasAnnotation(EMvpPresenter.class, element, validation);
         validatorHelper.typeOrTargetValueHasAnnotation(EMvpView.class, element, validation);

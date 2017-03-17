@@ -31,9 +31,6 @@ public class MvpFragmentHandler extends BaseAnnotationHandler<EComponentWithView
     @Override
     public void validate(Element element, ElementValidation validation) {
         injectHelper.validate(MvpFragment.class, element, validation);
-        if (!validation.isValid()) {
-            return;
-        }
 
         validatorHelper.enclosingElementHasEActivityOrEFragment(element, validation);
         validatorHelper.typeOrTargetValueHasAnnotation(EMvpPresenter.class, element, validation);
