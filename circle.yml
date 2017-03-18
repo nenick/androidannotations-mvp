@@ -6,7 +6,7 @@ machine:
 
 test:
   pre:
-    - case $CIRCLE_NODE_INDEX in 1) emulator -avd circleci-android22 -no-window -no-boot-anim ;; esac:
+    - case $CIRCLE_NODE_INDEX in 1) emulator -avd circleci-android22 -no-window ;; esac:
         parallel: true
         background: true
 
