@@ -1,5 +1,6 @@
 package specs
 
+import android.widget.TextView
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter
 import de.nenick.androidannotations.plugin.mvp.EMvpView
 import de.nenick.androidannotations.plugin.mvp.HasMvpViewType
@@ -8,6 +9,7 @@ import de.nenick.test.application.MainView
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.EBean
 import org.androidannotations.annotations.EFragment
+import org.androidannotations.annotations.ViewById
 import org.androidannotations.api.view.HasViews
 import org.androidannotations.api.view.OnViewChangedListener
 import tools.BaseSpecification
@@ -127,6 +129,29 @@ class MvpViewSpec extends BaseSpecification {
         assert ex.message.contains('Element myView invalidated by MvpViewHandler')
     }
 
+    def "Test view mock simulates view with view injection"() {
+        given:
+        def mainViewClass = view(MAIN_VIEW)
+                .annotate(EBean.class)
+                .annotate(EMvpView.class)
+                .with(TextView.class, "textView", ViewById.class)
+
+        def mainActivityClass = activity(MAIN_ACTIVITY)
+                .annotate(EActivity.class, "R.layout.activity_main")
+                .annotate(EMvpPresenter.class)
+                .with(mainViewClass, "myView", MvpView.class)
+
+        androidProjectWith(mainActivityClass, mainViewClass)
+        run(assembleDebugTask)
+
+        when:
+        def mainView = viewInstance(MAIN_VIEW)
+
+        then:
+        assert mainView.hasInterface(OnViewChangedListener.class)
+        assert ViewMock.class.interfaces.contains(OnViewChangedListener.class)
+    }
+
     def "Call onCreate when view implements no interfaces does not throw"() {
         given:
         def mainViewClass = view(MAIN_VIEW)
@@ -145,8 +170,8 @@ class MvpViewSpec extends BaseSpecification {
         def mainView = viewInstance(MAIN_VIEW)
 
         then:
-        assert !mainView.implements(HasViews.class)
-        assert !mainView.implements(HasMvpViewType.class)
+        assert !mainView.hasInterface(HasViews.class)
+        assert !mainView.hasInterface(HasMvpViewType.class)
 
         when:
         activityInstance(MAIN_ACTIVITY).onCreate()

@@ -2,6 +2,7 @@ package tools.helper
 
 import tools.builder.AndroidProjectBuilder
 import tools.wrapper.ActivityInstance
+import tools.wrapper.ViewInstance
 
 trait ProjectHelper implements AndroidFileHelper, ProjectFilesHelper {
 
@@ -13,6 +14,10 @@ trait ProjectHelper implements AndroidFileHelper, ProjectFilesHelper {
 
     ActivityInstance activityInstance(String name) {
         new ActivityInstance(name + "_", classLoader(), androidApplicationProjectId)
+    }
+
+    ViewInstance viewInstance(String name) {
+        new ViewInstance(name + "_", classLoader(), androidApplicationProjectId)
     }
 
     ClassLoader classLoader() {

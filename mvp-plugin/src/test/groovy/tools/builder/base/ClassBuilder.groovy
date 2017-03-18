@@ -17,13 +17,20 @@ abstract class ClassBuilder<Subclass extends ClassBuilder> implements Builder {
         return (Subclass) this
     }
 
-    List<ClassBuilder> fields = []
+    List<String> fieldClasses = []
     List<String> fieldsNames = []
     List<Class> fieldsAnnotations = []
 
 
     Subclass with(ClassBuilder fieldClass, String name, Class annotation) {
-        fields.add(fieldClass)
+        fieldClasses.add(fieldClass.name)
+        fieldsNames.add(name)
+        fieldsAnnotations.add(annotation);
+        return (Subclass) this
+    }
+
+    Subclass with(Class fieldClass, String name, Class annotation) {
+        fieldClasses.add(fieldClass.name)
         fieldsNames.add(name)
         fieldsAnnotations.add(annotation);
         return (Subclass) this
@@ -45,11 +52,11 @@ abstract class ClassBuilder<Subclass extends ClassBuilder> implements Builder {
         })
 
         def fieldEntries = ""
-        if(fields.size() > 0) {
+        if(fieldClasses.size() > 0) {
             fieldEntries = """
 
     @${fieldsAnnotations[0].simpleName}
-    ${fields[0].name} ${fieldsNames[0]};
+    ${fieldClasses[0]} ${fieldsNames[0]};
 
             """
         }
