@@ -10,13 +10,14 @@ test:
         background: true
 
   override:
-    - ./gradlew check
+    - ./gradlew mvp-plugin:check
+    - ./gradlew mvp-plugin-sample:check
 
     # wait for emulator and remove unlock screen
     - circle-android wait-for-boot
     - adb shell input keyevent 82
 
-    - ./gradlew connectedCheck
+    - ./gradlew mvp-plugin-sample:connectedCheck
 
     ##################################################
     # copy test results to circleci test report directory
