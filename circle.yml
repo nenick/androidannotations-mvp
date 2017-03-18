@@ -31,11 +31,13 @@ test:
     - case $CIRCLE_NODE_INDEX in 0) ./gradlew mvp-plugin-sample:check ;; 1) ./gradlew connectedCheck ;; esac:
         parallel: true
 
+  post:
+
     ##################################################
     # copy test results to circleci test report directory
     - mkdir $CIRCLE_TEST_REPORTS/plugin-tests && cp -r mvp-plugin/build/test-results/*.xml $CIRCLE_TEST_REPORTS/plugin-tests
     - mkdir $CIRCLE_TEST_REPORTS/sample-unit-tests && cp -r mvp-plugin-sample/build/test-results/debug/*.xml $CIRCLE_TEST_REPORTS/sample-unit-tests
-    - case $CIRCLE_NODE_INDEX in 1) - mkdir $CIRCLE_TEST_REPORTS/sample-connected-tests && cp -r mvp-plugin-sample/build/outputs/androidTest-results/connected/* $CIRCLE_TEST_REPORTS/sample-connected-tests ;; esac:
+    - case $CIRCLE_NODE_INDEX in 1) mkdir $CIRCLE_TEST_REPORTS/sample-connected-tests && cp -r mvp-plugin-sample/build/outputs/androidTest-results/connected/* $CIRCLE_TEST_REPORTS/sample-connected-tests ;; esac:
         parallel: true
 
 deployment:
