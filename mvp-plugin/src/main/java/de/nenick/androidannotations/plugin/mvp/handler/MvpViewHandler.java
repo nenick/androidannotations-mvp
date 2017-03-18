@@ -3,11 +3,14 @@ package de.nenick.androidannotations.plugin.mvp.handler;
 import com.helger.jcodemodel.*;
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
+import de.nenick.androidannotations.plugin.mvp.HasMvpCallback;
 import de.nenick.androidannotations.plugin.mvp.MvpView;
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.NonConfigurationInstance;
+import org.androidannotations.api.view.HasViews;
+import org.androidannotations.api.view.OnViewChangedListener;
 import org.androidannotations.handler.BaseAnnotationHandler;
 import org.androidannotations.handler.MethodInjectionHandler;
 import org.androidannotations.helper.InjectHelper;
@@ -52,11 +55,11 @@ public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupp
         String methodName = fieldName + "Update";
         JMethod toString = holder.getGeneratedClass().method(JMod.PRIVATE, Void.TYPE, methodName);
 
-        toString.body().directStatement("if(" + fieldName + " instanceof de.nenick.androidannotations.plugin.mvp.HasMvpViewType) {");
-        toString.body().directStatement("   ((de.nenick.androidannotations.plugin.mvp.HasMvpViewType) " + fieldName + ").setViewCallback(this);");
+        toString.body().directStatement("if(" + fieldName + " instanceof " + HasMvpCallback.class.getName() + ") {");
+        toString.body().directStatement("   ((" + HasMvpCallback.class.getName() + ") " + fieldName + ").setViewCallback(this);");
         toString.body().directStatement("}");
-        toString.body().directStatement("if(" + fieldName + " instanceof OnViewChangedListener) {");
-        toString.body().directStatement("   ((OnViewChangedListener) " + fieldName + ").onViewChanged((HasViews) this);");
+        toString.body().directStatement("if(" + fieldName + " instanceof " + OnViewChangedListener.class.getName() + ") {");
+        toString.body().directStatement("   ((" + OnViewChangedListener.class.getName() + ") " + fieldName + ").onViewChanged((" + HasViews.class.getName() + ") this);");
         toString.body().directStatement("}");
         holder.getOnViewChangedBodyBeforeInjectionBlock().invoke(methodName);
     }

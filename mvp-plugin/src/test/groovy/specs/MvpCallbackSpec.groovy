@@ -1,7 +1,7 @@
 package specs
 
 import de.nenick.androidannotations.plugin.mvp.EMvpView
-import de.nenick.androidannotations.plugin.mvp.HasMvpViewType
+import de.nenick.androidannotations.plugin.mvp.HasMvpCallback
 import de.nenick.androidannotations.plugin.mvp.MvpCallback
 import org.androidannotations.annotations.EBean
 import tools.BaseSpecification
@@ -67,7 +67,7 @@ class MvpCallbackSpec extends BaseSpecification {
         def mainView = viewInstance(MAIN_VIEW)
 
         then:
-        assert mainView.hasInterface(HasMvpViewType.class)
+        assert mainView.hasInterface(HasMvpCallback.class)
     }
 
     private androidProjectWith(ViewBuilder mainViewClass, InterfaceBuilder callbackInterface) {

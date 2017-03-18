@@ -4,7 +4,7 @@ import com.helger.jcodemodel.AbstractJClass;
 import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
-import de.nenick.androidannotations.plugin.mvp.HasMvpViewType;
+import de.nenick.androidannotations.plugin.mvp.HasMvpCallback;
 import de.nenick.androidannotations.plugin.mvp.MvpCallback;
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
@@ -45,7 +45,7 @@ public class MvpCallbackHandler extends BaseAnnotationHandler<EComponentHolder> 
     }
 
     private void implementsInterface(EComponentHolder holder, AbstractJClass callbackClass) {
-        AbstractJClass impl = getJClass(HasMvpViewType.class);
+        AbstractJClass impl = getJClass(HasMvpCallback.class);
         impl = impl.narrow(callbackClass);
 
         holder.getGeneratedClass()._implements(impl);

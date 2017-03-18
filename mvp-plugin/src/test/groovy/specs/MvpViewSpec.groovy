@@ -3,7 +3,7 @@ package specs
 import android.widget.TextView
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter
 import de.nenick.androidannotations.plugin.mvp.EMvpView
-import de.nenick.androidannotations.plugin.mvp.HasMvpViewType
+import de.nenick.androidannotations.plugin.mvp.HasMvpCallback
 import de.nenick.androidannotations.plugin.mvp.MvpView
 import de.nenick.test.application.MainView
 import org.androidannotations.annotations.EActivity
@@ -171,7 +171,7 @@ class MvpViewSpec extends BaseSpecification {
 
         then:
         assert !mainView.hasInterface(HasViews.class)
-        assert !mainView.hasInterface(HasMvpViewType.class)
+        assert !mainView.hasInterface(HasMvpCallback.class)
 
         when:
         activityInstance(MAIN_ACTIVITY).onCreate()
