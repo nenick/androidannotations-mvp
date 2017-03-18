@@ -1,40 +1,21 @@
-machine:
-  environment:
-
-    # Disable emulator audio
-    QEMU_AUDIO_DRV: none
-
 test:
   pre:
-    - case $CIRCLE_NODE_INDEX in 1) emulator -avd circleci-android22 -no-window ;; esac:
+    # start android emulator
+    - case $CIRCLE_NODE_INDEX in 1) emulator -avd circleci-android22 -no-window -no-audio -no-boot-anim ;; esac:
         parallel: true
         background: true
 
   override:
-    ##################################################
     # run plugin tests
     - ./gradlew mvp-plugin:check
 
-    ##################################################
-    # wait until emulator is ready
-    - case $CIRCLE_NODE_INDEX in 1) circle-android wait-for-boot ;; esac:
-        parallel: true
-
-    ##################################################
-    # remove lock screen
-    - case $CIRCLE_NODE_INDEX in 1) adb shell input keyevent 82 ;; esac:
-        parallel: true
-
-    ##################################################
-    # 0: run sample unit tests
-    # 1: run sample connected tests
+    # run sample unit tests
+    # run sample connected tests
     - case $CIRCLE_NODE_INDEX in 0) ./gradlew mvp-plugin-sample:check ;; 1) ./gradlew connectedCheck ;; esac:
         parallel: true
 
   post:
-
-    ##################################################
-    # copy test results to circleci test report directory
+    # copy test results to report directory
     - mkdir $CIRCLE_TEST_REPORTS/plugin-tests && cp -r mvp-plugin/build/test-results/*.xml $CIRCLE_TEST_REPORTS/plugin-tests
     - mkdir $CIRCLE_TEST_REPORTS/sample-unit-tests && cp -r mvp-plugin-sample/build/test-results/debug/*.xml $CIRCLE_TEST_REPORTS/sample-unit-tests
     - case $CIRCLE_NODE_INDEX in 1) mkdir $CIRCLE_TEST_REPORTS/sample-connected-tests && cp -r mvp-plugin-sample/build/outputs/androidTest-results/connected/* $CIRCLE_TEST_REPORTS/sample-connected-tests ;; esac:
@@ -44,8 +25,6 @@ deployment:
   report-master:
     branch: master
     commands:
-
-      ##################################################
       # report code coverage to codacy for master branch
       - curl -k https://www.jpm4j.org/install/script | sudo sh
       - sudo jpm install com.codacy:codacy-coverage-reporter:assembly
