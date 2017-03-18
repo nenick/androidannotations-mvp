@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.FrameLayout;
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
-import de.nenick.androidannotations.plugin.mvp.MvpViewCallback;
+import de.nenick.androidannotations.plugin.mvp.MvpCallback;
 import de.nenick.androidannotations.plugin.mvp.R;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.ViewById;
@@ -17,7 +17,7 @@ class MainActivityView {
         FragmentManager getSupportFragmentManager();
     }
 
-    @MvpViewCallback
+    @MvpCallback
     Callback callback;
 
     @ViewById(R.id.container)

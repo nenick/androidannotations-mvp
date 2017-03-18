@@ -15,4 +15,4 @@ Annotation | Short Description
 ---|---
 [MvpFragment](EnhanceAsPresenter.md) | Inject fragments enhanced with `@EMvpPresenter`.
 [MvpView](EnhanceAsPresenter.md) | Inject views enhanced with `@EMvpView`.
-[MvpViewCallback](EnhanceAsView.md) | Provide setter for a callback instances.
+[MvpCallback](EnhanceAsView.md) | Provide setter for a callback instances.

@@ -13,7 +13,7 @@ public class MyView {
 ## Inject Presenter Callback
 
 Often the presenter implements directly the callback interface of a view.
-With `@MvpViewCallback` you can automatically let inject the back reference to the callback instance.
+With `@MvpCallback` you can automatically let inject the back reference to the callback instance.
 
 ```
 @EBean
@@ -24,8 +24,8 @@ public class MyView {
         void onSomeEvent()
     }
 
-    @MvpViewCallback
-    AnyPresenter callback;
+    @MvpCallback
+    Callback callback;
 }
 
 @EActivity

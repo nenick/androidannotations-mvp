@@ -7,7 +7,7 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.ViewById;
 
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
-import de.nenick.androidannotations.plugin.mvp.MvpViewCallback;
+import de.nenick.androidannotations.plugin.mvp.MvpCallback;
 import de.nenick.androidannotations.plugin.mvp.R;
 
 @EBean
@@ -19,7 +19,7 @@ class MainFragmentView {
         void onClickButton();
     }
 
-    @MvpViewCallback
+    @MvpCallback
     MainFragmentView.Callback callback;
 
     @ViewById(R.id.textView)

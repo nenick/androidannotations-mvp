@@ -1,7 +1,7 @@
 package de.nenick.androidannotations.plugin.mvp.sample.multiview;
 
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
-import de.nenick.androidannotations.plugin.mvp.MvpViewCallback;
+import de.nenick.androidannotations.plugin.mvp.MvpCallback;
 import de.nenick.androidannotations.plugin.mvp.R;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
@@ -14,7 +14,7 @@ class MainView {
         void onClickButton();
     }
 
-    @MvpViewCallback
+    @MvpCallback
     MainView.Callback callback;
 
     @Click(R.id.button)

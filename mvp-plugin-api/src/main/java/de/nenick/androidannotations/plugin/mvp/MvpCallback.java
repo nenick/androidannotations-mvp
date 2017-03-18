@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
  *     void onEvent();
  *   }
  *
- *   &#64;MvpViewCallback
+ *   &#64;MvpCallback
  *   Callback callback;
  *
  * }
@@ -25,5 +25,5 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.FIELD)
-public @interface MvpViewCallback {
+public @interface MvpCallback {
 }

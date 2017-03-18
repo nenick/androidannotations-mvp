@@ -5,7 +5,7 @@ import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
 import de.nenick.androidannotations.plugin.mvp.HasMvpViewType;
-import de.nenick.androidannotations.plugin.mvp.MvpViewCallback;
+import de.nenick.androidannotations.plugin.mvp.MvpCallback;
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
 import org.androidannotations.handler.BaseAnnotationHandler;
@@ -13,10 +13,10 @@ import org.androidannotations.holder.EComponentHolder;
 
 import javax.lang.model.element.Element;
 
-public class MvpViewCallbackHandler extends BaseAnnotationHandler<EComponentHolder> {
+public class MvpCallbackHandler extends BaseAnnotationHandler<EComponentHolder> {
 
-    public MvpViewCallbackHandler(AndroidAnnotationsEnvironment environment) {
-        super(MvpViewCallback.class, environment);
+    public MvpCallbackHandler(AndroidAnnotationsEnvironment environment) {
+        super(MvpCallback.class, environment);
     }
 
     @Override
