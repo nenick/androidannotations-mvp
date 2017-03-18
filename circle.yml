@@ -1,9 +1,3 @@
-general:
-  artifacts:
-
-    # save test result to artifacts (TODO instead move it to test result output dir)
-    - "mvp-plugin/build/reports/tests"
-
 machine:
   environment:
 
