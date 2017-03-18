@@ -6,7 +6,7 @@ machine:
 
 test:
   pre:
-    - emulator -avd circleci-android24 -no-window -no-boot-anim:
+    - emulator -avd circleci-android24 -no-window:
         background: true
         parallel: true
 
