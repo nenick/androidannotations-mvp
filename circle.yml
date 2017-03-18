@@ -1,11 +1,34 @@
 general:
   artifacts:
-    # save test result (TODO instead move it to test result output dir)
+
+    # save test result to artifacts (TODO instead move it to test result output dir)
     - "mvp-plugin/build/reports/tests"
 
+machine:
+  environment:
+
+    # Disable emulator audio
+    QEMU_AUDIO_DRV: none
+
 test:
+  pre:
+    - emulator -avd circleci-android24 -no-window:
+        background: true
+        parallel: true
+
   override:
     - ./gradlew check
+
+    # wait for emulator and remove unlock screen
+    - circle-android wait-for-boot
+    - adb shell input keyevent 82
+
+    - ./gradlew connectedCheck
+
+    ##################################################
+    # copy test results to circleci test report directory
+    - mkdir $CIRCLE_TEST_REPORTS/plugin-tests && cp -r mvp-plugin/build/test-results/*.xml $CIRCLE_TEST_REPORTS/plugin-tests
+    - mkdir $CIRCLE_TEST_REPORTS/sample-tests && cp -r mvp-plugin-sample/build/outputs/androidTest-results/connected/* $CIRCLE_TEST_REPORTS/sample-tests
 
 deployment:
   report-master:
