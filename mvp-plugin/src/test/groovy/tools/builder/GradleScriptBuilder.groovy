@@ -47,6 +47,8 @@ android {
         versionName '1.0.0'
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
+
+    dexOptions.preDexLibraries = false
 }
 
 dependencies {
