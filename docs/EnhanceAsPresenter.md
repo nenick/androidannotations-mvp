@@ -28,6 +28,21 @@ public class MyFragment extends Fragment {
 }
 ```
 
+## Inject Views
+
+You can inject new instance of a bean annotated with `@EMvpView`.
+View can already be used in @AfterView annotation.
+
+```
+@MvpView
+MyView myView;
+
+@AfterView
+void onAfterViews() {
+    myView.showSomething();
+}
+```
+
 ## Start other Activities
 
 > Since MVP Plugin v1.0.0
@@ -57,15 +72,31 @@ Origin AndroidAnnotations doesn't provide annotations to inject new fragment ins
  But often it is enough to just build it, so we can show it anytime if we want.
 
 ```
-@MvpFragment
-AnyFragment anyFragment;
-```
-
-## Inject Views
-
-You can inject new instance of a bean annotated with `@EMvpView`.
-
-```
 @MvpView
 MyView myView;
+
+@MvpFragment
+AnyFragment anyFragment;
+
+@AfterViews
+void initView() {
+    myView.showFragment(mainFragment);
+}
+```
+
+Example view for showing fragments:
+
+```
+interface Callback {
+    FragmentManager getSupportFragmentManager();
+}
+
+@ViewById(R.id.container)
+FrameLayout container;
+
+void showFragment(Fragment fragment) {
+    callback.getSupportFragmentManager().beginTransaction().add(container.getId(), fragment, null).commit();
+    callback.getSupportFragmentManager().executePendingTransactions();
+}
+    
 ```

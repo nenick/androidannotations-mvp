@@ -54,7 +54,7 @@ class MvpActivitySpec extends BaseSpecification {
         assert containsGeneratedClassFor(OTHER_ACTIVITY)
     }
 
-    def "Invalidate in other then Activity or Fragment"() {
+    def "Invalidate in other then @EActivity or @EFragment"() {
         given:
         def otherActivityClass = activity(OTHER_ACTIVITY)
                 .annotate(EActivity.class, "R.layout.activity_main")
