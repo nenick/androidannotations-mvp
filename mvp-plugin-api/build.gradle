@@ -17,4 +17,5 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     compile library.AndroidAnnotationsApi
+    compileOnly 'com.google.android:android:4.0.1.2'
 }

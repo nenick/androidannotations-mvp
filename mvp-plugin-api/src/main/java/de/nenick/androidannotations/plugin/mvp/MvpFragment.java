@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
  * Inject a Fragment Presenter instance.
  *
  * <pre>
- * &#64;EActivity(R.layout.activity_main)
  * &#64;EMvpPresenter
- * public class MainActivity {
+ * &#64;EActivity(R.layout.activity_main)
+ * public class MainActivity extends Activity {
  *
  *   &#64;MvpFragment
  *   MyFragment myFragment;

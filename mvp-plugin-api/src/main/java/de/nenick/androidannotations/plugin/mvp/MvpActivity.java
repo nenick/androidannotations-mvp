@@ -6,20 +6,23 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Inject a MVP View instance.
+ * Inject an Activity launcher.
  *
  * <pre>
  * &#64;EMvpPresenter
  * &#64;EActivity(R.layout.activity_main)
  * public class MainActivity extends Activity {
  *
- *   &#64;MvpView
- *   MyView myView;
+ *   &#64;MvpActivity
+ *   ActivityLauncher<OtherActivity_.IntentBuilder_> otherActivity;
  *
+ *   void onEvent() {
+ *      otherActivity.intent(this).start();
+ *   }
  * }
  * </pre>
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.FIELD)
-public @interface MvpView {
+public @interface MvpActivity {
 }

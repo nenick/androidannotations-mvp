@@ -28,6 +28,23 @@ public class MyFragment extends Fragment {
 }
 ```
 
+## Start other Activities
+
+> Since MVP Plugin v1.0.0
+
+You can inject an instance of an activity builder to launch activities without static method access.
+
+```
+@MvpActivity
+ActivityLauncher<AnyActivity_.IntentBuilder_> anyActivity;
+
+void onEvent() {
+    anyActivity.intent(this).start();
+}    
+```
+
+You can use all common builder functions from origin AndroidAnnotations to build intent and start activity with it.
+
 ## Inject Fragments (other Presenters)
 
 > Since MVP Plugin v1.0.0
