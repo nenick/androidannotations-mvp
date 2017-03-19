@@ -1,24 +1,22 @@
 package de.nenick.androidannotations.plugin.mvp.sample.fragment.dynamics;
 
 import android.support.v7.app.AppCompatActivity;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EActivity;
-
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.androidannotations.plugin.mvp.MvpFragment;
 import de.nenick.androidannotations.plugin.mvp.MvpView;
-import de.nenick.androidannotations.plugin.mvp.R;
+import de.nenick.androidannotations.plugin.mvp.sample.R;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
 
 @EMvpPresenter
 @EActivity(R.layout.activity_main_fragment_dynamics)
-public class MainActivity extends AppCompatActivity implements MainActivityView.Callback {
+public class DynamicsActivity extends AppCompatActivity implements DynamicsActivityView.Callback {
 
     @MvpView
-    MainActivityView myView;
+    DynamicsActivityView myView;
 
     @MvpFragment
-    MainFragment mainFragment;
+    DynamicsFragment mainFragment;
 
     @AfterViews
     void initView() {

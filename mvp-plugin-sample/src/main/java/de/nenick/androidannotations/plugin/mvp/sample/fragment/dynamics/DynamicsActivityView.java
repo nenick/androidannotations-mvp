@@ -5,13 +5,13 @@ import android.support.v4.app.FragmentManager;
 import android.widget.FrameLayout;
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
 import de.nenick.androidannotations.plugin.mvp.MvpCallback;
-import de.nenick.androidannotations.plugin.mvp.R;
+import de.nenick.androidannotations.plugin.mvp.sample.R;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.ViewById;
 
 @EBean
 @EMvpView
-class MainActivityView {
+class DynamicsActivityView {
 
     interface Callback {
         FragmentManager getSupportFragmentManager();

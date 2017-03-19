@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">AndroidAnnotations MVP Plugin</string>
     <string name="button">Button</string>
+    <string name="simple_activity">Simple Activity</string>
+    <string name="dynamic_fragment">Dynamic Fragment</string>
+    <string name="static_fragment">Static Fragment</string>
+    <string name="multi_view">Multi View</string>
 </resources>

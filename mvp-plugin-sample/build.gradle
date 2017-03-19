@@ -15,7 +15,7 @@ android {
     //noinspection GradleDependency 25.0.1 is latest installed version at circleci
     buildToolsVersion "25.0.1"
     defaultConfig {
-        applicationId "de.nenick.androidannotations.plugin.mvp"
+        applicationId "de.nenick.androidannotations.plugin.mvp.sample"
         minSdkVersion 22
         targetSdkVersion 25
         versionCode 1

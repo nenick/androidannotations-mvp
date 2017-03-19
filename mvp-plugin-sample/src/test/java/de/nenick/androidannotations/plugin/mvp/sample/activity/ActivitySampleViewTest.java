@@ -9,18 +9,18 @@ import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.verify;
 
-public class MainViewTest {
+public class ActivitySampleViewTest {
 
     private static final String TEST_MESSAGE = "Some test message!";
 
     @Mock
-    protected MainView.Callback callback;
+    protected ActivitySampleView.Callback callback;
 
     @Mock
     protected TextView textView;
 
     @InjectMocks
-    protected MainView mainView;
+    protected ActivitySampleView activitySampleView;
 
     @Before
     public void setup() {
@@ -29,13 +29,13 @@ public class MainViewTest {
 
     @Test
     public void shouldDelegateButtonClick() throws Exception {
-        mainView.onClickButton();
+        activitySampleView.onClickButton();
         verify(callback).onClickButton();
     }
 
     @Test
     public void shouldShowGivenMessage() throws Exception {
-        mainView.showMessage(TEST_MESSAGE);
+        activitySampleView.showMessage(TEST_MESSAGE);
         verify(textView).setText(TEST_MESSAGE);
     }
 }

@@ -8,13 +8,13 @@ import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.verify;
 
-public class MainActivityTest {
+public class ActivitySampleTest {
 
     @Mock
-    protected MainView mainView;
+    protected ActivitySampleView activitySampleView;
 
     @InjectMocks
-    protected MainActivity mainActivity;
+    protected ActivitySample activitySample;
 
     @Before
     public void setup() {
@@ -23,13 +23,13 @@ public class MainActivityTest {
 
     @Test
     public void shouldShowInitialMessage() throws Exception {
-        mainActivity.initView();
-        verify(mainView).showMessage("It's connected!");
+        activitySample.initView();
+        verify(activitySampleView).showMessage("It's connected!");
     }
 
     @Test
     public void shouldGiveButtonClickFeedback() throws Exception {
-        mainActivity.onClickButton();
-        verify(mainView).showMessage("Button click feedback!");
+        activitySample.onClickButton();
+        verify(activitySampleView).showMessage("Button click feedback!");
     }
 }

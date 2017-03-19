@@ -1,25 +1,24 @@
-package de.nenick.androidannotations.plugin.mvp.sample.fragment.statics;
+package de.nenick.androidannotations.plugin.mvp.sample.fragment.dynamics;
 
 import android.widget.TextView;
-
+import de.nenick.androidannotations.plugin.mvp.EMvpView;
 import de.nenick.androidannotations.plugin.mvp.MvpCallback;
+import de.nenick.androidannotations.plugin.mvp.sample.R;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.ViewById;
 
-import de.nenick.androidannotations.plugin.mvp.EMvpView;
-import de.nenick.androidannotations.plugin.mvp.R;
-
 @EBean
 @EMvpView
-class MainFragmentView {
+class DynamicsFragmentView {
+
 
     interface Callback {
         void onClickButton();
     }
 
     @MvpCallback
-    MainFragmentView.Callback callback;
+    DynamicsFragmentView.Callback callback;
 
     @ViewById(R.id.textView)
     TextView textView;

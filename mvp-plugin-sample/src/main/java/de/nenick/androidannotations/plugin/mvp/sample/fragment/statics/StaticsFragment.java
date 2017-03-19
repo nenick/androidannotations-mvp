@@ -1,20 +1,18 @@
 package de.nenick.androidannotations.plugin.mvp.sample.fragment.statics;
 
 import android.support.v4.app.Fragment;
-
+import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
+import de.nenick.androidannotations.plugin.mvp.MvpView;
+import de.nenick.androidannotations.plugin.mvp.sample.R;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 
-import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
-import de.nenick.androidannotations.plugin.mvp.MvpView;
-import de.nenick.androidannotations.plugin.mvp.R;
-
 @EMvpPresenter
 @EFragment(R.layout.activity_main)
-public class MainFragment extends Fragment implements MainFragmentView.Callback {
+public class StaticsFragment extends Fragment implements StaticsFragmentView.Callback {
 
     @MvpView
-    MainFragmentView view;
+    StaticsFragmentView view;
 
     void addMessage(String message) {
         view.addMessage(message);
