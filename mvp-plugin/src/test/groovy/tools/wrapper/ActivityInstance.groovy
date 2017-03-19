@@ -6,6 +6,7 @@ import org.androidannotations.api.view.HasViews
 class ActivityInstance extends Wrapper {
 
     def VIEW_FIELD = "myView"
+    def OTHER_ACTIVITY_LAUNCHER_FIELD = "otherActivity"
 
     ActivityInstance(String name, ClassLoader cl, String androidApplicationProjectId) {
         super(name, cl, androidApplicationProjectId)
@@ -21,6 +22,12 @@ class ActivityInstance extends Wrapper {
         def field = cls.superclass.getDeclaredField(VIEW_FIELD)
         field.setAccessible(true)
         field.set(instance, value)
+    }
+
+    Object getOtherActivityLauncher() {
+        def field = cls.superclass.getDeclaredField(OTHER_ACTIVITY_LAUNCHER_FIELD)
+        field.setAccessible(true)
+        field.get(instance)
     }
 
     void onCreate() {

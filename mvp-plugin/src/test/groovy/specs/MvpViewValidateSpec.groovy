@@ -1,17 +1,11 @@
 package specs
 
-import android.widget.TextView
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter
 import de.nenick.androidannotations.plugin.mvp.EMvpView
-import de.nenick.androidannotations.plugin.mvp.HasMvpCallback
 import de.nenick.androidannotations.plugin.mvp.MvpView
-import de.nenick.test.application.MainView
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.EBean
 import org.androidannotations.annotations.EFragment
-import org.androidannotations.annotations.ViewById
-import org.androidannotations.api.view.HasViews
-import org.androidannotations.api.view.OnViewChangedListener
 import tools.BaseSpecification
 import tools.builder.ActivityBuilder
 import tools.builder.FragmentBuilder
