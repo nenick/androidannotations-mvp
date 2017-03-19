@@ -1,6 +1,7 @@
 package tools.helper
 
 import tools.builder.ActivityBuilder
+import tools.builder.ActivityLauncherBuilder
 import tools.builder.AndroidManifestBuilder
 import tools.builder.FragmentBuilder
 import tools.builder.GradleScriptBuilder
@@ -27,6 +28,10 @@ trait ProjectFilesHelper implements TestProperties, GroovyHelper {
 
     ActivityBuilder activity(String activityName) {
         new ActivityBuilder(name: activityName)
+    }
+
+    ActivityLauncherBuilder activityLauncher(ActivityBuilder activity) {
+        new ActivityLauncherBuilder(activity, androidApplicationProjectId)
     }
 
     FragmentBuilder fragment(String fragmentName) {

@@ -4,6 +4,7 @@ import tools.builder.InterfaceBuilder
 
 abstract class ClassBuilder<Subclass extends ClassBuilder> implements Builder {
     String name
+    String importClass
     InterfaceBuilder implInterface
     Map<Class, String> classAnnotations = [:]
 
@@ -20,19 +21,22 @@ abstract class ClassBuilder<Subclass extends ClassBuilder> implements Builder {
     List<String> fieldClasses = []
     List<String> fieldsNames = []
     List<Class> fieldsAnnotations = []
+    List<String> imports = []
 
 
     Subclass with(ClassBuilder fieldClass, String name, Class annotation) {
         fieldClasses.add(fieldClass.name)
         fieldsNames.add(name)
         fieldsAnnotations.add(annotation);
+        imports.add(fieldClass.importClass)
         return (Subclass) this
     }
 
     Subclass with(Class fieldClass, String name, Class annotation) {
-        fieldClasses.add(fieldClass.name)
+        fieldClasses.add(fieldClass.simpleName)
         fieldsNames.add(name)
         fieldsAnnotations.add(annotation);
+        imports.add(fieldClass.name)
         return (Subclass) this
     }
 
@@ -48,6 +52,11 @@ abstract class ClassBuilder<Subclass extends ClassBuilder> implements Builder {
         fieldsAnnotations.each({
             if(it) {
                 importAnnotations += "import ${it.name};\n"
+            }
+        })
+        imports.each({
+            if(it) {
+                importAnnotations += "import ${it};\n"
             }
         })
 

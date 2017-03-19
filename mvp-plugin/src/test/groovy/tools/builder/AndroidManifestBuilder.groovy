@@ -28,6 +28,16 @@ class AndroidManifestBuilder implements Builder {
 
         """;
         }
+        if (activities[1]) {
+            activityEntries += """
+
+        <activity
+                android:name="${projectId}.${activities[1].name}_"
+                android:label="${activities[1].name}">
+        </activity>
+
+        """;
+        }
 
         return """
 

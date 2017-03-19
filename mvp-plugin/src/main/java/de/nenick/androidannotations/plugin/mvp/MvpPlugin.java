@@ -3,6 +3,7 @@ package de.nenick.androidannotations.plugin.mvp;
 
 import de.nenick.androidannotations.plugin.mvp.handler.EMvpPresenterHandler;
 import de.nenick.androidannotations.plugin.mvp.handler.EMvpViewHandler;
+import de.nenick.androidannotations.plugin.mvp.handler.MvpActivityHandler;
 import de.nenick.androidannotations.plugin.mvp.handler.MvpFragmentHandler;
 import de.nenick.androidannotations.plugin.mvp.handler.MvpCallbackHandler;
 import de.nenick.androidannotations.plugin.mvp.handler.MvpViewHandler;
@@ -29,6 +30,7 @@ public class MvpPlugin extends AndroidAnnotationsPlugin {
         annotationHandlers.add(new MvpCallbackHandler(androidAnnotationEnv));
         annotationHandlers.add(new MvpViewHandler(androidAnnotationEnv));
         annotationHandlers.add(new MvpFragmentHandler(androidAnnotationEnv));
+        annotationHandlers.add(new MvpActivityHandler(androidAnnotationEnv));
         return annotationHandlers;
     }
 }
