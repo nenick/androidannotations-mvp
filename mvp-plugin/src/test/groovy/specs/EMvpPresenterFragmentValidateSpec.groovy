@@ -4,7 +4,7 @@ import de.nenick.androidannotations.plugin.mvp.EMvpPresenter
 import org.androidannotations.annotations.EFragment
 import tools.BaseSpecification
 
-class EMvpPresenterFragmentSpec extends BaseSpecification {
+class EMvpPresenterFragmentValidateSpec extends BaseSpecification {
 
     def "Accept with @Fragment"() {
         given:

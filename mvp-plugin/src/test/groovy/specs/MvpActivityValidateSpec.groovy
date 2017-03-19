@@ -9,7 +9,7 @@ import tools.builder.ActivityBuilder
 import tools.builder.FragmentBuilder
 import tools.builder.ViewBuilder
 
-class MvpActivitySpec extends BaseSpecification {
+class MvpActivityValidateSpec extends BaseSpecification {
 
     public static final String MAIN_FRAGMENT = "MainFragment"
     public static final String MAIN_ACTIVITY = "MainActivity"

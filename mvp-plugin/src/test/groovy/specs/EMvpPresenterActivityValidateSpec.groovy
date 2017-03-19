@@ -6,7 +6,7 @@ import tools.BaseSpecification
 
 import tools.builder.ActivityBuilder
 
-class EMvpPresenterActivitySpec extends BaseSpecification {
+class EMvpPresenterActivityValidateSpec extends BaseSpecification {
 
 
     public static final String MAIN_ACTIVITY = "MainActivity"

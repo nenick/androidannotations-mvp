@@ -8,7 +8,7 @@ import tools.BaseSpecification
 import tools.builder.InterfaceBuilder
 import tools.builder.ViewBuilder
 
-class MvpCallbackSpec extends BaseSpecification {
+class MvpCallbackValidateSpec extends BaseSpecification {
 
 
     public static final String CALLBACK = "Callback"
@@ -49,25 +49,6 @@ class MvpCallbackSpec extends BaseSpecification {
         Exception ex = thrown()
         assert ex.message.contains("MvpCallback can only be used in a class annotated with @de.nenick.androidannotations.plugin.mvp.EMvpView.")
         assert ex.message.contains('Element myCallback invalidated by MvpCallbackHandler')
-    }
-
-    def "Generated view with callback injection implements HasMvpCallback"() {
-        given:
-        def callbackInterface = callback(CALLBACK)
-
-        def mainViewClass = view(MAIN_VIEW)
-                .annotate(EBean.class)
-                .annotate(EMvpView.class)
-                .with(callbackInterface, "myCallback", MvpCallback.class)
-
-        androidProjectWith(mainViewClass, callbackInterface)
-        run(assembleDebugTask)
-
-        when:
-        def mainView = viewInstance(MAIN_VIEW)
-
-        then:
-        assert mainView.hasInterface(HasMvpCallback.class)
     }
 
     private androidProjectWith(ViewBuilder mainViewClass, InterfaceBuilder callbackInterface) {

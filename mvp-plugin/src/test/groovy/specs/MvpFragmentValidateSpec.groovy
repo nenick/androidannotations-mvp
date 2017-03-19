@@ -8,7 +8,7 @@ import tools.BaseSpecification
 import tools.builder.ActivityBuilder
 import tools.builder.FragmentBuilder
 
-class MvpFragmentSpec extends BaseSpecification {
+class MvpFragmentValidateSpec extends BaseSpecification {
 
 
     public static final String MAIN_FRAGMENT = "MainFragment"

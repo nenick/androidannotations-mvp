@@ -5,7 +5,7 @@ import org.androidannotations.annotations.EBean
 import tools.BaseSpecification
 import tools.builder.ViewBuilder
 
-class EMvpViewSpec extends BaseSpecification {
+class EMvpViewValidateSpec extends BaseSpecification {
 
 
     public static final String MAIN_VIEW = "MainView"

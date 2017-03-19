@@ -17,7 +17,7 @@ import tools.builder.ActivityBuilder
 import tools.builder.FragmentBuilder
 import tools.builder.ViewBuilder
 
-class MvpViewSpec extends BaseSpecification {
+class MvpViewValidateSpec extends BaseSpecification {
 
 
     public static final String MAIN_VIEW = "MainView"
@@ -129,114 +129,6 @@ class MvpViewSpec extends BaseSpecification {
         assert ex.message.contains('Element myView invalidated by MvpViewHandler')
     }
 
-    def "Test view mock simulates view with view injection"() {
-        given:
-        def mainViewClass = view(MAIN_VIEW)
-                .annotate(EBean.class)
-                .annotate(EMvpView.class)
-                .with(TextView.class, "textView", ViewById.class)
-
-        def mainActivityClass = activity(MAIN_ACTIVITY)
-                .annotate(EActivity.class, "R.layout.activity_main")
-                .annotate(EMvpPresenter.class)
-                .with(mainViewClass, "myView", MvpView.class)
-
-        androidProjectWith(mainActivityClass, mainViewClass)
-        run(assembleDebugTask)
-
-        when:
-        def mainView = viewInstance(MAIN_VIEW)
-
-        then:
-        assert mainView.hasInterface(OnViewChangedListener.class)
-        assert ViewMock.class.interfaces.contains(OnViewChangedListener.class)
-    }
-
-    def "Call onCreate when view implements no interfaces does not throw"() {
-        given:
-        def mainViewClass = view(MAIN_VIEW)
-                .annotate(EBean.class)
-                .annotate(EMvpView.class)
-
-        def mainActivityClass = activity(MAIN_ACTIVITY)
-                .annotate(EActivity.class, "R.layout.activity_main")
-                .annotate(EMvpPresenter.class)
-                .with(mainViewClass, "myView", MvpView.class)
-
-        androidProjectWith(mainActivityClass, mainViewClass)
-        run(assembleDebugTask)
-
-        when:
-        def mainView = viewInstance(MAIN_VIEW)
-
-        then:
-        assert !mainView.hasInterface(HasViews.class)
-        assert !mainView.hasInterface(HasMvpCallback.class)
-
-        when:
-        activityInstance(MAIN_ACTIVITY).onCreate()
-
-        then:
-        noExceptionThrown()
-    }
-
-    def "Call onCreate injects view instance"() {
-        given:
-        def mainViewClass = view(MAIN_VIEW)
-                .annotate(EBean.class)
-                .annotate(EMvpView.class)
-
-        def mainActivityClass = activity(MAIN_ACTIVITY)
-                .annotate(EActivity.class, "R.layout.activity_main")
-                .annotate(EMvpPresenter.class)
-                .with(mainViewClass, "myView", MvpView.class)
-
-        androidProjectWith(mainActivityClass, mainViewClass)
-        run(assembleDebugTask)
-
-        when:
-        def mainActivity = activityInstance(MAIN_ACTIVITY)
-
-        then:
-        assert mainActivity.getMyView() == null
-
-        when:
-        mainActivity.onCreate()
-
-        then:
-        assert mainActivity.getMyView() != null
-    }
-
-    def "Call onViewChanged updates view instance"() {
-        given:
-        def mainViewClass = view(MAIN_VIEW)
-                .annotate(EBean.class)
-                .annotate(EMvpView.class)
-
-        def mainActivityClass = activity(MAIN_ACTIVITY)
-                .annotate(EActivity.class, "R.layout.activity_main")
-                .annotate(EMvpPresenter.class)
-                .with(mainViewClass, "myView", MvpView.class)
-
-        androidProjectWith(mainActivityClass, mainViewClass)
-        run(assembleDebugTask)
-        def mock = new ViewMock()
-
-        when:
-        def mainActivity = activityInstance(MAIN_ACTIVITY)
-        mainActivity.setMyView(mock)
-
-        then:
-        assert !mock.onViewChangedCalled
-
-        when:
-        mainActivity.onViewChanged()
-
-        then:
-        assert mock.onViewChangedCalled
-    }
-
-
     private androidProjectWith(ActivityBuilder mainActivityClass, ViewBuilder mainViewClass) {
         androidProjectBuilder()
                 .with(gradleScript())
@@ -258,14 +150,5 @@ class MvpViewSpec extends BaseSpecification {
                 .create()
     }
 
-    class ViewMock extends MainView implements OnViewChangedListener {
-
-        boolean onViewChangedCalled
-
-        @Override
-        void onViewChanged(HasViews hasViews) {
-            onViewChangedCalled = true
-        }
-    }
 }
 
