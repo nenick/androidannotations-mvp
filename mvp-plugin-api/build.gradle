@@ -17,5 +17,5 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     compile library.AndroidAnnotationsApi
-    compileOnly 'com.google.android:android:4.0.1.2'
+    compileOnly files("../build/generated/mockable-android-25.default-values.jar")
 }
