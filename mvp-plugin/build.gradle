@@ -39,3 +39,7 @@ dependencies {
     testCompile project(":mvp-plugin-sample")
 }
 
+test {
+    maxHeapSize = "1024m"
+    jvmArgs "-XX:MaxPermSize=256m"
+}
