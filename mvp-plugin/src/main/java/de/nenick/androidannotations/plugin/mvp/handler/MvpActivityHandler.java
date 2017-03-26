@@ -27,12 +27,12 @@ import java.util.Collection;
 import java.util.Set;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 
 import de.nenick.androidannotations.plugin.mvp.ActivityLauncher;
 import de.nenick.androidannotations.plugin.mvp.MvpActivity;
 import de.nenick.androidannotations.plugin.mvp.utils.PluginLists;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginTypeArguements;
 
 import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
@@ -66,7 +66,7 @@ public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithView
     }
 
     private String readGeneratedActivityToLaunch(Element element) {
-        TypeMirror activityLauncherType = getActivityLauncherTypeArgument(element);
+        TypeMirror activityLauncherType = PluginTypeArguements.getTypeElement(element);
         return readGeneratedActivityName(activityLauncherType);
     }
 
@@ -120,10 +120,6 @@ public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithView
         int index = elementTypeName.lastIndexOf(".", indexOfLastDot - 1);
         elementTypeName = elementTypeName.substring(index + 1, indexOfLastDot);
         return elementTypeName;
-    }
-
-    private TypeMirror getActivityLauncherTypeArgument(Element element) {
-        return ((DeclaredType) element.asType()).getTypeArguments().get(0);
     }
 
     @Override
