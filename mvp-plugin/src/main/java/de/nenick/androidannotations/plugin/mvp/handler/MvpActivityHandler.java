@@ -15,6 +15,7 @@ import com.helger.jcodemodel.JVar;
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.EFragment;
 import org.androidannotations.handler.BaseAnnotationHandler;
 import org.androidannotations.handler.MethodInjectionHandler;
 import org.androidannotations.helper.InjectHelper;
@@ -23,6 +24,7 @@ import org.androidannotations.holder.EComponentWithViewSupportHolder;
 import org.androidannotations.holder.GeneratedClassHolder;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -100,8 +102,11 @@ public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithView
 
     private JDefinedClass searchGeneratedActivityClass(String activityName) {
         JDefinedClass activityClass = null;
-        Set<? extends Element> sharedPrefElements = getEnvironment().getValidatedElements().getRootAnnotatedElements(EActivity.class.getName());
-        for (Element sharedPrefElement : sharedPrefElements) {
+        Set<? extends Element> activityAndFragmentElements = getEnvironment().getValidatedElements().getRootAnnotatedElements(EActivity.class.getName());
+        Set<? extends Element> fragments = getEnvironment().getValidatedElements().getRootAnnotatedElements(EFragment.class.getName());
+        //noinspection unchecked
+        activityAndFragmentElements.addAll((Collection) fragments);
+        for (Element sharedPrefElement : activityAndFragmentElements) {
             GeneratedClassHolder sharedPrefHolder = getEnvironment().getGeneratedClassHolder(sharedPrefElement);
             String sharedPrefName = sharedPrefHolder.getGeneratedClass().name();
 
