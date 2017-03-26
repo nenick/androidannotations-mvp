@@ -1,6 +1,5 @@
 package de.nenick.androidannotations.plugin.mvp.handler;
 
-import de.nenick.androidannotations.plugin.mvp.EMvpView;
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
 import org.androidannotations.annotations.EBean;
@@ -8,9 +7,9 @@ import org.androidannotations.handler.BaseAnnotationHandler;
 import org.androidannotations.holder.EComponentHolder;
 
 import javax.lang.model.element.Element;
-import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.List;
+
+import de.nenick.androidannotations.plugin.mvp.EMvpView;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginLists;
 
 public class EMvpViewHandler extends BaseAnnotationHandler<EComponentHolder> {
 
@@ -20,9 +19,7 @@ public class EMvpViewHandler extends BaseAnnotationHandler<EComponentHolder> {
 
     @Override
     public void validate(Element element, ElementValidation validation) {
-        List<Class<? extends Annotation>> validAnnotations = new ArrayList<>();
-        validAnnotations.add(EBean.class);
-        validatorHelper.hasOneOfAnnotations(element, element, validAnnotations, validation);
+        validatorHelper.hasOneOfAnnotations(element, element, PluginLists.singleton(EBean.class), validation);
     }
 
     @Override

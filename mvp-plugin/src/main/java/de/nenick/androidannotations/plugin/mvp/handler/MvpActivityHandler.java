@@ -23,9 +23,7 @@ import org.androidannotations.holder.EComponentHolder;
 import org.androidannotations.holder.EComponentWithViewSupportHolder;
 import org.androidannotations.holder.GeneratedClassHolder;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 import javax.lang.model.element.Element;
@@ -34,6 +32,7 @@ import javax.lang.model.type.TypeMirror;
 
 import de.nenick.androidannotations.plugin.mvp.ActivityLauncher;
 import de.nenick.androidannotations.plugin.mvp.MvpActivity;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginLists;
 
 import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
@@ -51,11 +50,8 @@ public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithView
     @Override
     public void validate(Element element, ElementValidation validation) {
         injectHelper.validate(MvpActivity.class, element, validation);
-
         validatorHelper.enclosingElementHasEActivityOrEFragment(element, validation);
-        List<String> validExtends = new ArrayList<>();
-        validExtends.add(ActivityLauncher.class.getName());
-        validatorHelper.extendsOneOfTypes(element, validExtends, validation);
+        validatorHelper.extendsOneOfTypes(element, PluginLists.singletonName(ActivityLauncher.class), validation);
     }
 
     @Override
