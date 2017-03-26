@@ -54,6 +54,4 @@ dependencies {
     testCompile "org.mockito:mockito-core:2.7.17"
 }
 
-afterEvaluate {
-    tasks.build.dependsOn tasks.connectedAndroidTest
-}
+
