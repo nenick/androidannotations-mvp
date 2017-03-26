@@ -123,6 +123,8 @@ class MvpViewValidateSpec extends BaseSpecification {
         assert ex.message.contains('Element myView invalidated by MvpViewHandler')
     }
 
+    // TODO test that field can not be private
+
     private androidProjectWith(ActivityBuilder mainActivityClass, ViewBuilder mainViewClass) {
         androidProjectBuilder()
                 .with(gradleScript())

@@ -51,6 +51,8 @@ class MvpCallbackValidateSpec extends BaseSpecification {
         assert ex.message.contains('Element myCallback invalidated by MvpCallbackHandler')
     }
 
+    // TODO test that field can not be private
+
     private androidProjectWith(ViewBuilder mainViewClass, InterfaceBuilder callbackInterface) {
         androidProjectBuilder()
                 .with(gradleScript())

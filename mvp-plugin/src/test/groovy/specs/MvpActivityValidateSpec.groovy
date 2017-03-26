@@ -94,6 +94,8 @@ class MvpActivityValidateSpec extends BaseSpecification {
         assert ex.message.contains('Element otherActivity invalidated by MvpActivityHandler')
     }
 
+    // TODO test that field can not be private
+
     private androidProjectWith(ActivityBuilder mainActivityClass, ActivityBuilder otherActivityClass) {
         def manifest = androidManifest(mainActivityClass)
             .with(otherActivityClass)

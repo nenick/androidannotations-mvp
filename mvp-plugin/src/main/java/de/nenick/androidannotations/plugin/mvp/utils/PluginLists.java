@@ -8,7 +8,7 @@ import de.nenick.androidannotations.plugin.mvp.ActivityLauncher;
 
 /**
  * Custom utils for lists.
- * <p>
+ *
  * Used when Collections, Arrays and ... hasn't adequate functionality.
  */
 public class PluginLists {

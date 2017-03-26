@@ -32,12 +32,15 @@ import javax.lang.model.type.TypeMirror;
 import de.nenick.androidannotations.plugin.mvp.ActivityLauncher;
 import de.nenick.androidannotations.plugin.mvp.MvpActivity;
 import de.nenick.androidannotations.plugin.mvp.utils.PluginLists;
-import de.nenick.androidannotations.plugin.mvp.utils.PluginTypeArguements;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginTypeArguments;
 
 import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 import static org.androidannotations.helper.ModelConstants.generationSuffix;
 
+/**
+ * Handler for @{@link MvpActivity} annotation.
+ */
 public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithViewSupportHolder> implements MethodInjectionHandler<EComponentHolder> {
 
     private final InjectHelper<EComponentHolder> injectHelper;
@@ -47,13 +50,20 @@ public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithView
         injectHelper = new InjectHelper<>(validatorHelper, this);
     }
 
+    /**
+     * - Expect annotated field is inside class with an {@link EActivity} or {@link EFragment} annotation.
+     * - Expect annotated field type is an {@link ActivityLauncher}.
+     */
     @Override
     public void validate(Element element, ElementValidation validation) {
-        injectHelper.validate(MvpActivity.class, element, validation);
         validatorHelper.enclosingElementHasEActivityOrEFragment(element, validation);
         validatorHelper.extendsOneOfTypes(element, PluginLists.singletonName(ActivityLauncher.class), validation);
     }
 
+    /**
+     * - Generate {@link ActivityLauncher} subclass for annotated field.
+     * - Inject generated {@link ActivityLauncher} instance to annotated field.
+     */
     @Override
     public void process(Element element, EComponentWithViewSupportHolder holder) throws JClassAlreadyExistsException {
         String activityName = readGeneratedActivityToLaunch(element);
@@ -66,7 +76,7 @@ public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithView
     }
 
     private String readGeneratedActivityToLaunch(Element element) {
-        TypeMirror activityLauncherType = PluginTypeArguements.getTypeElement(element);
+        TypeMirror activityLauncherType = PluginTypeArguments.getTypeElement(element);
         return readGeneratedActivityName(activityLauncherType);
     }
 

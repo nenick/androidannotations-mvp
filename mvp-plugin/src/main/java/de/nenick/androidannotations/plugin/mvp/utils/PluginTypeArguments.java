@@ -7,7 +7,7 @@ import javax.lang.model.type.TypeMirror;
 /**
  * Custom utils for generic type arguments.
  */
-public class PluginTypeArguements {
+public class PluginTypeArguments {
 
     /**
      * Get first type argument.

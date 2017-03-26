@@ -15,6 +15,9 @@ import org.androidannotations.plugin.AndroidAnnotationsPlugin;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Register plugin annotations handler.
+ */
 public class MvpPlugin extends AndroidAnnotationsPlugin {
 
     @Override

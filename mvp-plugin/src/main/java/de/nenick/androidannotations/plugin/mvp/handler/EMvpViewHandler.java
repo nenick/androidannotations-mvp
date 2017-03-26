@@ -11,12 +11,18 @@ import javax.lang.model.element.Element;
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
 import de.nenick.androidannotations.plugin.mvp.utils.PluginLists;
 
+/**
+ * Handler for @{@link EMvpView} annotation.
+ */
 public class EMvpViewHandler extends BaseAnnotationHandler<EComponentHolder> {
 
     public EMvpViewHandler(AndroidAnnotationsEnvironment environment) {
         super(EMvpView.class, environment);
     }
 
+    /**
+     * - Expect annotated class has also an {@link EBean} annotation.
+     */
     @Override
     public void validate(Element element, ElementValidation validation) {
         validatorHelper.hasOneOfAnnotations(element, element, PluginLists.singleton(EBean.class), validation);

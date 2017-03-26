@@ -25,6 +25,9 @@ import javax.lang.model.type.TypeMirror;
 
 import static com.helger.jcodemodel.JExpr._null;
 
+/**
+ * Handler for @{@link MvpView} annotation.
+ */
 public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupportHolder> implements MethodInjectionHandler<EComponentHolder> {
 
     private final InjectHelper<EComponentHolder> injectHelper;
@@ -34,13 +37,11 @@ public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupp
         injectHelper = new InjectHelper<>(validatorHelper, this);
     }
 
+
     @Override
     public void validate(Element element, ElementValidation validation) {
-        injectHelper.validate(MvpView.class, element, validation);
-
         validatorHelper.enclosingElementHasAnnotation(EMvpPresenter.class, element, validation);
         validatorHelper.typeOrTargetValueHasAnnotation(EMvpView.class, element, validation);
-        validatorHelper.typeOrTargetValueHasAnnotation(EBean.class, element, validation);
         validatorHelper.isNotPrivate(element, validation);
     }
 
