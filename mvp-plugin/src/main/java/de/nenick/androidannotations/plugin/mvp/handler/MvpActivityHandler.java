@@ -126,8 +126,8 @@ public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithView
 
     private String readGeneratedActivityName(TypeMirror activityLauncherType) {
         String elementTypeName = activityLauncherType.toString();
-        int indexOfLastDot = elementTypeName.lastIndexOf(".");
-        int index = elementTypeName.lastIndexOf(".", indexOfLastDot - 1);
+        int indexOfLastDot = elementTypeName.lastIndexOf('.');
+        int index = elementTypeName.lastIndexOf('.', indexOfLastDot - 1);
         elementTypeName = elementTypeName.substring(index + 1, indexOfLastDot);
         return elementTypeName;
     }

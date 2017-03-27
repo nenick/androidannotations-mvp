@@ -13,6 +13,10 @@ import de.nenick.androidannotations.plugin.mvp.ActivityLauncher;
  */
 public class PluginLists {
 
+    private PluginLists() {
+        // mark this class as static utility class
+    }
+
     /**
      * Create list with annotation class.
      *

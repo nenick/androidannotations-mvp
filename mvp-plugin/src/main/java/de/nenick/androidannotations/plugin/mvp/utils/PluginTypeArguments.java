@@ -9,6 +9,10 @@ import javax.lang.model.type.TypeMirror;
  */
 public class PluginTypeArguments {
 
+    private PluginTypeArguments() {
+        // mark this class as static utility class
+    }
+
     /**
      * Get first type argument.
      *

@@ -29,7 +29,7 @@ public class EMvpPresenterHandler extends BaseAnnotationHandler<EComponentWithVi
     }
 
     @Override
-    public void process(Element element, EComponentWithViewSupportHolder holder) throws Exception {
+    public void process(Element element, EComponentWithViewSupportHolder holder) {
         // current it has no explicit jop, just mark class as presenter
     }
 }
