@@ -22,6 +22,7 @@ import org.androidannotations.helper.InjectHelper;
 import org.androidannotations.holder.EComponentHolder;
 import org.androidannotations.holder.EComponentWithViewSupportHolder;
 import org.androidannotations.holder.GeneratedClassHolder;
+import org.androidannotations.internal.model.AnnotationElements;
 
 import java.util.Collection;
 import java.util.Set;
@@ -41,7 +42,8 @@ import static org.androidannotations.helper.ModelConstants.generationSuffix;
 /**
  * Handler for @{@link MvpActivity} annotation.
  */
-public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithViewSupportHolder> implements MethodInjectionHandler<EComponentHolder> {
+public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithViewSupportHolder>
+        implements MethodInjectionHandler<EComponentHolder> {
 
     private final InjectHelper<EComponentHolder> injectHelper;
 
@@ -80,12 +82,16 @@ public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithView
         return readGeneratedActivityName(activityLauncherType);
     }
 
-    private void buildActivityLauncherClass(Element element, EComponentWithViewSupportHolder holder, JDefinedClass activityClass, JDefinedClass intentBuilderClass) throws JClassAlreadyExistsException {
-        JDefinedClass activityLauncherClass = holder.getGeneratedClass()._class(PUBLIC | STATIC, element.getSimpleName() + "Launcher" + generationSuffix());
+    private void buildActivityLauncherClass(Element element, EComponentWithViewSupportHolder holder,
+                                            JDefinedClass activityClass,
+                                            JDefinedClass intentBuilderClass) throws JClassAlreadyExistsException {
+        JDefinedClass activityLauncherClass = holder.getGeneratedClass()
+                ._class(PUBLIC | STATIC, element.getSimpleName() + "Launcher" + generationSuffix());
         JMethod methodBuilder = activityLauncherClass.method(PUBLIC, intentBuilderClass, "intent");
         JVar contextParam = methodBuilder.param(getEnvironment().getClasses().CONTEXT, "context");
 
-        JCast builderExpression = JExpr.cast(intentBuilderClass, activityClass.staticInvoke("intent").arg(contextParam));
+        JInvocation createIntentBuilderInstance = activityClass.staticInvoke("intent").arg(contextParam);
+        JCast builderExpression = JExpr.cast(intentBuilderClass, createIntentBuilderInstance);
         methodBuilder.body()._return(builderExpression);
 
         implementInterface(activityLauncherClass, intentBuilderClass);
@@ -108,11 +114,12 @@ public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithView
 
     private JDefinedClass searchGeneratedActivityClass(String activityName) {
         JDefinedClass activityClass = null;
-        Set<? extends Element> activityAndFragmentElements = getEnvironment().getValidatedElements().getRootAnnotatedElements(EActivity.class.getName());
-        Set<? extends Element> fragments = getEnvironment().getValidatedElements().getRootAnnotatedElements(EFragment.class.getName());
+        AnnotationElements validatedElements = getEnvironment().getValidatedElements();
+        Set<? extends Element> baseElements = validatedElements.getRootAnnotatedElements(EActivity.class.getName());
+        Set<? extends Element> fragments = validatedElements.getRootAnnotatedElements(EFragment.class.getName());
         //noinspection unchecked
-        activityAndFragmentElements.addAll((Collection) fragments);
-        for (Element sharedPrefElement : activityAndFragmentElements) {
+        baseElements.addAll((Collection) fragments);
+        for (Element sharedPrefElement : baseElements) {
             GeneratedClassHolder sharedPrefHolder = getEnvironment().getGeneratedClassHolder(sharedPrefElement);
             String sharedPrefName = sharedPrefHolder.getGeneratedClass().name();
 
@@ -138,12 +145,15 @@ public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithView
     }
 
     @Override
-    public void assignValue(JBlock targetBlock, IJAssignmentTarget fieldRef, EComponentHolder holder, Element element, Element param) {
+    public void assignValue(JBlock targetBlock, IJAssignmentTarget fieldRef,
+                            EComponentHolder holder, Element element, Element param) {
         injectActivityLauncher(targetBlock, fieldRef, element, param);
     }
 
-    private void injectActivityLauncher(JBlock targetBlock, IJAssignmentTarget fieldRef, Element element, Element param) {
-        AbstractJClass generatedClass = getJClass(annotationHelper.generatedClassQualifiedNameFromQualifiedName(element.getEnclosingElement().asType().toString()));
+    private void injectActivityLauncher(JBlock targetBlock, IJAssignmentTarget fieldRef, Element element,
+                                        @SuppressWarnings("UnusedParameters") Element param) {
+        String enclosingClassName = element.getEnclosingElement().asType().toString();
+        AbstractJClass generatedClass = generateQualifiedClassName(enclosingClassName);
         generatedClass = searchGeneratedActivityClass(generatedClass.name());
         AbstractJClass activityLauncher = null;
         for (AbstractJClass innerClass : ((JDefinedClass) generatedClass).classes()) {
@@ -160,6 +170,10 @@ public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithView
         JInvocation intentBuilderInstance = JExpr._new(activityLauncher);
         IJStatement assignment = fieldRef.assign(intentBuilderInstance);
         targetBlock.add(assignment);
+    }
+
+    private AbstractJClass generateQualifiedClassName(String enclosingClassName) {
+        return getJClass(annotationHelper.generatedClassQualifiedNameFromQualifiedName(enclosingClassName));
     }
 
     @Override

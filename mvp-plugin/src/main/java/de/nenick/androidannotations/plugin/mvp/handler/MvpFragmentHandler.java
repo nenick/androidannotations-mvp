@@ -25,7 +25,8 @@ import de.nenick.androidannotations.plugin.mvp.MvpFragment;
 /**
  * Handler for @{@link MvpFragment} annotation.
  */
-public class MvpFragmentHandler extends BaseAnnotationHandler<EComponentWithViewSupportHolder> implements MethodInjectionHandler<EComponentHolder> {
+public class MvpFragmentHandler extends BaseAnnotationHandler<EComponentWithViewSupportHolder>
+        implements MethodInjectionHandler<EComponentHolder> {
 
     private final InjectHelper<EComponentHolder> injectHelper;
 
@@ -60,11 +61,12 @@ public class MvpFragmentHandler extends BaseAnnotationHandler<EComponentWithView
     }
 
     @Override
-    public void assignValue(JBlock targetBlock, IJAssignmentTarget fieldRef, EComponentHolder holder, Element element, Element param) {
-        injectFragmentInstance(targetBlock, fieldRef, element, param);
+    public void assignValue(JBlock targetBlock, IJAssignmentTarget fieldRef,
+                            EComponentHolder holder, Element element, Element param) {
+        fragmentInstance(targetBlock, fieldRef, element, param);
     }
 
-    private void injectFragmentInstance(JBlock targetBlock, IJAssignmentTarget fieldRef, Element element, Element param) {
+    private void fragmentInstance(JBlock targetBlock, IJAssignmentTarget fieldRef, Element element, Element param) {
         AbstractJClass generatedClass = generatedClassToInject(element, param);
         JInvocation fragmentBuilder = generatedClass.staticInvoke("builder");
         JInvocation fragmentInstance = fragmentBuilder.invoke("build");

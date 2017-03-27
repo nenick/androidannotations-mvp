@@ -54,7 +54,8 @@ public class MvpCallbackHandler extends BaseAnnotationHandler<EComponentHolder> 
 
         toString.annotate(Override.class);
         toString.param(callbackClass, "viewCallback");
-        toString.body().directStatement("this." + element.getSimpleName() + " = (" + elementType.getSimpleName() + ") viewCallback;");
+        toString.body().directStatement("this." + element.getSimpleName()
+                + " = (" + elementType.getSimpleName() + ") viewCallback;");
     }
 
     private void implementsInterface(EComponentHolder holder, AbstractJClass callbackClass) {

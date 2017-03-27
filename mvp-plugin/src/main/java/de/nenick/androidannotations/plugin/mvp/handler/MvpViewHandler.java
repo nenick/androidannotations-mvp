@@ -31,7 +31,8 @@ import de.nenick.androidannotations.plugin.mvp.MvpView;
 /**
  * Handler for @{@link MvpView} annotation.
  */
-public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupportHolder> implements MethodInjectionHandler<EComponentHolder> {
+public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupportHolder>
+        implements MethodInjectionHandler<EComponentHolder> {
 
     private final InjectHelper<EComponentHolder> injectHelper;
 
@@ -60,10 +61,13 @@ public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupp
         JMethod toString = holder.getGeneratedClass().method(JMod.PRIVATE, Void.TYPE, methodName);
 
         toString.body().directStatement("if(" + fieldName + " instanceof " + HasMvpCallback.class.getName() + ") {");
-        toString.body().directStatement("   ((" + HasMvpCallback.class.getName() + ") " + fieldName + ").setViewCallback(this);");
+        toString.body().directStatement("   ((" + HasMvpCallback.class.getName() + ") " + fieldName
+                + ").setViewCallback(this);");
         toString.body().directStatement("}");
-        toString.body().directStatement("if(" + fieldName + " instanceof " + OnViewChangedListener.class.getName() + ") {");
-        toString.body().directStatement("   ((" + OnViewChangedListener.class.getName() + ") " + fieldName + ").onViewChanged((" + HasViews.class.getName() + ") this);");
+        toString.body().directStatement("if(" + fieldName + " instanceof "
+                + OnViewChangedListener.class.getName() + ") {");
+        toString.body().directStatement("   ((" + OnViewChangedListener.class.getName() + ") "
+                + fieldName + ").onViewChanged((" + HasViews.class.getName() + ") this);");
         toString.body().directStatement("}");
         holder.getOnViewChangedBodyBeforeInjectionBlock().invoke(methodName);
     }
@@ -74,13 +78,16 @@ public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupp
     }
 
     @Override
-    public void assignValue(JBlock targetBlock, IJAssignmentTarget fieldRef, EComponentHolder holder, Element element, Element param) {
+    public void assignValue(JBlock targetBlock, IJAssignmentTarget fieldRef,
+                            EComponentHolder holder, Element element, Element param) {
         injectViewInstance(targetBlock, fieldRef, holder, element, param);
     }
 
-    private void injectViewInstance(JBlock targetBlock, IJAssignmentTarget fieldRef, EComponentHolder holder, Element element, Element param) {
+    private void injectViewInstance(JBlock targetBlock, IJAssignmentTarget fieldRef,
+                                    EComponentHolder holder, Element element, Element param) {
         AbstractJClass generatedClass = generatedClassToInject(element, param);
-        JInvocation beanInstance = generatedClass.staticInvoke(EBeanHolder.GET_INSTANCE_METHOD_NAME).arg(holder.getContextRef());
+        JInvocation beanInstance = generatedClass.staticInvoke(EBeanHolder.GET_INSTANCE_METHOD_NAME)
+                .arg(holder.getContextRef());
         IJStatement assignment = fieldRef.assign(beanInstance);
         targetBlock.add(assignment);
     }
