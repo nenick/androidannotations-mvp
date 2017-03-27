@@ -18,7 +18,15 @@ allprojects {
     }
 
     apply from: "${rootProject.rootDir}/gradle/library.gradle"
+    apply plugin: 'checkstyle'
+
+    checkstyle {
+        toolVersion = '7.6.1'
+        configFile = new File(new File(rootDir, "configs"), "checkstyle.xml")
+    }
 }
+
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir
