@@ -1,19 +1,19 @@
 package de.nenick.androidannotations.plugin.mvp;
 
 
-import de.nenick.androidannotations.plugin.mvp.handler.EMvpPresenterHandler;
-import de.nenick.androidannotations.plugin.mvp.handler.EMvpViewHandler;
-import de.nenick.androidannotations.plugin.mvp.handler.MvpActivityHandler;
-import de.nenick.androidannotations.plugin.mvp.handler.MvpFragmentHandler;
-import de.nenick.androidannotations.plugin.mvp.handler.MvpCallbackHandler;
-import de.nenick.androidannotations.plugin.mvp.handler.MvpViewHandler;
-
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.handler.AnnotationHandler;
 import org.androidannotations.plugin.AndroidAnnotationsPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.nenick.androidannotations.plugin.mvp.handler.EMvpPresenterHandler;
+import de.nenick.androidannotations.plugin.mvp.handler.EMvpViewHandler;
+import de.nenick.androidannotations.plugin.mvp.handler.MvpActivityHandler;
+import de.nenick.androidannotations.plugin.mvp.handler.MvpCallbackHandler;
+import de.nenick.androidannotations.plugin.mvp.handler.MvpFragmentHandler;
+import de.nenick.androidannotations.plugin.mvp.handler.MvpViewHandler;
 
 /**
  * Register plugin annotations handler.

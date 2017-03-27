@@ -1,14 +1,15 @@
 package de.nenick.androidannotations.plugin.mvp.handler;
 
-import com.helger.jcodemodel.*;
-import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
-import de.nenick.androidannotations.plugin.mvp.EMvpView;
-import de.nenick.androidannotations.plugin.mvp.HasMvpCallback;
-import de.nenick.androidannotations.plugin.mvp.MvpView;
+import com.helger.jcodemodel.AbstractJClass;
+import com.helger.jcodemodel.IJAssignmentTarget;
+import com.helger.jcodemodel.IJStatement;
+import com.helger.jcodemodel.JBlock;
+import com.helger.jcodemodel.JInvocation;
+import com.helger.jcodemodel.JMethod;
+import com.helger.jcodemodel.JMod;
+
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
-import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.NonConfigurationInstance;
 import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
 import org.androidannotations.handler.BaseAnnotationHandler;
@@ -19,11 +20,13 @@ import org.androidannotations.holder.EComponentHolder;
 import org.androidannotations.holder.EComponentWithViewSupportHolder;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Name;
 import javax.lang.model.type.TypeMirror;
 
-import static com.helger.jcodemodel.JExpr._null;
+import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
+import de.nenick.androidannotations.plugin.mvp.EMvpView;
+import de.nenick.androidannotations.plugin.mvp.HasMvpCallback;
+import de.nenick.androidannotations.plugin.mvp.MvpView;
 
 /**
  * Handler for @{@link MvpView} annotation.

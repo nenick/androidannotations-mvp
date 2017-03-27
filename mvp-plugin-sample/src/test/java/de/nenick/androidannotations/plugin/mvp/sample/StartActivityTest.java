@@ -1,7 +1,5 @@
 package de.nenick.androidannotations.plugin.mvp.sample;
 
-import android.content.Context;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -11,7 +9,6 @@ import org.mockito.MockitoAnnotations;
 import de.nenick.androidannotations.plugin.mvp.ActivityLauncher;
 import de.nenick.androidannotations.plugin.mvp.sample.activity.ActivitySample_;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

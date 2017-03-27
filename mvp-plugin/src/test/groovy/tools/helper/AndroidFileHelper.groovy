@@ -2,9 +2,9 @@ package tools.helper
 
 import tools.builder.ActivityBuilder
 import tools.builder.AndroidManifestBuilder
-import tools.builder.base.ClassBuilder
 import tools.builder.GradleScriptBuilder
 import tools.builder.LayoutBuilder
+import tools.builder.base.ClassBuilder
 
 trait AndroidFileHelper implements FileHelper {
 

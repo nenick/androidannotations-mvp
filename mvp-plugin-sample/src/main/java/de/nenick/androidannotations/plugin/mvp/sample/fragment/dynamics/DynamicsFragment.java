@@ -1,11 +1,13 @@
 package de.nenick.androidannotations.plugin.mvp.sample.fragment.dynamics;
 
 import android.support.v4.app.Fragment;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EFragment;
+
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.androidannotations.plugin.mvp.MvpView;
 import de.nenick.androidannotations.plugin.mvp.sample.R;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EFragment;
 
 @EMvpPresenter
 @EFragment(R.layout.activity_main)

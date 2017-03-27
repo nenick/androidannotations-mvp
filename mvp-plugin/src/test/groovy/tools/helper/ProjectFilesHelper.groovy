@@ -1,14 +1,7 @@
 package tools.helper
 
-import tools.builder.ActivityBuilder
-import tools.builder.ActivityLauncherBuilder
-import tools.builder.AndroidManifestBuilder
-import tools.builder.FragmentBuilder
-import tools.builder.GradleScriptBuilder
-import tools.builder.InterfaceBuilder
-import tools.builder.LayoutBuilder
-import tools.builder.ViewBuilder
 import tools.TestProperties
+import tools.builder.*
 
 trait ProjectFilesHelper implements TestProperties, GroovyHelper {
 

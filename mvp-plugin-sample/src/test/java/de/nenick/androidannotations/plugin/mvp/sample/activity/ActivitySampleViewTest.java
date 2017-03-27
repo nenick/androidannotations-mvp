@@ -1,6 +1,7 @@
 package de.nenick.androidannotations.plugin.mvp.sample.activity;
 
 import android.widget.TextView;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

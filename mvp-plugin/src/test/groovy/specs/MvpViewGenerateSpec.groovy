@@ -8,7 +8,6 @@ import de.nenick.androidannotations.plugin.mvp.MvpView
 import de.nenick.test.application.MainView
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.EBean
-import org.androidannotations.annotations.EFragment
 import org.androidannotations.annotations.ViewById
 import org.androidannotations.api.view.HasViews
 import org.androidannotations.api.view.OnViewChangedListener

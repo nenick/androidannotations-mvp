@@ -1,7 +1,6 @@
 package specs
 
 import de.nenick.androidannotations.plugin.mvp.EMvpView
-import de.nenick.androidannotations.plugin.mvp.HasMvpCallback
 import de.nenick.androidannotations.plugin.mvp.MvpCallback
 import org.androidannotations.annotations.EBean
 import tools.BaseSpecification

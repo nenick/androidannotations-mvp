@@ -1,10 +1,12 @@
 package de.nenick.androidannotations.plugin.mvp.sample;
 
 import android.support.v7.app.AppCompatActivity;
-import de.nenick.androidannotations.plugin.mvp.EMvpView;
-import de.nenick.androidannotations.plugin.mvp.MvpCallback;
+
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
+
+import de.nenick.androidannotations.plugin.mvp.EMvpView;
+import de.nenick.androidannotations.plugin.mvp.MvpCallback;
 
 @EBean
 @EMvpView

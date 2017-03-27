@@ -1,8 +1,8 @@
 package tools.builder
 
 import org.junit.rules.TemporaryFolder
-import tools.builder.base.ClassBuilder
 import tools.TestProperties
+import tools.builder.base.ClassBuilder
 import tools.helper.AndroidFileHelper
 
 class AndroidProjectBuilder implements AndroidFileHelper, TestProperties {

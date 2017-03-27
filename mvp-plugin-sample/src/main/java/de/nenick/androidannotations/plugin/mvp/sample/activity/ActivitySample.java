@@ -1,11 +1,13 @@
 package de.nenick.androidannotations.plugin.mvp.sample.activity;
 
 import android.support.v7.app.AppCompatActivity;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.androidannotations.plugin.mvp.MvpView;
 import de.nenick.androidannotations.plugin.mvp.sample.R;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EActivity;
 
 
 @EMvpPresenter

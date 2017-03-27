@@ -1,7 +1,5 @@
 package de.nenick.androidannotations.plugin.mvp.handler;
 
-import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
-
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
 import org.androidannotations.annotations.EActivity;
@@ -10,6 +8,8 @@ import org.androidannotations.handler.BaseAnnotationHandler;
 import org.androidannotations.holder.EComponentWithViewSupportHolder;
 
 import javax.lang.model.element.Element;
+
+import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 
 /**
  * Handler for @{@link EMvpPresenter} annotation.

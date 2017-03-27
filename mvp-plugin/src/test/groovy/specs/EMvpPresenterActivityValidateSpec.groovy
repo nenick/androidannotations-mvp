@@ -3,7 +3,6 @@ package specs
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter
 import org.androidannotations.annotations.EActivity
 import tools.BaseSpecification
-
 import tools.builder.ActivityBuilder
 
 class EMvpPresenterActivityValidateSpec extends BaseSpecification {
