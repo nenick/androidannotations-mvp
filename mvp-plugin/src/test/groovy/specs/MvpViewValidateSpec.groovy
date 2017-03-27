@@ -102,27 +102,6 @@ class MvpViewValidateSpec extends BaseSpecification {
         assert ex.message.contains('Element myView invalidated by MvpViewHandler')
     }
 
-    def "Invalidate when reference miss @EBean"() {
-        given:
-        def mainViewClass = view(MAIN_VIEW)
-                .annotate(EMvpView.class)
-
-        def mainActivityClass = activity(MAIN_ACTIVITY)
-                .annotate(EActivity.class, "R.layout.activity_main")
-                .annotate(EMvpPresenter.class)
-                .with(mainViewClass, "myView", MvpView.class)
-
-        androidProjectWith(mainActivityClass, mainViewClass)
-
-        when:
-        run(assembleDebugTask)
-
-        then:
-        Exception ex = thrown()
-        assert ex.message.contains("MvpView can only be used on an element annotated with @org.androidannotations.annotations.EBean")
-        assert ex.message.contains('Element myView invalidated by MvpViewHandler')
-    }
-
     // TODO test that field can not be private
 
     private androidProjectWith(ActivityBuilder mainActivityClass, ViewBuilder mainViewClass) {
