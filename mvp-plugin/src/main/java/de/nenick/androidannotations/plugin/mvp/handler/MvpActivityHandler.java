@@ -95,7 +95,7 @@ public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithView
         JDefinedClass intentBuilderClass = null;
         for (JDefinedClass innerClass : activityClass.classes()) {
             String innerClassName = innerClass.name();
-            if(innerClassName == null) {
+            if (innerClassName == null) {
                 throw new IllegalStateException();
             }
             if (innerClassName.endsWith("IntentBuilder_")) {
@@ -153,7 +153,7 @@ public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithView
             }
         }
 
-        if(activityLauncher == null) {
+        if (activityLauncher == null) {
             throw new IllegalStateException();
         }
 

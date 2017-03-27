@@ -7,7 +7,7 @@ import javax.lang.model.type.TypeMirror;
 /**
  * Custom utils for generic type arguments.
  */
-public class PluginTypeArguments {
+public final class PluginTypeArguments {
 
     private PluginTypeArguments() {
         // mark this class as static utility class

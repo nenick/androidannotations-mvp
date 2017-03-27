@@ -11,7 +11,7 @@ import de.nenick.androidannotations.plugin.mvp.ActivityLauncher;
  *
  * Used when Collections, Arrays and ... hasn't adequate functionality.
  */
-public class PluginLists {
+public final class PluginLists {
 
     private PluginLists() {
         // mark this class as static utility class
