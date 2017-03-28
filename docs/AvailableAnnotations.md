@@ -16,4 +16,4 @@ Annotation | Short Description
 [MvpActivity](EnhanceAsPresenter.md) | Create activity launcher.
 [MvpFragment](EnhanceAsPresenter.md) | Inject new fragments instance enhanced with `@EMvpPresenter`.
 [MvpView](EnhanceAsPresenter.md) | Inject new views instance enhanced with `@EMvpView`.
-[MvpCallback](EnhanceAsView.md) | Provide setter for a callback instances.
+<p>MvpCallback</p><ul><li>[for Views](EnhanceAsView.md)</li><li>[for Presenters](EnhanceAsPresenter.md)</li></ul> | Provide setter for a callback instances.
