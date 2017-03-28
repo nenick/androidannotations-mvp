@@ -12,8 +12,7 @@ public class MyView {
 
 ## Inject Presenter Callback
 
-Often the presenter implements directly the callback interface of a view.
-With `@MvpCallback` you can automatically let inject the back reference to the callback instance.
+With `@MvpCallback` you can automatically let inject the back reference to the presenter instance.
 
 ```
 @EBean

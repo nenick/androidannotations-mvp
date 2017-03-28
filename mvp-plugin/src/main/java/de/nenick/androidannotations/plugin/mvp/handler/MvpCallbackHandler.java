@@ -6,14 +6,22 @@ import com.helger.jcodemodel.JMod;
 
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.EFragment;
 import org.androidannotations.handler.BaseAnnotationHandler;
+import org.androidannotations.helper.CanonicalNameConstants;
 import org.androidannotations.holder.EComponentHolder;
+
+import java.lang.annotation.Annotation;
+import java.util.List;
 
 import javax.lang.model.element.Element;
 
+import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
 import de.nenick.androidannotations.plugin.mvp.HasMvpCallback;
 import de.nenick.androidannotations.plugin.mvp.MvpCallback;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginLists;
 
 /**
  * Handler for @{@link MvpCallback} annotation.
@@ -30,7 +38,11 @@ public class MvpCallbackHandler extends BaseAnnotationHandler<EComponentHolder> 
      */
     @Override
     public void validate(Element element, ElementValidation validation) {
-        validatorHelper.enclosingElementHasAnnotation(EMvpView.class, element, validation);
+        List<Class<? extends Annotation>> validMvpAnnotations = PluginLists.list(EMvpView.class, EMvpPresenter.class);
+        List<Class<? extends Annotation>> validInViewOrFragment = PluginLists.list(EMvpView.class, EFragment.class);
+
+        validatorHelper.enclosingElementHasOneOfAnnotations(element, validMvpAnnotations, validation);
+        validatorHelper.enclosingElementHasOneOfAnnotations(element, validInViewOrFragment, validation);
         validatorHelper.isNotPrivate(element, validation);
     }
 

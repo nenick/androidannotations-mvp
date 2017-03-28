@@ -100,3 +100,22 @@ void showFragment(Fragment fragment) {
 }
     
 ```
+
+## Inject parent Presenter
+
+> Since MVP Plugin v1.0.0
+
+With `@MvpCallback` you can automatically let inject the back reference to parent presenter instance.
+
+```
+interface Callback {
+    void onChildEvent();
+}
+
+@MvpCallback
+Callback callback;
+
+void onEvent() {
+    callback.onChildEvent();
+}    
+```

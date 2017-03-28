@@ -2,6 +2,7 @@ package de.nenick.androidannotations.plugin.mvp.utils;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import de.nenick.androidannotations.plugin.mvp.ActivityLauncher;
@@ -27,6 +28,17 @@ public final class PluginLists {
         List<Class<? extends Annotation>> annotations = new ArrayList<>();
         annotations.add(cls);
         return annotations;
+    }
+
+    /**
+     * Create list with annotation classes.
+     *
+     * @param cls annotations for list.
+     * @return List with given annotations.
+     */
+    @SafeVarargs
+    public static List<Class<? extends Annotation>> list(Class<? extends Annotation> ... cls) {
+        return Arrays.asList(cls);
     }
 
     /**
