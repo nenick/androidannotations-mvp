@@ -55,6 +55,6 @@ dependencies {
 }
 
 test {
-    maxHeapSize = "1024m"
+    maxHeapSize = "2048m"
     jvmArgs "-XX:MaxPermSize=256m"
 }
