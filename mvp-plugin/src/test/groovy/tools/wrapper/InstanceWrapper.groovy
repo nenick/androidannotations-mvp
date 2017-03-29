@@ -2,13 +2,18 @@ package tools.wrapper
 
 import java.lang.reflect.Method
 
-class Wrapper {
+class InstanceWrapper {
     Object instance
     Class cls
 
-    Wrapper(String name, ClassLoader cl, String androidApplicationProjectId) {
+    InstanceWrapper(String name, ClassLoader cl, String androidApplicationProjectId) {
         cls = cl.loadClass("${androidApplicationProjectId}.${name}");
         instance = cls.newInstance();
+    }
+
+    InstanceWrapper(Object instance) {
+        cls = instance.class;
+        this.instance = instance;
     }
 
     Object invoke(String method, Class<?>[] params, Object[] args) {

@@ -3,7 +3,7 @@ package tools.wrapper
 import android.os.Bundle
 import org.androidannotations.api.view.HasViews
 
-class ActivityInstance extends Wrapper {
+class ActivityInstance extends InstanceWrapper {
 
     def VIEW_FIELD = "myView"
     def OTHER_ACTIVITY_LAUNCHER_FIELD = "otherActivity"
@@ -24,10 +24,15 @@ class ActivityInstance extends Wrapper {
         field.set(instance, value)
     }
 
-    Object getOtherActivityLauncher() {
+    ActivityLauncherInstance getOtherActivityLauncher() {
         def field = cls.superclass.getDeclaredField(OTHER_ACTIVITY_LAUNCHER_FIELD)
         field.setAccessible(true)
-        field.get(instance)
+        def activityLauncher = field.get(instance)
+        if(activityLauncher != null) {
+            return new ActivityLauncherInstance(activityLauncher)
+        } else {
+            return null
+        }
     }
 
     void onCreate() {

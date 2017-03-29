@@ -1,6 +1,6 @@
 package tools.wrapper
 
-class ViewInstance extends Wrapper {
+class ViewInstance extends InstanceWrapper {
 
     ViewInstance(String name, ClassLoader cl, String androidApplicationProjectId) {
         super(name, cl, androidApplicationProjectId)
