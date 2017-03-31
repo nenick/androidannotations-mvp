@@ -43,11 +43,11 @@ abstract class ClassBuilder<Subclass extends ClassBuilder> implements Builder {
     @Override
     String build(String projectId) {
         String importAnnotations = "";
-        String annotionsForClass = "";
+        String annotationsForClass = "";
         classAnnotations.each({
             importAnnotations += "import ${it.key.name};\n"
             String value = it.value ? "(${it.value})" : ""
-            annotionsForClass += "@${it.key.simpleName}${value}\n"
+            annotationsForClass += "@${it.key.simpleName}${value}\n"
         })
         fieldsAnnotations.each({
             if(it) {
@@ -70,10 +70,14 @@ abstract class ClassBuilder<Subclass extends ClassBuilder> implements Builder {
             """
         }
 
+        def implInterfaces = ""
+        if(implInterface) {
+            implInterfaces = "implements " + implInterface.name
+        }
 
-        return buildContent(projectId, name, importAnnotations, annotionsForClass, fieldEntries)
+        return buildContent(projectId, name, importAnnotations, annotationsForClass, fieldEntries, implInterfaces)
                 .trim()
     }
 
-    abstract String buildContent(String projectId, String className, String importAnnotations, String classAnnotations, String fieldEntries)
+    abstract String buildContent(String projectId, String className, String importAnnotations, String classAnnotations, String fieldEntries, String implInterfaces)
 }

@@ -56,6 +56,32 @@ class MvpCallbackGenerateSpec extends BaseSpecification {
         assert mainView.hasInterface(HasMvpCallback.class)
     }
 
+    def "Generated class injects callback instance"() {
+        given:
+        def callbackInterface = callback(CALLBACK)
+
+        def mainFragmentClass = fragment(MAIN_FRAGMENT)
+                .annotate(EFragment.class)
+                .annotate(EMvpPresenter.class)
+                .impl(callbackInterface)
+
+        def mainViewClass = view(MAIN_VIEW)
+                .annotate(EBean.class)
+                .annotate(EMvpView.class)
+                .with(callbackInterface, "myCallback", MvpCallback.class)
+
+        androidProjectWith(mainFragmentClass, mainViewClass, callbackInterface)
+        run(assembleDebugTask)
+
+        when:
+        def mainView = viewInstance(MAIN_VIEW)
+        def mainFragment = fragmentInstance(MAIN_FRAGMENT).instance
+        mainView.setCallback(mainFragment)
+
+        then:
+        assert mainView.getCallback() == mainFragment
+    }
+
     private androidProjectWith(FragmentBuilder mainFragmentClass, InterfaceBuilder callbackInterface) {
         androidProjectBuilder()
                 .with(gradleScript())
@@ -76,5 +102,15 @@ class MvpCallbackGenerateSpec extends BaseSpecification {
                 .create()
     }
 
+    private androidProjectWith(FragmentBuilder mainFragmentClass, ViewBuilder mainViewClass, InterfaceBuilder callbackInterface) {
+        androidProjectBuilder()
+                .with(gradleScript())
+                .with(androidManifest())
+                .with(layout("androidannotations_needs_generated_r_class"))
+                .with(mainFragmentClass)
+                .with(mainViewClass)
+                .with(callbackInterface)
+                .create()
+    }
 }
 

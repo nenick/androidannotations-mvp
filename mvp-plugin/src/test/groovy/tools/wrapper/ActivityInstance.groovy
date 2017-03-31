@@ -40,8 +40,8 @@ class ActivityInstance extends InstanceWrapper {
         invoke("onCreate", types, new Bundle())
     }
 
-    void onViewChanged() {
+    void onViewChanged(hasViewsMock) {
         Class<?>[] types = [HasViews.class]
-        invoke("onViewChanged", types, instance)
+        invoke("onViewChanged", types, hasViewsMock)
     }
 }

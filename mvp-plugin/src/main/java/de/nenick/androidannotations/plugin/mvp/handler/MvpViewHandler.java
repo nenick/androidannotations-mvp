@@ -7,6 +7,7 @@ import com.helger.jcodemodel.JBlock;
 import com.helger.jcodemodel.JInvocation;
 import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
+import com.helger.jcodemodel.JVar;
 
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
@@ -59,17 +60,19 @@ public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupp
         Name fieldName = element.getSimpleName();
         String methodName = fieldName + "Update";
         JMethod toString = holder.getGeneratedClass().method(JMod.PRIVATE, Void.TYPE, methodName);
+        JVar hasViewsParam = toString.param(HasViews.class, "hasViews");
 
         toString.body().directStatement("if(" + fieldName + " instanceof " + HasMvpCallback.class.getName() + ") {");
         toString.body().directStatement("   ((" + HasMvpCallback.class.getName() + ") " + fieldName
-                + ").setViewCallback(this);");
+                + ").setCallback(this);");
         toString.body().directStatement("}");
         toString.body().directStatement("if(" + fieldName + " instanceof "
                 + OnViewChangedListener.class.getName() + ") {");
         toString.body().directStatement("   ((" + OnViewChangedListener.class.getName() + ") "
-                + fieldName + ").onViewChanged((" + HasViews.class.getName() + ") this);");
+                + fieldName + ").onViewChanged(hasViews);");
         toString.body().directStatement("}");
-        holder.getOnViewChangedBodyBeforeInjectionBlock().invoke(methodName);
+
+        holder.getOnViewChangedBodyBeforeInjectionBlock().invoke(toString).arg(hasViewsParam);
     }
 
     @Override

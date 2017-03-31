@@ -5,7 +5,7 @@ import tools.builder.base.ClassBuilder
 class ActivityBuilder extends ClassBuilder<ActivityBuilder> {
 
     @Override
-    String buildContent(String projectId, String className, String importAnnotations, String classAnnotations, String fieldEntries) {
+    String buildContent(String projectId, String className, String importAnnotations, String classAnnotations, String fieldEntries, String implInterfaces) {
 
         return """
 
@@ -16,7 +16,7 @@ import ${projectId}.R;
 ${importAnnotations}
 
 ${classAnnotations}
-public class ${className} extends Activity {
+public class ${className} extends Activity ${implInterfaces} {
 
     ${fieldEntries}
 

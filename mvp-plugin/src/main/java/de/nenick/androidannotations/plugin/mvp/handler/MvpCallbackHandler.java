@@ -6,10 +6,8 @@ import com.helger.jcodemodel.JMod;
 
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
-import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.handler.BaseAnnotationHandler;
-import org.androidannotations.helper.CanonicalNameConstants;
 import org.androidannotations.holder.EComponentHolder;
 
 import java.lang.annotation.Annotation;
@@ -48,26 +46,26 @@ public class MvpCallbackHandler extends BaseAnnotationHandler<EComponentHolder> 
 
     /**
      * - Add interface {@link HasMvpCallback} to enclosing element.
-     * - Create {@link HasMvpCallback#setViewCallback(Object)} implementation to inject field instance.
+     * - Create {@link HasMvpCallback#setCallback(Object)} implementation to inject field instance.
      */
     @Override
     public void process(Element element, EComponentHolder holder) {
-        implementSetViewCallbackMethod(element, holder);
+        implementSetCallbackMethod(element, holder);
     }
 
-    private void implementSetViewCallbackMethod(Element element, EComponentHolder holder) {
+    private void implementSetCallbackMethod(Element element, EComponentHolder holder) {
         Element elementType = annotationHelper.getTypeUtils().asElement(element.asType());
         AbstractJClass callbackClass = getJClass(elementType.toString());
 
         implementsInterface(holder, callbackClass);
 
-        JMethod toString = holder.getGeneratedClass().method(JMod.PUBLIC, Void.TYPE, "setViewCallback");
+        JMethod toString = holder.getGeneratedClass().method(JMod.PUBLIC, Void.TYPE, "setCallback");
 
 
         toString.annotate(Override.class);
-        toString.param(callbackClass, "viewCallback");
+        toString.param(callbackClass, "callback");
         toString.body().directStatement("this." + element.getSimpleName()
-                + " = (" + elementType.getSimpleName() + ") viewCallback;");
+                + " = (" + elementType.getSimpleName() + ") callback;");
     }
 
     private void implementsInterface(EComponentHolder holder, AbstractJClass callbackClass) {

@@ -5,7 +5,7 @@ import tools.builder.base.ClassBuilder
 class FragmentBuilder extends ClassBuilder<FragmentBuilder> {
 
     @Override
-    String buildContent(String projectId, String className, String importAnnotations, String classAnnotations, String fieldEntries) {
+    String buildContent(String projectId, String className, String importAnnotations, String classAnnotations, String fieldEntries, String implInterfaces) {
         return """
 
 package ${projectId};
@@ -15,7 +15,7 @@ import ${projectId}.R;
 ${importAnnotations}
 
 ${classAnnotations}
-public class ${className} extends Fragment {
+public class ${className} extends Fragment ${implInterfaces} {
 
     ${fieldEntries}
 

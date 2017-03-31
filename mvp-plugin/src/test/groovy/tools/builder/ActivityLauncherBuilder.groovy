@@ -11,7 +11,7 @@ class ActivityLauncherBuilder extends ClassBuilder<ActivityLauncherBuilder> {
     }
 
     @Override
-    String buildContent(String projectId, String className, String importAnnotations, String classAnnotations, String fieldEntries) {
+    String buildContent(String projectId, String className, String importAnnotations, String classAnnotations, String fieldEntries, String implInterfaces) {
         throw new UnsupportedOperationException()
     }
 }

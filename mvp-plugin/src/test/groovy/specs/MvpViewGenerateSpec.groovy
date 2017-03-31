@@ -1,11 +1,11 @@
 package specs
 
+import android.view.View
 import android.widget.TextView
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter
 import de.nenick.androidannotations.plugin.mvp.EMvpView
 import de.nenick.androidannotations.plugin.mvp.HasMvpCallback
 import de.nenick.androidannotations.plugin.mvp.MvpView
-import de.nenick.test.application.MainView
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.EBean
 import org.androidannotations.annotations.ViewById
@@ -13,7 +13,6 @@ import org.androidannotations.api.view.HasViews
 import org.androidannotations.api.view.OnViewChangedListener
 import tools.BaseSpecification
 import tools.builder.ActivityBuilder
-import tools.builder.FragmentBuilder
 import tools.builder.ViewBuilder
 
 class MvpViewGenerateSpec extends BaseSpecification {
@@ -105,6 +104,7 @@ class MvpViewGenerateSpec extends BaseSpecification {
         def mainViewClass = view(MAIN_VIEW)
                 .annotate(EBean.class)
                 .annotate(EMvpView.class)
+                .with(TextView.class, "textView", ViewById.class)
 
         def mainActivityClass = activity(MAIN_ACTIVITY)
                 .annotate(EActivity.class, "R.layout.activity_main")
@@ -113,20 +113,21 @@ class MvpViewGenerateSpec extends BaseSpecification {
 
         androidProjectWith(mainActivityClass, mainViewClass)
         run(assembleDebugTask)
-        def mock = new ViewMock()
+        def mainView = viewInstance(MAIN_VIEW)
 
         when:
         def mainActivity = activityInstance(MAIN_ACTIVITY)
-        mainActivity.setMyView(mock)
+        mainActivity.setMyView(mainView.instance)
 
         then:
-        assert !mock.onViewChangedCalled
+        assert mainView.getTextView() == null
 
         when:
-        mainActivity.onViewChanged()
+        mainActivity.onViewChanged(new HasViewsMock())
 
         then:
-        assert mock.onViewChangedCalled
+        assert mainView.hasInterface(OnViewChangedListener.class)
+        assert mainView.getTextView() != null
     }
 
 
@@ -140,24 +141,10 @@ class MvpViewGenerateSpec extends BaseSpecification {
                 .create()
     }
 
-    private androidProjectWith(FragmentBuilder mainFragmentClass, ViewBuilder mainViewClass) {
-
-        androidProjectBuilder()
-                .with(gradleScript())
-                .with(androidManifest())
-                .with(layout("fragment_main"))
-                .with(mainFragmentClass)
-                .with(mainViewClass)
-                .create()
-    }
-
-    class ViewMock extends MainView implements OnViewChangedListener {
-
-        boolean onViewChangedCalled
-
+    class HasViewsMock implements HasViews {
         @Override
-        void onViewChanged(HasViews hasViews) {
-            onViewChangedCalled = true
+        View findViewById(int id) {
+            return new TextView(null)
         }
     }
 }
