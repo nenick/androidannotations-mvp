@@ -12,6 +12,12 @@ class ActivityInstance extends InstanceWrapper {
         super(name, cl, androidApplicationProjectId)
     }
 
+    Object getMyFragment() {
+        def field = cls.superclass.getDeclaredField("myFragment")
+        field.setAccessible(true)
+        field.get(instance)
+    }
+
     Object getMyView() {
         def field = cls.superclass.getDeclaredField(VIEW_FIELD)
         field.setAccessible(true)
