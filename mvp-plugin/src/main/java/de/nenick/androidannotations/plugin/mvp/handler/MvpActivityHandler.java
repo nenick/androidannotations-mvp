@@ -16,7 +16,6 @@ import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.handler.BaseAnnotationHandler;
 import org.androidannotations.handler.MethodInjectionHandler;
 import org.androidannotations.helper.InjectHelper;
 import org.androidannotations.holder.EComponentHolder;
@@ -32,6 +31,7 @@ import javax.lang.model.type.TypeMirror;
 
 import de.nenick.androidannotations.plugin.mvp.ActivityLauncher;
 import de.nenick.androidannotations.plugin.mvp.MvpActivity;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler;
 import de.nenick.androidannotations.plugin.mvp.utils.PluginLists;
 import de.nenick.androidannotations.plugin.mvp.utils.PluginTypeArguments;
 
@@ -42,7 +42,7 @@ import static org.androidannotations.helper.ModelConstants.generationSuffix;
 /**
  * Handler for @{@link MvpActivity} annotation.
  */
-public class MvpActivityHandler extends BaseAnnotationHandler<EComponentWithViewSupportHolder>
+public class MvpActivityHandler extends PluginBaseAnnotationHandler<EComponentWithViewSupportHolder>
         implements MethodInjectionHandler<EComponentHolder> {
 
     private final InjectHelper<EComponentHolder> injectHelper;

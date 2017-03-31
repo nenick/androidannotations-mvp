@@ -10,22 +10,22 @@ import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.handler.BaseAnnotationHandler;
 import org.androidannotations.handler.MethodInjectionHandler;
 import org.androidannotations.helper.InjectHelper;
 import org.androidannotations.holder.EComponentHolder;
 import org.androidannotations.holder.EComponentWithViewSupportHolder;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.type.TypeMirror;
 
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.androidannotations.plugin.mvp.MvpFragment;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginAnnotations;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler;
 
 /**
  * Handler for @{@link MvpFragment} annotation.
  */
-public class MvpFragmentHandler extends BaseAnnotationHandler<EComponentWithViewSupportHolder>
+public class MvpFragmentHandler extends PluginBaseAnnotationHandler<EComponentWithViewSupportHolder>
         implements MethodInjectionHandler<EComponentHolder> {
 
     private final InjectHelper<EComponentHolder> injectHelper;
@@ -67,21 +67,11 @@ public class MvpFragmentHandler extends BaseAnnotationHandler<EComponentWithView
     }
 
     private void fragmentInstance(JBlock targetBlock, IJAssignmentTarget fieldRef, Element element, Element param) {
-        AbstractJClass generatedClass = generatedClassToInject(element, param);
+        AbstractJClass generatedClass = PluginAnnotations.generatedClassToInject(element, param, this);
         JInvocation fragmentBuilder = generatedClass.staticInvoke("builder");
         JInvocation fragmentInstance = fragmentBuilder.invoke("build");
         IJStatement assignment = fieldRef.assign(fragmentInstance);
         targetBlock.add(assignment);
-    }
-
-    private AbstractJClass generatedClassToInject(Element element, Element param) {
-        TypeMirror typeMirror = annotationHelper.extractAnnotationClassParameter(element);
-        if (typeMirror == null) {
-            typeMirror = param.asType();
-            typeMirror = getProcessingEnvironment().getTypeUtils().erasure(typeMirror);
-        }
-        String typeQualifiedName = typeMirror.toString();
-        return getJClass(annotationHelper.generatedClassQualifiedNameFromQualifiedName(typeQualifiedName));
     }
 
     @Override

@@ -4,17 +4,17 @@ import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.handler.BaseAnnotationHandler;
 import org.androidannotations.holder.EComponentWithViewSupportHolder;
 
 import javax.lang.model.element.Element;
 
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler;
 
 /**
  * Handler for @{@link EMvpPresenter} annotation.
  */
-public class EMvpPresenterHandler extends BaseAnnotationHandler<EComponentWithViewSupportHolder> {
+public class EMvpPresenterHandler extends PluginBaseAnnotationHandler<EComponentWithViewSupportHolder> {
 
     public EMvpPresenterHandler(AndroidAnnotationsEnvironment environment) {
         super(EMvpPresenter.class, environment);

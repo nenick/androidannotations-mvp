@@ -7,7 +7,6 @@ import com.helger.jcodemodel.JMod;
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.handler.BaseAnnotationHandler;
 import org.androidannotations.holder.EComponentHolder;
 
 import java.lang.annotation.Annotation;
@@ -19,12 +18,13 @@ import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
 import de.nenick.androidannotations.plugin.mvp.HasMvpCallback;
 import de.nenick.androidannotations.plugin.mvp.MvpCallback;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler;
 import de.nenick.androidannotations.plugin.mvp.utils.PluginLists;
 
 /**
  * Handler for @{@link MvpCallback} annotation.
  */
-public class MvpCallbackHandler extends BaseAnnotationHandler<EComponentHolder> {
+public class MvpCallbackHandler extends PluginBaseAnnotationHandler<EComponentHolder> {
 
     public MvpCallbackHandler(AndroidAnnotationsEnvironment environment) {
         super(MvpCallback.class, environment);

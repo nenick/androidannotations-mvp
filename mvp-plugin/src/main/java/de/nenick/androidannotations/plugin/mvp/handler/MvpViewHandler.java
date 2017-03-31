@@ -13,7 +13,6 @@ import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
 import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
-import org.androidannotations.handler.BaseAnnotationHandler;
 import org.androidannotations.handler.MethodInjectionHandler;
 import org.androidannotations.helper.InjectHelper;
 import org.androidannotations.holder.EBeanHolder;
@@ -22,17 +21,18 @@ import org.androidannotations.holder.EComponentWithViewSupportHolder;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Name;
-import javax.lang.model.type.TypeMirror;
 
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
 import de.nenick.androidannotations.plugin.mvp.HasMvpCallback;
 import de.nenick.androidannotations.plugin.mvp.MvpView;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginAnnotations;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler;
 
 /**
  * Handler for @{@link MvpView} annotation.
  */
-public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupportHolder>
+public class MvpViewHandler extends PluginBaseAnnotationHandler<EComponentWithViewSupportHolder>
         implements MethodInjectionHandler<EComponentHolder> {
 
     private final InjectHelper<EComponentHolder> injectHelper;
@@ -88,21 +88,11 @@ public class MvpViewHandler extends BaseAnnotationHandler<EComponentWithViewSupp
 
     private void injectViewInstance(JBlock targetBlock, IJAssignmentTarget fieldRef,
                                     EComponentHolder holder, Element element, Element param) {
-        AbstractJClass generatedClass = generatedClassToInject(element, param);
+        AbstractJClass generatedClass = PluginAnnotations.generatedClassToInject(element, param, this);
         JInvocation beanInstance = generatedClass.staticInvoke(EBeanHolder.GET_INSTANCE_METHOD_NAME)
                 .arg(holder.getContextRef());
         IJStatement assignment = fieldRef.assign(beanInstance);
         targetBlock.add(assignment);
-    }
-
-    private AbstractJClass generatedClassToInject(Element element, Element param) {
-        TypeMirror typeMirror = annotationHelper.extractAnnotationClassParameter(element);
-        if (typeMirror == null) {
-            typeMirror = param.asType();
-            typeMirror = getProcessingEnvironment().getTypeUtils().erasure(typeMirror);
-        }
-        String typeQualifiedName = typeMirror.toString();
-        return getJClass(annotationHelper.generatedClassQualifiedNameFromQualifiedName(typeQualifiedName));
     }
 
     @Override
