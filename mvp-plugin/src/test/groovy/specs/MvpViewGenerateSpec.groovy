@@ -21,7 +21,7 @@ class MvpViewGenerateSpec extends BaseSpecification {
     public static final String MAIN_VIEW = "MainView"
     public static final String MAIN_ACTIVITY = "MainActivity"
 
-    def "Test view mock simulates view with view injection"() {
+    def "Generated view with view injections implements OnViewChangedListener"() {
         given:
         def mainViewClass = view(MAIN_VIEW)
                 .annotate(EBean.class)
@@ -41,7 +41,6 @@ class MvpViewGenerateSpec extends BaseSpecification {
 
         then:
         assert mainView.hasInterface(OnViewChangedListener.class)
-        assert ViewMock.class.interfaces.contains(OnViewChangedListener.class)
     }
 
     def "Call onCreate when view implements no interfaces does not throw"() {
@@ -126,7 +125,6 @@ class MvpViewGenerateSpec extends BaseSpecification {
         mainActivity.onViewChanged(new HasViewsMock())
 
         then:
-        assert mainView.hasInterface(OnViewChangedListener.class)
         assert mainView.getTextView() != null
     }
 
