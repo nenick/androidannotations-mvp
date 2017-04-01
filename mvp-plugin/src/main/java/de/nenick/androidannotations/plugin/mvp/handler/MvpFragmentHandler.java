@@ -19,9 +19,9 @@ import javax.lang.model.element.Element;
 
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.androidannotations.plugin.mvp.MvpFragment;
-import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler;
 import de.nenick.androidannotations.plugin.mvp.utils.JClasses;
 import de.nenick.androidannotations.plugin.mvp.utils.JMethods;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler;
 
 /**
  * Handler for @{@link MvpFragment} annotation.
@@ -29,7 +29,7 @@ import de.nenick.androidannotations.plugin.mvp.utils.JMethods;
 public class MvpFragmentHandler extends PluginBaseAnnotationHandler<EComponentWithViewSupportHolder>
         implements MethodInjectionHandler<EComponentHolder> {
 
-    private transient final InjectHelper<EComponentHolder> injectHelper;
+    private final transient InjectHelper<EComponentHolder> injectHelper;
 
     public MvpFragmentHandler(AndroidAnnotationsEnvironment environment) {
         super(MvpFragment.class, environment);

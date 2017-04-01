@@ -25,10 +25,10 @@ import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
 import de.nenick.androidannotations.plugin.mvp.HasMvpCallback;
 import de.nenick.androidannotations.plugin.mvp.MvpView;
-import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler;
-import de.nenick.androidannotations.plugin.mvp.utils.PluginClasses;
 import de.nenick.androidannotations.plugin.mvp.utils.JClasses;
 import de.nenick.androidannotations.plugin.mvp.utils.JMethods;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginClasses;
 
 /**
  * Handler for @{@link MvpView} annotation.
@@ -36,7 +36,7 @@ import de.nenick.androidannotations.plugin.mvp.utils.JMethods;
 public class MvpViewHandler extends PluginBaseAnnotationHandler<EComponentWithViewSupportHolder>
         implements MethodInjectionHandler<EComponentHolder> {
 
-    private transient final InjectHelper<EComponentHolder> injectHelper;
+    private final transient InjectHelper<EComponentHolder> injectHelper;
 
     public MvpViewHandler(AndroidAnnotationsEnvironment environment) {
         super(MvpView.class, environment);

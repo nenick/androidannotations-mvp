@@ -35,29 +35,28 @@ public abstract class PluginBaseAnnotationHandler<T extends GeneratedClassHolder
     }
 
     /* default */ ProcessHolder.Classes classes() {
-        return classes(getEnvironment());
+        return getClasses(getEnvironment());
     }
 
     /* default */ AnnotationElements validateElements() {
-        return validateElements(getEnvironment());
+        return getValidateElements(getEnvironment());
     }
 
     /* default */ GeneratedClassHolder generatedClassHolder(Element baseClass) {
-        return generatedClassHolder(baseClass, getEnvironment());
+        return getGeneratedClassHolder(baseClass, getEnvironment());
     }
 
-    private GeneratedClassHolder generatedClassHolder(Element baseClass, AndroidAnnotationsEnvironment environment) {
+    private GeneratedClassHolder getGeneratedClassHolder(Element baseClass, AndroidAnnotationsEnvironment environment) {
         return environment.getGeneratedClassHolder(baseClass);
     }
 
-    private ProcessHolder.Classes classes(AndroidAnnotationsEnvironment environment) {
+    private ProcessHolder.Classes getClasses(AndroidAnnotationsEnvironment environment) {
         return environment.getClasses();
     }
 
-    private AnnotationElements validateElements(AndroidAnnotationsEnvironment environment) {
+    private AnnotationElements getValidateElements(AndroidAnnotationsEnvironment environment) {
         return environment.getValidatedElements();
     }
-
 
 
 }

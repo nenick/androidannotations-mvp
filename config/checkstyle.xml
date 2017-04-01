@@ -163,7 +163,7 @@
         <module name="CustomImportOrder">
             <property name="sortImportsInGroupAlphabetically" value="true"/>
             <property name="separateLineBetweenGroups" value="true"/>
-            <property name="customImportOrderRules" value="THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE###SAME_PACKAGE(3)###STATIC"/>
+            <property name="customImportOrderRules" value="THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE###SAME_PACKAGE(2)###STATIC"/>
         </module>
         <module name="MethodParamPad"/>
         <module name="ParenPad"/>

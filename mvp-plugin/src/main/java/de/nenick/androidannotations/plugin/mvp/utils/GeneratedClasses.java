@@ -59,11 +59,11 @@ public final class GeneratedClasses {
     }
 
     private static Set<? extends Element> generatedActivitiesAndFragments(AnnotationElements validatedElements) {
-        String eActivity = PluginClasses.className(EActivity.class);
-        String eFragment = PluginClasses.className(EFragment.class);
-        Set<? extends Element> baseElements = validatedElements.getRootAnnotatedElements(eActivity);
-        Set<? extends Element> fragments = validatedElements.getRootAnnotatedElements(eFragment);
-        return mergeElements(baseElements, fragments);
+        String activities = PluginClasses.className(EActivity.class);
+        String fragments = PluginClasses.className(EFragment.class);
+        Set<? extends Element> baseElements = validatedElements.getRootAnnotatedElements(activities);
+        Set<? extends Element> baseFragments = validatedElements.getRootAnnotatedElements(fragments);
+        return mergeElements(baseElements, baseFragments);
     }
 
     private static Set<? extends Element> mergeElements(Set<? extends Element> baseElements, Collection fragments) {
