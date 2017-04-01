@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    PMD Rule Set
+
+    Start by including all new rules and then exclude the unwanted ones.
+    https://pmd.github.io/pmd-5.5.5/pmd-java/rules/index.html
+    https://github.com/pmd/pmd/blob/master/pmd-core/src/main/resources/rulesets/internal/all-java.xml
+
+-->
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         name="pmd"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+    <description>PMD Plugin preferences rule set</description>
+    <rule ref="rulesets/java/android.xml"/>
+    <rule ref="rulesets/java/basic.xml"/>
+    <rule ref="rulesets/java/braces.xml"/>
+    <rule ref="rulesets/java/clone.xml"/>
+    <rule ref="rulesets/java/codesize.xml"/>
+    <rule ref="rulesets/java/comments.xml"/>
+    <rule ref="rulesets/java/comments.xml/CommentRequired">
+        <properties>
+            <!-- only add comments when it makes sense -->
+            <property name="publicMethodCommentRequirement" value="Ignored"/>
+            <property name="fieldCommentRequirement" value="Ignored"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/java/comments.xml/CommentSize">
+        <properties>
+            <!-- is too much documentation really to much? -->
+            <property name="maxLines" value="20"/>
+            <!-- today we have large screens -->
+            <property name="maxLineLength" value="120"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/java/controversial.xml">
+        <!-- this would only produce much boilerplate code -->
+        <exclude name="AtLeastOneConstructor"/>
+        <!-- package private scope makes more clean code structure when using code completion features -->
+        <exclude name="DefaultPackage"/>
+        <!-- multiple return statements lead often to more clean and readable code -->
+        <exclude name="OnlyOneReturn"/>
+    </rule>
+    <rule ref="rulesets/java/controversial.xml/DataflowAnomalyAnalysis">
+        <properties>
+            <!-- false negative when using foreach loops, and compiler will not accept undefined references -->
+            <property name="violationSuppressRegex" value="^Found 'UR'-anomaly.*"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/java/coupling.xml">
+        <!-- makes more sense in larger projects -->
+        <exclude name="LoosePackageCoupling"/>
+    </rule>
+    <rule ref="rulesets/java/design.xml"/>
+    <rule ref="rulesets/java/empty.xml"/>
+    <rule ref="rulesets/java/finalizers.xml"/>
+    <rule ref="rulesets/java/imports.xml"/>
+    <rule ref="rulesets/java/j2ee.xml"/>
+    <rule ref="rulesets/java/javabeans.xml"/>
+    <rule ref="rulesets/java/junit.xml"/>
+    <rule ref="rulesets/java/logging-jakarta-commons.xml"/>
+    <rule ref="rulesets/java/logging-java.xml"/>
+    <rule ref="rulesets/java/migrating.xml"/>
+    <rule ref="rulesets/java/naming.xml">
+        <!-- this makes structure changes more complicated -->
+        <exclude name="AbstractNaming"/>
+    </rule>
+    <rule ref="rulesets/java/naming.xml/LongVariable">
+        <properties>
+            <!-- allow variables to explain more details, origin was to short -->
+            <property name="minimum" value="25"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/java/optimizations.xml">
+        <!-- following would only produce much boilerplate code -->
+        <exclude name="MethodArgumentCouldBeFinal"/>
+        <exclude name="LocalVariableCouldBeFinal"/>
+    </rule>
+    <rule ref="rulesets/java/strictexception.xml"/>
+    <rule ref="rulesets/java/strings.xml"/>
+    <rule ref="rulesets/java/sunsecure.xml"/>
+    <rule ref="rulesets/java/typeresolution.xml"/>
+    <rule ref="rulesets/java/unnecessary.xml"/>
+    <rule ref="rulesets/java/unusedcode.xml"/>
+</ruleset>

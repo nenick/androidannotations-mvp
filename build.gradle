@@ -19,10 +19,18 @@ allprojects {
 
     apply from: "${rootProject.rootDir}/gradle/library.gradle"
     apply plugin: 'checkstyle'
+    apply plugin: 'pmd'
 
     checkstyle {
+        ignoreFailures = true
         toolVersion = '7.6.1'
-        configFile = new File(new File(rootDir, "configs"), "checkstyle.xml")
+        configFile = file("$rootDir/config/checkstyle.xml")
+    }
+
+    pmd {
+        ignoreFailures = true
+        toolVersion = '5.5.5'
+        ruleSetFiles = files("$rootDir/config/ruleset.xml")
     }
 }
 
