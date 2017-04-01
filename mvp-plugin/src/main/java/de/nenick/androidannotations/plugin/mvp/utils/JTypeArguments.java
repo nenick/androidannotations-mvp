@@ -19,7 +19,9 @@ public final class JTypeArguments {
      * Get the first elements type argument.
      * <p>
      * <pre>
+     * <code>
      *     ClassWithTypeArgument<MyTypeArgument> variable;
+     * </code>
      * </pre>
      * <p>
      * Typically call it `genericTypeArgument((DeclaredType) element.asType())`.
