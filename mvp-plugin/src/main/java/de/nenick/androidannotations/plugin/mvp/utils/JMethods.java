@@ -22,11 +22,6 @@ public final class JMethods {
         return method.body();
     }
 
-    public static void invoke(JBlock atTargetCodeBlock, JMethod method, Class paramType, String paramVariableName) {
-        JVar param = method.param(paramType, paramVariableName);
-        JInvocation invocation = atTargetCodeBlock.invoke(method);
-        withArgument(invocation, param);
-    }
 
     public static JInvocation invokeBeanGetInstance(AbstractJClass cls, IJExpression contextRef) {
         JInvocation invocation = staticInvoke(cls, EBeanHolder.GET_INSTANCE_METHOD_NAME);
@@ -45,15 +40,21 @@ public final class JMethods {
         return invocation;
     }
 
-    private static void withArgument(JInvocation invocation, IJExpression param) {
-        invocation.arg(param);
+    private static JInvocation staticInvoke(AbstractJClass cls, String methodName) {
+        return cls.staticInvoke(methodName);
+    }
+
+    public static void invoke(JBlock atTargetCodeBlock, JMethod method, Class paramType, String paramVariableName) {
+        JVar param = method.param(paramType, paramVariableName);
+        JInvocation invocation = atTargetCodeBlock.invoke(method);
+        withArgument(invocation, param);
     }
 
     private static JInvocation invoke(JInvocation builder, String methodName) {
         return builder.invoke(methodName);
     }
 
-    private static JInvocation staticInvoke(AbstractJClass cls, String methodName) {
-        return cls.staticInvoke(methodName);
+    private static void withArgument(JInvocation invocation, IJExpression param) {
+        invocation.arg(param);
     }
 }

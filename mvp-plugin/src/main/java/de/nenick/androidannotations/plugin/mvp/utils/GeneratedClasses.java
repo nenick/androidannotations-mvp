@@ -34,7 +34,7 @@ public final class GeneratedClasses {
     }
 
     public static JDefinedClass generatedActivityOrFragment(String cls, PluginBaseAnnotationHandler base) {
-        return generatedActivityOrFragment(base.jClass(cls), base);
+        return generatedActivityOrFragment(base.asClass(cls), base);
     }
 
     public static JDefinedClass intentBuilder(JDefinedClass activity, PluginBaseAnnotationHandler base) {

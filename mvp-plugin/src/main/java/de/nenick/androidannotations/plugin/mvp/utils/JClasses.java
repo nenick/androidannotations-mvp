@@ -21,17 +21,17 @@ public final class JClasses {
 
     public static AbstractJClass asClass(Element fieldElement, PluginBaseAnnotationHandler base) {
         String className = fullyQualifiedClassName(fieldElement.asType());
-        return base.jClass(className);
+        return base.asClass(className);
     }
 
     public static AbstractJClass asGeneratedClass(Element fieldElement, PluginBaseAnnotationHandler base) {
         String className = fullyQualifiedGeneratedClassName(base.annotationHelper(), fieldElement.asType());
-        return base.jClass(className);
+        return base.asClass(className);
     }
 
     public static void implementsInterface(JDefinedClass target, AbstractJClass arg,
                                            Class interfaceClass, PluginBaseAnnotationHandler base) {
-        AbstractJClass interfaceJClass = base.jClass(interfaceClass);
+        AbstractJClass interfaceJClass = base.asClass(interfaceClass);
         AbstractJClass implNarrowed = narrow(arg, interfaceJClass);
         target._implements(implNarrowed);
     }

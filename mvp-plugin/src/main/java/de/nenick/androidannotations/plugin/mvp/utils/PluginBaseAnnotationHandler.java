@@ -26,11 +26,11 @@ public abstract class PluginBaseAnnotationHandler<T extends GeneratedClassHolder
         return annotationHelper;
     }
 
-    /* default */ AbstractJClass jClass(String fullyQualifiedClassName) {
+    /* default */ AbstractJClass asClass(String fullyQualifiedClassName) {
         return super.getJClass(fullyQualifiedClassName);
     }
 
-    /* default */ AbstractJClass jClass(Class cls) {
+    /* default */ AbstractJClass asClass(Class cls) {
         return super.getJClass(cls);
     }
 
