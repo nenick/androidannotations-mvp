@@ -39,7 +39,7 @@ class MvpCallbackValidateSpec extends BaseSpecification {
         assert containsGeneratedClassFor(MAIN_VIEW)
     }
 
-    def "Accept in Fragments with @EMvpPresenter "() {
+    def "Accept in Fragments with @EMvpPresenter"() {
         given:
         def callbackInterface = callback(CALLBACK)
 
@@ -57,7 +57,7 @@ class MvpCallbackValidateSpec extends BaseSpecification {
         assert containsGeneratedClassFor(MAIN_FRAGMENT)
     }
 
-    def "Invalidate in Activity"() {
+    def "Invalidate in Activity with @EMvpPresenter"() {
         given:
         def callbackInterface = callback(CALLBACK)
 

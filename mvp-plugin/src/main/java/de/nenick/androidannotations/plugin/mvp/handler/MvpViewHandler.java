@@ -4,10 +4,10 @@ import com.helger.jcodemodel.AbstractJClass;
 import com.helger.jcodemodel.IJAssignmentTarget;
 import com.helger.jcodemodel.IJStatement;
 import com.helger.jcodemodel.JBlock;
+import com.helger.jcodemodel.JDefinedClass;
 import com.helger.jcodemodel.JInvocation;
 import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
-import com.helger.jcodemodel.JVar;
 
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.ElementValidation;
@@ -15,7 +15,6 @@ import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
 import org.androidannotations.handler.MethodInjectionHandler;
 import org.androidannotations.helper.InjectHelper;
-import org.androidannotations.holder.EBeanHolder;
 import org.androidannotations.holder.EComponentHolder;
 import org.androidannotations.holder.EComponentWithViewSupportHolder;
 
@@ -26,8 +25,10 @@ import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
 import de.nenick.androidannotations.plugin.mvp.HasMvpCallback;
 import de.nenick.androidannotations.plugin.mvp.MvpView;
-import de.nenick.androidannotations.plugin.mvp.utils.PluginAnnotations;
 import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler;
+import de.nenick.androidannotations.plugin.mvp.utils.PluginClasses;
+import de.nenick.androidannotations.plugin.mvp.utils.JClasses;
+import de.nenick.androidannotations.plugin.mvp.utils.JMethods;
 
 /**
  * Handler for @{@link MvpView} annotation.
@@ -35,7 +36,7 @@ import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler
 public class MvpViewHandler extends PluginBaseAnnotationHandler<EComponentWithViewSupportHolder>
         implements MethodInjectionHandler<EComponentHolder> {
 
-    private final InjectHelper<EComponentHolder> injectHelper;
+    private transient final InjectHelper<EComponentHolder> injectHelper;
 
     public MvpViewHandler(AndroidAnnotationsEnvironment environment) {
         super(MvpView.class, environment);
@@ -59,20 +60,27 @@ public class MvpViewHandler extends PluginBaseAnnotationHandler<EComponentWithVi
     private void connectViewPresenterOnViewChange(Element element, EComponentWithViewSupportHolder holder) {
         Name fieldName = element.getSimpleName();
         String methodName = fieldName + "Update";
-        JMethod toString = holder.getGeneratedClass().method(JMod.PRIVATE, Void.TYPE, methodName);
-        JVar hasViewsParam = toString.param(HasViews.class, "hasViews");
+        JDefinedClass generatedClass = holder.getGeneratedClass();
+        JMethod viewUpdateMethod = buildViewUpdateMethod(fieldName, methodName, generatedClass);
+        JBlock onViewChanged = holder.getOnViewChangedBodyBeforeInjectionBlock();
+        JMethods.invoke(onViewChanged, viewUpdateMethod, HasViews.class, "hasViews");
+    }
 
-        toString.body().directStatement("if(" + fieldName + " instanceof " + HasMvpCallback.class.getName() + ") {");
-        toString.body().directStatement("   ((" + HasMvpCallback.class.getName() + ") " + fieldName
-                + ").setCallback(this);");
-        toString.body().directStatement("}");
-        toString.body().directStatement("if(" + fieldName + " instanceof "
-                + OnViewChangedListener.class.getName() + ") {");
-        toString.body().directStatement("   ((" + OnViewChangedListener.class.getName() + ") "
-                + fieldName + ").onViewChanged(hasViews);");
-        toString.body().directStatement("}");
+    private JMethod buildViewUpdateMethod(Name fieldName, String methodName, JDefinedClass generatedClass) {
+        JMethod method = generatedClass.method(JMod.PRIVATE, Void.TYPE, methodName);
+        buildViewUpdateMethodBody(fieldName, JMethods.body(method));
+        return method;
+    }
 
-        holder.getOnViewChangedBodyBeforeInjectionBlock().invoke(toString).arg(hasViewsParam);
+    private void buildViewUpdateMethodBody(Name fieldName, JBlock codeBlock) {
+        String hasCallbackInterface = PluginClasses.className(HasMvpCallback.class);
+        String onViewChangedInterface = PluginClasses.className(OnViewChangedListener.class);
+        codeBlock.directStatement("if(" + fieldName + " instanceof " + hasCallbackInterface + ") {");
+        codeBlock.directStatement("   ((" + hasCallbackInterface + ") " + fieldName + ").setCallback(this);");
+        codeBlock.directStatement("}");
+        codeBlock.directStatement("if(" + fieldName + " instanceof " + onViewChangedInterface + ") {");
+        codeBlock.directStatement("   ((" + onViewChangedInterface + ") " + fieldName + ").onViewChanged(hasViews);");
+        codeBlock.directStatement("}");
     }
 
     @Override
@@ -83,14 +91,13 @@ public class MvpViewHandler extends PluginBaseAnnotationHandler<EComponentWithVi
     @Override
     public void assignValue(JBlock targetBlock, IJAssignmentTarget fieldRef,
                             EComponentHolder holder, Element element, Element param) {
-        injectViewInstance(targetBlock, fieldRef, holder, element, param);
+        injectViewInstance(targetBlock, fieldRef, holder, param);
     }
 
     private void injectViewInstance(JBlock targetBlock, IJAssignmentTarget fieldRef,
-                                    EComponentHolder holder, Element element, Element param) {
-        AbstractJClass generatedClass = PluginAnnotations.generatedClassToInject(element, param, this);
-        JInvocation beanInstance = generatedClass.staticInvoke(EBeanHolder.GET_INSTANCE_METHOD_NAME)
-                .arg(holder.getContextRef());
+                                    EComponentHolder holder, Element param) {
+        AbstractJClass generatedClass = JClasses.asGeneratedClass(param, this);
+        JInvocation beanInstance = JMethods.invokeBeanGetInstance(generatedClass, holder.getContextRef());
         IJStatement assignment = fieldRef.assign(beanInstance);
         targetBlock.add(assignment);
     }

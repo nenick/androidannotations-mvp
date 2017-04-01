@@ -19,8 +19,9 @@ import javax.lang.model.element.Element;
 
 import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.androidannotations.plugin.mvp.MvpFragment;
-import de.nenick.androidannotations.plugin.mvp.utils.PluginAnnotations;
 import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler;
+import de.nenick.androidannotations.plugin.mvp.utils.JClasses;
+import de.nenick.androidannotations.plugin.mvp.utils.JMethods;
 
 /**
  * Handler for @{@link MvpFragment} annotation.
@@ -28,7 +29,7 @@ import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler
 public class MvpFragmentHandler extends PluginBaseAnnotationHandler<EComponentWithViewSupportHolder>
         implements MethodInjectionHandler<EComponentHolder> {
 
-    private final InjectHelper<EComponentHolder> injectHelper;
+    private transient final InjectHelper<EComponentHolder> injectHelper;
 
     public MvpFragmentHandler(AndroidAnnotationsEnvironment environment) {
         super(MvpFragment.class, environment);
@@ -63,13 +64,8 @@ public class MvpFragmentHandler extends PluginBaseAnnotationHandler<EComponentWi
     @Override
     public void assignValue(JBlock targetBlock, IJAssignmentTarget fieldRef,
                             EComponentHolder holder, Element element, Element param) {
-        fragmentInstance(targetBlock, fieldRef, element, param);
-    }
-
-    private void fragmentInstance(JBlock targetBlock, IJAssignmentTarget fieldRef, Element element, Element param) {
-        AbstractJClass generatedClass = PluginAnnotations.generatedClassToInject(element, param, this);
-        JInvocation fragmentBuilder = generatedClass.staticInvoke("builder");
-        JInvocation fragmentInstance = fragmentBuilder.invoke("build");
+        AbstractJClass fragmentToInject = JClasses.asGeneratedClass(param, this);
+        JInvocation fragmentInstance = JMethods.invokeFragmentCreation(fragmentToInject);
         IJStatement assignment = fieldRef.assign(fragmentInstance);
         targetBlock.add(assignment);
     }

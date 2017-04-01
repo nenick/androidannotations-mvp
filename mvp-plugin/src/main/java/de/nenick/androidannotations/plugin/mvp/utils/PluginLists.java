@@ -8,7 +8,7 @@ import java.util.List;
 import de.nenick.androidannotations.plugin.mvp.ActivityLauncher;
 
 /**
- * Custom utils for lists.
+ * Utils for creating lists.
  *
  * Used when Collections, Arrays and ... hasn't adequate functionality.
  */

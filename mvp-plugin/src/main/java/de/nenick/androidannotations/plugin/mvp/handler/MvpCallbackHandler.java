@@ -1,6 +1,8 @@
 package de.nenick.androidannotations.plugin.mvp.handler;
 
 import com.helger.jcodemodel.AbstractJClass;
+import com.helger.jcodemodel.JBlock;
+import com.helger.jcodemodel.JDefinedClass;
 import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 
@@ -18,6 +20,8 @@ import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.androidannotations.plugin.mvp.EMvpView;
 import de.nenick.androidannotations.plugin.mvp.HasMvpCallback;
 import de.nenick.androidannotations.plugin.mvp.MvpCallback;
+import de.nenick.androidannotations.plugin.mvp.utils.JClasses;
+import de.nenick.androidannotations.plugin.mvp.utils.JMethods;
 import de.nenick.androidannotations.plugin.mvp.utils.PluginBaseAnnotationHandler;
 import de.nenick.androidannotations.plugin.mvp.utils.PluginLists;
 
@@ -54,24 +58,26 @@ public class MvpCallbackHandler extends PluginBaseAnnotationHandler<EComponentHo
     }
 
     private void implementSetCallbackMethod(Element element, EComponentHolder holder) {
-        Element elementType = annotationHelper.getTypeUtils().asElement(element.asType());
-        AbstractJClass callbackClass = getJClass(elementType.toString());
-
-        implementsInterface(holder, callbackClass);
-
-        JMethod toString = holder.getGeneratedClass().method(JMod.PUBLIC, Void.TYPE, "setCallback");
+        AbstractJClass callbackClass = JClasses.asClass(element, this);
 
 
-        toString.annotate(Override.class);
-        toString.param(callbackClass, "callback");
-        toString.body().directStatement("this." + element.getSimpleName()
-                + " = (" + elementType.getSimpleName() + ") callback;");
+        JDefinedClass generatedClass = holder.getGeneratedClass();
+        JClasses.implementsInterface(generatedClass, callbackClass, HasMvpCallback.class, this);
+        buildCallbackMethod(element, callbackClass, generatedClass);
     }
 
-    private void implementsInterface(EComponentHolder holder, AbstractJClass callbackClass) {
-        AbstractJClass impl = getJClass(HasMvpCallback.class);
-        impl = impl.narrow(callbackClass);
+    private void buildCallbackMethod(Element element, AbstractJClass callbackClass, JDefinedClass generatedClass) {
+        JMethod method = generatedClass.method(JMod.PUBLIC, Void.TYPE, "setCallback");
+        buildMethodSignature(callbackClass, method);
+        buildCallbackMethodBody(element, callbackClass, JMethods.body(method));
+    }
 
-        holder.getGeneratedClass()._implements(impl);
+    private void buildMethodSignature(AbstractJClass callbackClass, JMethod method) {
+        method.annotate(Override.class);
+        method.param(callbackClass, "callback");
+    }
+
+    private void buildCallbackMethodBody(Element element, AbstractJClass callbackClass, JBlock methodBody) {
+        methodBody.directStatement("this." + element.getSimpleName() + " = (" + callbackClass.name() + ") callback;");
     }
 }

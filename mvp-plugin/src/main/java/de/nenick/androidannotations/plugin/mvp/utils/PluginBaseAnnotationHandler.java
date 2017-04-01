@@ -6,27 +6,58 @@ import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.handler.BaseAnnotationHandler;
 import org.androidannotations.helper.IdAnnotationHelper;
 import org.androidannotations.holder.GeneratedClassHolder;
+import org.androidannotations.internal.model.AnnotationElements;
+import org.androidannotations.internal.process.ProcessHolder;
 
-import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.Element;
 
-public abstract class PluginBaseAnnotationHandler<T extends GeneratedClassHolder> extends BaseAnnotationHandler<T>{
+/**
+ * Base for annotation handlers.
+ * <p>
+ * Makes utils, helpers and environment public for plugin utils.
+ */
+public abstract class PluginBaseAnnotationHandler<T extends GeneratedClassHolder> extends BaseAnnotationHandler<T> {
+
     public PluginBaseAnnotationHandler(Class<?> targetClass, AndroidAnnotationsEnvironment environment) {
         super(targetClass, environment);
     }
 
-    public PluginBaseAnnotationHandler(String target, AndroidAnnotationsEnvironment environment) {
-        super(target, environment);
-    }
-
-    IdAnnotationHelper getAnnotationHelper() {
+    /* default */ IdAnnotationHelper annotationHelper() {
         return annotationHelper;
     }
 
-    protected ProcessingEnvironment getProcessingEnvironment() {
-        return super.getProcessingEnvironment();
-    }
-
-    protected AbstractJClass getJClass(String fullyQualifiedClassName) {
+    /* default */ AbstractJClass jClass(String fullyQualifiedClassName) {
         return super.getJClass(fullyQualifiedClassName);
     }
+
+    /* default */ AbstractJClass jClass(Class cls) {
+        return super.getJClass(cls);
+    }
+
+    /* default */ ProcessHolder.Classes classes() {
+        return classes(getEnvironment());
+    }
+
+    /* default */ AnnotationElements validateElements() {
+        return validateElements(getEnvironment());
+    }
+
+    /* default */ GeneratedClassHolder generatedClassHolder(Element baseClass) {
+        return generatedClassHolder(baseClass, getEnvironment());
+    }
+
+    private GeneratedClassHolder generatedClassHolder(Element baseClass, AndroidAnnotationsEnvironment environment) {
+        return environment.getGeneratedClassHolder(baseClass);
+    }
+
+    private ProcessHolder.Classes classes(AndroidAnnotationsEnvironment environment) {
+        return environment.getClasses();
+    }
+
+    private AnnotationElements validateElements(AndroidAnnotationsEnvironment environment) {
+        return environment.getValidatedElements();
+    }
+
+
+
 }

@@ -26,14 +26,14 @@ public class MvpPlugin extends AndroidAnnotationsPlugin {
     }
 
     @Override
-    public List<AnnotationHandler<?>> getHandlers(AndroidAnnotationsEnvironment androidAnnotationEnv) {
+    public List<AnnotationHandler<?>> getHandlers(AndroidAnnotationsEnvironment environment) {
         List<AnnotationHandler<?>> annotationHandlers = new ArrayList<>();
-        annotationHandlers.add(new EMvpPresenterHandler(androidAnnotationEnv));
-        annotationHandlers.add(new EMvpViewHandler(androidAnnotationEnv));
-        annotationHandlers.add(new MvpCallbackHandler(androidAnnotationEnv));
-        annotationHandlers.add(new MvpViewHandler(androidAnnotationEnv));
-        annotationHandlers.add(new MvpFragmentHandler(androidAnnotationEnv));
-        annotationHandlers.add(new MvpActivityHandler(androidAnnotationEnv));
+        annotationHandlers.add(new EMvpPresenterHandler(environment));
+        annotationHandlers.add(new EMvpViewHandler(environment));
+        annotationHandlers.add(new MvpCallbackHandler(environment));
+        annotationHandlers.add(new MvpViewHandler(environment));
+        annotationHandlers.add(new MvpFragmentHandler(environment));
+        annotationHandlers.add(new MvpActivityHandler(environment));
         return annotationHandlers;
     }
 }
