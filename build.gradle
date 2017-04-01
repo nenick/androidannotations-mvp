@@ -12,6 +12,8 @@ buildscript {
     }
 }
 
+apply from: "$rootDir/gradle/codacyCoverage.gradle"
+
 allprojects {
     repositories {
         jcenter()
@@ -33,8 +35,6 @@ allprojects {
         ruleSetFiles = files("$rootDir/config/ruleset.xml")
     }
 }
-
-
 
 task clean(type: Delete) {
     delete rootProject.buildDir

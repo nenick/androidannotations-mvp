@@ -1,0 +1,15 @@
+configurations { codacy }
+repositories {
+    jcenter()
+}
+dependencies {
+    codacy 'com.github.codacy:codacy-coverage-reporter:1.0.13'
+}
+task sendCoverageToCodacy(type: JavaExec, dependsOn: jacocoTestReport) {
+    main = "com.codacy.CodacyCoverageReporter"
+    classpath = configurations.codacy
+    args = [
+            "-l", "Java",
+            "-r", "${rootDir}/mvp-plugin/build/reports/jacoco/test/jacocoTestReport.xml"
+    ]
+}
