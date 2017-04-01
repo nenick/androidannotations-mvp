@@ -37,7 +37,7 @@ public final class GeneratedClasses {
         return generatedActivityOrFragment(base.asClass(cls), base);
     }
 
-    public static JDefinedClass intentBuilder(JDefinedClass activity, PluginBaseAnnotationHandler base) {
+    public static JDefinedClass intentBuilder(JDefinedClass activity) {
         for (JDefinedClass innerClass : activity.classes()) {
             if (isIntentBuilder(innerClass.name())) {
                 return innerClass;

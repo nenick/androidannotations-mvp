@@ -42,7 +42,7 @@ import static org.androidannotations.helper.ModelConstants.generationSuffix;
             throws JClassAlreadyExistsException {
         String activityName = readGeneratedActivityToLaunch(JTypeArguments.genericTypeArgument(element));
         JDefinedClass activityToLaunch = GeneratedClasses.generatedActivityOrFragment(activityName, base);
-        JDefinedClass intentBuilderClass = GeneratedClasses.intentBuilder(activityToLaunch, base);
+        JDefinedClass intentBuilderClass = GeneratedClasses.intentBuilder(activityToLaunch);
         buildActivityLauncherClass(element, holder.getGeneratedClass(), activityToLaunch, intentBuilderClass);
     }
 
