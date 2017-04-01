@@ -9,12 +9,12 @@ import java.lang.annotation.Target;
  * Inject an Activity launcher.
  *
  * <pre>
- * &#64;EMvpPresenter
- * &#64;EActivity(R.layout.activity_main)
+ * {@literal @}EMvpPresenter
+ * {@literal @}EActivity(R.layout.activity_main)
  * public class MainActivity extends Activity {
  *
- *   &#64;MvpActivity
- *   ActivityLauncher<OtherActivity_.IntentBuilder_> otherActivity;
+ *   {@literal @}MvpActivity
+ *   ActivityLauncher{@literal <}OtherActivity_.IntentBuilder_{@literal >} otherActivity;
  *
  *   void onEvent() {
  *      otherActivity.intent(this).start();

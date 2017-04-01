@@ -9,7 +9,7 @@ import de.nenick.androidannotations.plugin.mvp.ActivityLauncher;
 
 /**
  * Utils for creating lists.
- *
+ * <p>
  * Used when Collections, Arrays and ... hasn't adequate functionality.
  */
 public final class PluginLists {
@@ -37,7 +37,7 @@ public final class PluginLists {
      * @return List with given annotations.
      */
     @SafeVarargs
-    public static List<Class<? extends Annotation>> list(Class<? extends Annotation> ... cls) {
+    public static List<Class<? extends Annotation>> list(Class<? extends Annotation>... cls) {
         return Arrays.asList(cls);
     }
 

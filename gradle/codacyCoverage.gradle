@@ -1,6 +1,7 @@
 configurations { codacy }
 repositories {
     maven { url "https://jitpack.io" }
+    maven { url "http://dl.bintray.com/typesafe/maven-releases" }
 }
 dependencies {
     codacy 'com.github.codacy:codacy-coverage-reporter:1.0.13'
