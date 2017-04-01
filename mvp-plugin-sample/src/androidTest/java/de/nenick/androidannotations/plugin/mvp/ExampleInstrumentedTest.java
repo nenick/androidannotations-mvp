@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void useAppContext() {
-        assertEquals("de.nenick.androidannotations.plugin.mvp.sample", appContext.getPackageName());
+        assertEquals("Dummy check","de.nenick.androidannotations.plugin.mvp.sample", appContext.getPackageName());
     }
 }

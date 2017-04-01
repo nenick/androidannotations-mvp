@@ -32,7 +32,7 @@ import static org.androidannotations.helper.ModelConstants.generationSuffix;
  */
 /* default */ class MvpActivityLauncherBuilder {
 
-    private final transient PluginBaseAnnotationHandler base;
+    private final PluginBaseAnnotationHandler base;
 
     /* default */ MvpActivityLauncherBuilder(PluginBaseAnnotationHandler base) {
         this.base = base;

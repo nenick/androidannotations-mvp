@@ -33,7 +33,7 @@ import de.nenick.androidannotations.plugin.mvp.utils.PluginLists;
 public class MvpActivityHandler extends PluginBaseAnnotationHandler<EComponentWithViewSupportHolder>
         implements MethodInjectionHandler<EComponentHolder> {
 
-    private final transient InjectHelper<EComponentHolder> injectHelper;
+    private final InjectHelper<EComponentHolder> injectHelper;
 
     public MvpActivityHandler(AndroidAnnotationsEnvironment environment) {
         super(MvpActivity.class, environment);

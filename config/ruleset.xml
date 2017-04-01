@@ -57,7 +57,10 @@
     <rule ref="rulesets/java/finalizers.xml"/>
     <rule ref="rulesets/java/imports.xml"/>
     <rule ref="rulesets/java/j2ee.xml"/>
-    <rule ref="rulesets/java/javabeans.xml"/>
+    <rule ref="rulesets/java/javabeans.xml">
+        <!-- serialization not necessary -->
+        <exclude name="BeanMembersShouldSerialize"/>
+    </rule>
     <rule ref="rulesets/java/junit.xml"/>
     <rule ref="rulesets/java/logging-jakarta-commons.xml"/>
     <rule ref="rulesets/java/logging-java.xml"/>
