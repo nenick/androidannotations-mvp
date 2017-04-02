@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -34,7 +34,9 @@ allprojects {
         ignoreFailures = true
         toolVersion = '7.6.1'
         configFile = file("$rootDir/config/checkstyle.xml")
+        //checkstyleClasspath += [configurations.codeCheck]
     }
+    //println it.checkstyle.includes
 
     pmd {
         ignoreFailures = true
