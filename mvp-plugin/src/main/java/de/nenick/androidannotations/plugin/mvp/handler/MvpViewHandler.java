@@ -46,9 +46,14 @@ public class MvpViewHandler extends PluginBaseAnnotationHandler<EComponentWithVi
 
     @Override
     public void validate(Element element, ElementValidation validation) {
-        validatorHelper.enclosingElementHasAnnotation(EMvpPresenter.class, element, validation);
+        injectHelper.validate(MvpView.class, element, validation);
         validatorHelper.typeOrTargetValueHasAnnotation(EMvpView.class, element, validation);
         validatorHelper.isNotPrivate(element, validation);
+    }
+
+    @Override
+    public void validateEnclosingElement(Element element, ElementValidation valid) {
+        validatorHelper.enclosingElementHasAnnotation(EMvpPresenter.class, element, valid);
     }
 
     @Override
@@ -102,8 +107,4 @@ public class MvpViewHandler extends PluginBaseAnnotationHandler<EComponentWithVi
         targetBlock.add(assignment);
     }
 
-    @Override
-    public void validateEnclosingElement(Element element, ElementValidation valid) {
-        validatorHelper.enclosingElementHasEnhancedComponentAnnotation(element, valid);
-    }
 }

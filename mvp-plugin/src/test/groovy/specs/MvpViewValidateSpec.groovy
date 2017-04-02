@@ -102,7 +102,27 @@ class MvpViewValidateSpec extends BaseSpecification {
         assert ex.message.contains('Element myView invalidated by MvpViewHandler')
     }
 
-    // TODO test that field can not be private
+    def "Invalidate private field"() {
+        given:
+        def mainViewClass = view(MAIN_VIEW)
+                .annotate(EBean.class)
+                .annotate(EMvpView.class)
+
+        def mainActivityClass = activity(MAIN_ACTIVITY)
+                .annotate(EActivity.class, "R.layout.activity_main")
+                .annotate(EMvpPresenter.class)
+                .withPrivate(mainViewClass, "myView", MvpView.class)
+
+        androidProjectWith(mainActivityClass, mainViewClass)
+
+        when:
+        run(assembleDebugTask)
+
+        then:
+        Exception ex = thrown()
+        assert ex.message.contains("MvpView cannot be used on a private element")
+        assert ex.message.contains('Element myView invalidated by MvpViewHandler')
+    }
 
     private androidProjectWith(ActivityBuilder mainActivityClass, ViewBuilder mainViewClass) {
         androidProjectBuilder()

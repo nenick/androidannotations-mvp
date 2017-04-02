@@ -7,6 +7,11 @@ abstract class ClassBuilder<Subclass extends ClassBuilder> implements Builder {
     String importClass
     InterfaceBuilder implInterface
     Map<Class, String> classAnnotations = [:]
+    List<String> fieldClasses = []
+    List<String> fieldsNames = []
+    List<String> fieldsModifier = []
+    List<Class> fieldsAnnotations = []
+    List<String> imports = []
 
     Subclass annotate(Class annotation, String value = null) {
         classAnnotations.put(annotation, value)
@@ -18,15 +23,10 @@ abstract class ClassBuilder<Subclass extends ClassBuilder> implements Builder {
         return (Subclass) this
     }
 
-    List<String> fieldClasses = []
-    List<String> fieldsNames = []
-    List<Class> fieldsAnnotations = []
-    List<String> imports = []
-
-
     Subclass with(ClassBuilder fieldClass, String name, Class annotation) {
         fieldClasses.add(fieldClass.name)
         fieldsNames.add(name)
+        fieldsModifier.add("")
         fieldsAnnotations.add(annotation);
         imports.add(fieldClass.importClass)
         return (Subclass) this
@@ -35,8 +35,18 @@ abstract class ClassBuilder<Subclass extends ClassBuilder> implements Builder {
     Subclass with(Class fieldClass, String name, Class annotation) {
         fieldClasses.add(fieldClass.simpleName)
         fieldsNames.add(name)
+        fieldsModifier.add("")
         fieldsAnnotations.add(annotation);
         imports.add(fieldClass.name)
+        return (Subclass) this
+    }
+
+    Subclass withPrivate(ClassBuilder fieldClass, String name, Class annotation) {
+        fieldClasses.add(fieldClass.name)
+        fieldsNames.add(name)
+        fieldsModifier.add("private")
+        fieldsAnnotations.add(annotation);
+        imports.add(fieldClass.importClass)
         return (Subclass) this
     }
 
@@ -65,7 +75,7 @@ abstract class ClassBuilder<Subclass extends ClassBuilder> implements Builder {
             fieldEntries = """
 
     @${fieldsAnnotations[0].simpleName}
-    ${fieldClasses[0]} ${fieldsNames[0]};
+    ${fieldsModifier[0]} ${fieldClasses[0]} ${fieldsNames[0]};
 
             """
         }

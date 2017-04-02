@@ -46,8 +46,15 @@ public class MvpActivityHandler extends PluginBaseAnnotationHandler<EComponentWi
      */
     @Override
     public void validate(Element element, ElementValidation validation) {
-        validatorHelper.enclosingElementHasEActivityOrEFragment(element, validation);
+        injectHelper.validate(MvpActivity.class, element, validation);
+
         validatorHelper.extendsOneOfTypes(element, PluginLists.singletonName(ActivityLauncher.class), validation);
+        validatorHelper.isNotPrivate(element, validation);
+    }
+
+    @Override
+    public void validateEnclosingElement(Element element, ElementValidation valid) {
+        validatorHelper.enclosingElementHasEActivityOrEFragment(element, valid);
     }
 
     /**
@@ -93,8 +100,5 @@ public class MvpActivityHandler extends PluginBaseAnnotationHandler<EComponentWi
         return className.endsWith(element.getSimpleName() + "Launcher_");
     }
 
-    @Override
-    public void validateEnclosingElement(Element element, ElementValidation valid) {
-        validatorHelper.enclosingElementHasEnhancedComponentAnnotation(element, valid);
-    }
+
 }

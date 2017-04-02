@@ -61,6 +61,7 @@ class MvpFragmentValidateSpec extends BaseSpecification {
         given:
         def mainFragmentClass = fragment(MAIN_FRAGMENT)
                 .annotate(EFragment.class, "R.layout.fragment_main")
+                .annotate(EMvpPresenter.class)
 
         def mainActivityClass = activity(MAIN_ACTIVITY)
                 .annotate(EActivity.class, "R.layout.activity_main")
@@ -73,7 +74,7 @@ class MvpFragmentValidateSpec extends BaseSpecification {
 
         then:
         Exception ex = thrown()
-        assert ex.message.contains("MvpFragment can only be used on an element annotated with @de.nenick.androidannotations.plugin.mvp.EMvpPresenter")
+        assert ex.message.contains("MvpFragment can only be used in a class annotated with @de.nenick.androidannotations.plugin.mvp.EMvpPresenter.")
         assert ex.message.contains('Element myFragment invalidated by MvpFragmentHandler')
     }
 

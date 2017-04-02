@@ -94,7 +94,25 @@ class MvpActivityValidateSpec extends BaseSpecification {
         assert ex.message.contains('Element otherActivity invalidated by MvpActivityHandler')
     }
 
-    // TODO test that field can not be private
+    def "Invalidate private field"() {
+        given:
+        def otherActivityClass = activity(OTHER_ACTIVITY)
+                .annotate(EActivity.class, "R.layout.activity_main")
+
+        def mainActivityClass = activity(MAIN_ACTIVITY)
+                .annotate(EActivity.class, "R.layout.activity_main")
+                .withPrivate(activityLauncher(otherActivityClass), "otherActivity", MvpActivity.class)
+
+        androidProjectWith(mainActivityClass, otherActivityClass)
+
+        when:
+        run(assembleDebugTask)
+
+        then:
+        Exception ex = thrown()
+        assert ex.message.contains("MvpActivity cannot be used on a private element")
+        assert ex.message.contains('Element otherActivity invalidated by MvpActivityHandler')
+    }
 
     private androidProjectWith(ActivityBuilder mainActivityClass, ActivityBuilder otherActivityClass) {
         def manifest = androidManifest(mainActivityClass)

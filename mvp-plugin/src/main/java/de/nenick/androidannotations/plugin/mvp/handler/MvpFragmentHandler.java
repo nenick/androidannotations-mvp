@@ -43,9 +43,15 @@ public class MvpFragmentHandler extends PluginBaseAnnotationHandler<EComponentWi
      */
     @Override
     public void validate(Element element, ElementValidation validation) {
-        validatorHelper.enclosingElementHasEActivityOrEFragment(element, validation);
+        injectHelper.validate(MvpFragment.class, element, validation);
+
         validatorHelper.typeOrTargetValueHasAnnotation(EMvpPresenter.class, element, validation);
         validatorHelper.typeOrTargetValueHasAnnotation(EFragment.class, element, validation);
+    }
+
+    @Override
+    public void validateEnclosingElement(Element element, ElementValidation valid) {
+        validatorHelper.enclosingElementHasAnnotation(EMvpPresenter.class, element, valid);
     }
 
     /**
@@ -68,10 +74,5 @@ public class MvpFragmentHandler extends PluginBaseAnnotationHandler<EComponentWi
         JInvocation fragmentInstance = JMethods.invokeFragmentCreation(fragmentToInject);
         IJStatement assignment = fieldRef.assign(fragmentInstance);
         targetBlock.add(assignment);
-    }
-
-    @Override
-    public void validateEnclosingElement(Element element, ElementValidation valid) {
-        validatorHelper.enclosingElementHasEnhancedComponentAnnotation(element, valid);
     }
 }

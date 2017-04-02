@@ -115,7 +115,25 @@ class MvpCallbackValidateSpec extends BaseSpecification {
         assert ex.message.contains('Element myCallback invalidated by MvpCallbackHandler')
     }
 
-    // TODO test that field can not be private
+    def "Invalidate private field"() {
+        given:
+        def callbackInterface = callback(CALLBACK)
+
+        def mainViewClass = view(MAIN_VIEW)
+                .annotate(EBean.class)
+                .annotate(EMvpView.class)
+                .withPrivate(callbackInterface, "myCallback", MvpCallback.class)
+
+        androidProjectWith(mainViewClass, callbackInterface)
+
+        when:
+        run(assembleDebugTask)
+
+        then:
+        Exception ex = thrown()
+        assert ex.message.contains("MvpCallback cannot be used on a private element")
+        assert ex.message.contains('Element myCallback invalidated by MvpCallbackHandler')
+    }
 
     private androidProjectWith(ActivityBuilder mainActivityClass, InterfaceBuilder callbackInterface) {
         androidProjectBuilder()

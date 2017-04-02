@@ -1,12 +1,11 @@
-package tools
+package tools;
 
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
 import tools.helper.ProjectHelper
 
-abstract class BaseSpecification extends Specification
-        implements ProjectHelper {
+abstract class BaseSpecification extends Specification implements ProjectHelper {
 
     @Rule
     TemporaryFolder dir
