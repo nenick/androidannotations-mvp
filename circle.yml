@@ -20,7 +20,7 @@ test:
     # (1) run sample unit tests
     # (1) run sample checks
     # (2) run sample conntected android tests
-    - case $CIRCLE_NODE_INDEX in 0) ./gradlew check ;; 1) ./gradlew connectedCheck -i ;; esac:
+    - case $CIRCLE_NODE_INDEX in 0) ./gradlew check ;; 1) ./gradlew connectedDebugAndroidTest ;; esac:
         parallel: true
 
   post:
