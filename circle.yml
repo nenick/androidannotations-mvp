@@ -7,11 +7,14 @@ test:
 
   override:
     # run plugin tests
-    - ./gradlew mvp-plugin:check
+    - ./gradlew mvp-plugin:test
 
+    # run plugin checks
+    # run plugin api checks
     # run sample unit tests
+    # run sample checks
     # run sample connected tests
-    - case $CIRCLE_NODE_INDEX in 0) ./gradlew mvp-plugin-sample:check ;; 1) ./gradlew connectedCheck ;; esac:
+    - case $CIRCLE_NODE_INDEX in 0) ./gradlew check ;; 1) ./gradlew connectedCheck ;; esac:
         parallel: true
 
   post:
