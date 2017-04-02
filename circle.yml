@@ -9,7 +9,11 @@ test:
     # (1) run plugin tests
     # (2) prebuild sample conntected android tests
     - case $CIRCLE_NODE_INDEX in 0) ./gradlew mvp-plugin:test ;; 1) ./gradlew :mvp-plugin-sample:assembleDebug :mvp-plugin-sample:assembleDebugAndroidTest ;; esac:
-            parallel: true
+        parallel: true
+
+    # wait until emulator is ready
+    - case $CIRCLE_NODE_INDEX in 1) adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82':
+        parallel: true
 
     # (1) run plugin checks
     # (1) run plugin api checks
