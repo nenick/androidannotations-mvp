@@ -6,14 +6,16 @@ test:
         background: true
 
   override:
-    # run plugin tests
-    - ./gradlew mvp-plugin:test
+    # (1) run plugin tests
+    # (2) prebuild sample conntected android tests
+    - case $CIRCLE_NODE_INDEX in 0) ./gradlew mvp-plugin:test ;; 1) ./gradlew :mvp-plugin-sample:assembleDebug :mvp-plugin-sample:assembleDebugAndroidTest ;; esac:
+            parallel: true
 
-    # run plugin checks
-    # run plugin api checks
-    # run sample unit tests
-    # run sample checks
-    # run sample connected tests
+    # (1) run plugin checks
+    # (1) run plugin api checks
+    # (1) run sample unit tests
+    # (1) run sample checks
+    # (2) run sample conntected android tests
     - case $CIRCLE_NODE_INDEX in 0) ./gradlew check ;; 1) ./gradlew connectedCheck ;; esac:
         parallel: true
 
