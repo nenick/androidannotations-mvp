@@ -14,13 +14,6 @@ buildscript {
 
 apply from: "$rootDir/gradle/codacyCoverage.gradle"
 
-configurations { codeCheck }
-
-dependencies {
-    codeCheck 'net.sourceforge.pmd:pmd-java:5.5.5'
-    codeCheck 'com.puppycrawl.tools:checkstyle:7.6.1'
-}
-
 allprojects {
     repositories {
         jcenter()
@@ -34,9 +27,7 @@ allprojects {
         ignoreFailures = true
         toolVersion = '7.6.1'
         configFile = file("$rootDir/config/checkstyle.xml")
-        //checkstyleClasspath += [configurations.codeCheck]
     }
-    //println it.checkstyle.includes
 
     pmd {
         ignoreFailures = true
