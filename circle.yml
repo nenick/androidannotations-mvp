@@ -12,7 +12,7 @@ test:
         parallel: true
 
     # wait until emulator is ready
-    - case $CIRCLE_NODE_INDEX in 1) adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82':
+    - case $CIRCLE_NODE_INDEX in 1) adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82' ;; esac:
         parallel: true
 
     # (1) run plugin checks
