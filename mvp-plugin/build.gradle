@@ -27,7 +27,7 @@ version '1.0.0-SNAPSHOT'
 group = "de.nenick"
 tasks.install.repositories.mavenDeployer.pom.artifactId = 'androidannotations-mvp'
 
-def androidPluginVersion = "2.2.3"
+def androidPluginVersion = "2.3.0"
 
 tasks.withType(JavaCompile) {
     if (name.toLowerCase().contains("test")) {
