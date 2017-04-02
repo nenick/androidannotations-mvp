@@ -7,6 +7,13 @@ apply plugin: 'co.riiid.gradle'
 apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'pl.allegro.tech.build.axion-release'
 
+import org.apache.tools.ant.filters.ReplaceTokens
+processResources {
+    filesMatching('*.properties') {
+        filter( ReplaceTokens, tokens:['project.version': currentReleaseVersion])
+    }
+}
+
 // ##################################################
 // read the last git release tag
 // Original code see: http://ryanharter.com/blog/2013/07/30/automatic-versioning-with-git-and-gradle/
@@ -22,6 +29,8 @@ def currentReleaseTag = { ->
     return releaseTag ? releaseTag : "release-0.0.0"
 }
 
+ext.currentReleaseVersion = currentReleaseTag().replace("release-", "")
+
 // ##################################################
 // Plugin configuration to create release tag and push it to github
 //
@@ -36,10 +45,9 @@ scmVersion {
 //
 publish {
     groupId = 'de.nenick'
-    artifactId = 'androidannotation-mvp'
     publishVersion = currentReleaseTag().replace("release-", "")
     desc = 'Oh hi, this is a nice description for a project, right?'
-    website = 'https://github.com/nenick/androidannotation-mvp'
+    website = 'https://github.com/nenick/androidannotations-mvp'
     licences = ['AML'] // AML = MIT license http://spdx.org/licenses/
     autoPublish = true
 }
@@ -55,6 +63,6 @@ github {
     tagName = currentReleaseTag()
     targetCommitish = 'master'
     name = currentReleaseTag()
-    body = new File(projectDir, '../RELEASE_NOTES.MD').text
-    assets = ['androidannotation-mvp/build/libs/mvp-plugin-1.0.0.jar']
+    body = new File(projectDir, '../RELEASE_PLAN.md').text
+    assets = ['androidannotation-mvp/build/libs/mvp-plugin-' + currentReleaseVersion + '.jar']
 }
