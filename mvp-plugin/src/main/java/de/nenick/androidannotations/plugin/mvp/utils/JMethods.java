@@ -18,22 +18,34 @@ public final class JMethods {
         // mark this class as static utility class
     }
 
+    /**
+     * Access method body.
+     */
     public static JBlock body(JMethod method) {
         return method.body();
     }
 
 
+    /**
+     * Create getInstance(Context) invocation.
+     */
     public static JInvocation invokeBeanGetInstance(AbstractJClass cls, IJExpression contextRef) {
         JInvocation invocation = staticInvoke(cls, EBeanHolder.GET_INSTANCE_METHOD_NAME);
         withArgument(invocation, contextRef);
         return invocation;
     }
 
+    /**
+     * Create builder().build() invocation.
+     */
     public static JInvocation invokeFragmentCreation(AbstractJClass cls) {
         JInvocation builder = staticInvoke(cls, "builder");
         return invoke(builder, "build");
     }
 
+    /**
+     * Create invocation for static method on target class.
+     */
     public static JInvocation staticInvoke(AbstractJClass cls, String methodName, JVar param) {
         JInvocation invocation = cls.staticInvoke(methodName);
         withArgument(invocation, param);
@@ -44,6 +56,9 @@ public final class JMethods {
         return cls.staticInvoke(methodName);
     }
 
+    /**
+     * Create invocation for method on target class.
+     */
     public static void invoke(JBlock atTargetCodeBlock, JMethod method, Class paramType, String paramVariableName) {
         JVar param = method.param(paramType, paramVariableName);
         JInvocation invocation = atTargetCodeBlock.invoke(method);

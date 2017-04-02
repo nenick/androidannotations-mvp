@@ -18,17 +18,25 @@ public final class JClasses {
         // mark this class as static utility class
     }
 
-
+    /**
+     * Class reference to element type.
+     */
     public static AbstractJClass asClass(Element fieldElement, PluginBaseAnnotationHandler base) {
         String className = fullyQualifiedClassName(fieldElement.asType());
         return base.asClass(className);
     }
 
+    /**
+     * Generated class reference to element type.
+     */
     public static AbstractJClass asGeneratedClass(Element fieldElement, PluginBaseAnnotationHandler base) {
         String className = fullyQualifiedGeneratedClassName(base.annotationHelper(), fieldElement.asType());
         return base.asClass(className);
     }
 
+    /**
+     * Add interface to target class.
+     */
     public static void implementsInterface(JDefinedClass target, AbstractJClass arg,
                                            Class interfaceClass, PluginBaseAnnotationHandler base) {
         AbstractJClass interfaceJClass = base.asClass(interfaceClass);

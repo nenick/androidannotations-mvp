@@ -14,10 +14,16 @@ public final class PluginClasses {
         // mark this class as static utility class
     }
 
+    /**
+     * Read class name from target class.
+     */
     public static String className(Class cls) {
         return cls.getName();
     }
 
+    /**
+     * Get reference to context class.
+     */
     public static AbstractJType context(PluginBaseAnnotationHandler base) {
         ProcessHolder.Classes environmentClasses = base.classes();
         return contextClass(environmentClasses);

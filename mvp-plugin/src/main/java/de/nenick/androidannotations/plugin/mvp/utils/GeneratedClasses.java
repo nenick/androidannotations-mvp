@@ -22,6 +22,9 @@ public final class GeneratedClasses {
         // mark this class as static utility class
     }
 
+    /**
+     * Search for target class among generated activities and fragments.
+     */
     public static JDefinedClass generatedActivityOrFragment(AbstractJClass cls, PluginBaseAnnotationHandler base) {
         Set<? extends Element> baseClasses = generatedActivitiesAndFragments(base.validateElements());
         for (Element baseClass : baseClasses) {
@@ -33,10 +36,16 @@ public final class GeneratedClasses {
         throw new IllegalStateException();
     }
 
+    /**
+     * Search for target class among generated activities and fragments.
+     */
     public static JDefinedClass generatedActivityOrFragment(String cls, PluginBaseAnnotationHandler base) {
         return generatedActivityOrFragment(base.asClass(cls), base);
     }
 
+    /**
+     * Find intent builder among at target generated class.
+     */
     public static JDefinedClass intentBuilder(JDefinedClass activity) {
         for (JDefinedClass innerClass : activity.classes()) {
             if (isIntentBuilder(innerClass.name())) {
