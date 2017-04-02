@@ -185,9 +185,7 @@
         <module name="SummaryJavadoc">
             <property name="forbiddenSummaryFragments" value="^@return the *|^This method returns |^A [{]@code [a-zA-Z0-9]+[}]( is a )"/>
         </module>
-        <module name="JavadocParagraph">
-            <property name="allowNewlineParagraph" value="false"/>
-        </module>
+        <!-- module name="JavadocParagraph" until we can avoid the issue: <p> tag should be preceded with an empty line. -->
         <module name="AtclauseOrder">
             <property name="tagOrder" value="@param, @return, @throws, @deprecated"/>
             <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
@@ -213,5 +211,8 @@
             <property name="exceptionVariableName" value="expected"/>
         </module>
         <module name="CommentsIndentation"/>
+        <module name="TodoComment" >
+            <property name="format" value="(TODO)|(FIXME)"/>
+        </module>
     </module>
 </module>

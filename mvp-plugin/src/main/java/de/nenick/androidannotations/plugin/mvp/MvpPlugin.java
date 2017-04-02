@@ -1,6 +1,5 @@
 package de.nenick.androidannotations.plugin.mvp;
 
-
 import org.androidannotations.AndroidAnnotationsEnvironment;
 import org.androidannotations.handler.AnnotationHandler;
 import org.androidannotations.plugin.AndroidAnnotationsPlugin;

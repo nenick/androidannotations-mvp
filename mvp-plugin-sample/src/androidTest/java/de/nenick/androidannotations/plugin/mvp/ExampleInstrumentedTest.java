@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
 
-    private Context appContext = InstrumentationRegistry.getTargetContext();
+    private final Context appContext = InstrumentationRegistry.getTargetContext();
 
     @Test
     public void useAppContext() {

@@ -17,12 +17,10 @@ public final class JTypeArguments {
 
     /**
      * Get the first elements type argument.
+     *
      * <p>
-     * <pre>
-     *     ClassWithTypeArgument{@literal <}MyTypeArgument{@literal <} variable;
-     * </pre>
-     * <p>
-     * Typically call it `genericTypeArgument((DeclaredType) element.asType())`.
+     * Example: ClassWithTypeArgument{@literal <}MyTypeArgument{@literal >} variable; <br>
+     * Call: genericTypeArgument((DeclaredType) element.asType())
      *
      * @param element Element with generic type arguments.
      * @return Type argument.
