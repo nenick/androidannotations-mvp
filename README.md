@@ -1,11 +1,12 @@
+# AndroidAnnotations MVP Plugin
+
 [![CircleCI branch](https://img.shields.io/circleci/project/github/nenick/androidannotations-mvp/master.svg)](https://circleci.com/gh/nenick/androidannotations-mvp)
 [![Codacy grade](https://img.shields.io/codacy/grade/cd0e4c895cb3452885b838f8a1aef25c.svg)](https://www.codacy.com/app/nico_kuechler/androidannotations-mvp)
 [![Codacy branch coverage](https://img.shields.io/codacy/coverage/cd0e4c895cb3452885b838f8a1aef25c/master.svg)](https://www.codacy.com/app/nico_kuechler/androidannotations-mvp)
 
-# AndroidAnnotations MVP Plugin
-
 Plugin provides annotations for Model-View-Presenter (MVP) pattern.
-This plugin follows the approach that [activities/fragments are the presenters](http://www.techyourchance.com/activities-android/).
+This plugin follows the approach that [activities and fragments are presenters](http://www.techyourchance.com/activities-android/).
+
 
 ## Installation
 
@@ -53,7 +54,8 @@ Annotation | Short Description
 
 ### Cookbook 
 
-[How thing could be done.](docs/BestPractice.md)
+* [Show fragments](docs/CookManageFragments.md)
+* [Navigation to another screen](docs/CookViewNavigation.md)
 
 ## Support
 
@@ -73,6 +75,6 @@ Test and build MVP plugin at command line
 
 Release MVP plugin
 
-* update RELEASE_PLAN.md with new release information
-* from project root execute  `./gradlew release -Prelease.version=X.X.X` and push back to github
-* after release is done, update README.md with latest project version number
+* update `RELEASE_PLAN.md` with new release information
+* from project root execute  `./gradlew release -Prelease.version=X.X.X` and push it
+* after release is done, update `README.md` with latest project version number
