@@ -2,7 +2,6 @@ package tools
 
 trait TestProperties implements TestProperties1 {
 
-
     // WOW? no more than 9 properties or it makes boom
     String androidApplicationProjectId = "de.nenick.test.application"
     def pluginVersion = readProjectVersion()
@@ -15,7 +14,13 @@ trait TestProperties implements TestProperties1 {
 
     def readLibraryVersions() {
         def result = [:]
-        new File("gradle/library.gradle").getText().eachMatch(/\s*([a-zA-Z]*)\s*:\s*([a-zA-Z:.0-9-"]*)\s*/, {
+        def libraryFile
+        if (new File("").absolutePath.contains("mvp-plugin")) {
+            libraryFile = "../gradle/library.gradle"
+        } else {
+            libraryFile = "gradle/library.gradle"
+        }
+        new File(libraryFile).getText().eachMatch(/\s*([a-zA-Z]*)\s*:\s*([a-zA-Z:.0-9-"]*)\s*/, {
             result.put(it[1], it[2])
         })
         return result
