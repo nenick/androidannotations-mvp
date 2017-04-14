@@ -18,8 +18,7 @@ apply plugin: 'maven'
 apply from: "$project.rootDir/gradle/projectLocalRepo.gradle"
 apply from: "$project.rootDir/gradle/release.gradle"
 
-//version currentReleaseVersion + '-SNAPSHOT'
-version '0.0.0-SNAPSHOT'
+version currentReleaseVersion + '-SNAPSHOT'
 group = "de.nenick"
 
 project.sourceCompatibility = JavaVersion.VERSION_1_7
