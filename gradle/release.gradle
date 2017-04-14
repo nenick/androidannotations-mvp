@@ -49,7 +49,7 @@ publish {
     publishVersion = currentReleaseTag().replace("v", "")
     desc = 'Oh hi, this is a nice description for a project, right?'
     website = 'https://github.com/nenick/androidannotations-mvp'
-    licences = ['AML'] // AML = MIT license http://spdx.org/licenses/
+    licences = ['Apache-2.0'] // http://spdx.org/licenses/
     autoPublish = true
 }
 
