@@ -19,7 +19,7 @@ repositories {
     }
 }
 
-def androidannotations = 4.2.0
+def androidannotations = 4.3.0
 def androidannotations-mvp = 1.0.0 
 
 deoendencies {

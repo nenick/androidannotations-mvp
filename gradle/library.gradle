@@ -1,7 +1,7 @@
 ext {
     library = [
-            AndroidAnnotations   : "org.androidannotations:androidannotations:4.2.0",
-            AndroidAnnotationsApi: "org.androidannotations:androidannotations-api:4.2.0",
+            AndroidAnnotations   : "org.androidannotations:androidannotations:4.3.0",
+            AndroidAnnotationsApi: "org.androidannotations:androidannotations-api:4.3.0",
             AndroidApt           : "com.neenbedankt.gradle.plugins:android-apt:1.8"
     ]
 }
