@@ -15,7 +15,7 @@ Add AndroidAnnotations and MVP plugin to your android module.
 ```
 repositories {
     maven {
-        url "PLUGIN NOT YET RELEASED"
+        url "http://dl.bintray.com/nenick/maven"
     }
 }
 
