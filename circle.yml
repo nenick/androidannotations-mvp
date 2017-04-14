@@ -36,3 +36,16 @@ deployment:
     commands:
       # report code coverage to codacy for master branch
       - ./gradlew sendCoverageToCodacy
+
+  release:
+    tag: /release-.*/
+    owner: nenick
+    commands:
+
+      # push release artifacts to github
+      - ./gradlew :mvp-plugin:githubRelease -PgithubUser=$GITHUB_USERNAME -PgithubKey=$GITHUB_WRITE_PUBLIC_REPOS_TOKEN
+      - ./gradlew :mvp-plugin-api:githubRelease -PgithubUser=$GITHUB_USERNAME -PgithubKey=$GITHUB_WRITE_PUBLIC_REPOS_TOKEN
+
+      # push release artifacts to bintray
+      - ./gradlew :mvp-plugin:bintrayUpload -PbintrayUser=$BINTRAY_USERNAME -PbintrayKey=$BINTRAY_KEY -PdryRun=false
+      - ./gradlew :mvp-plugin-api:bintrayUpload -PbintrayUser=$BINTRAY_USERNAME -PbintrayKey=$BINTRAY_KEY -PdryRun=false

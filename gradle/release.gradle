@@ -64,5 +64,6 @@ github {
     targetCommitish = 'master'
     name = currentReleaseTag()
     body = new File(projectDir, '../RELEASE_PLAN.md').text
-    assets = ['androidannotation-mvp/build/libs/mvp-plugin-' + currentReleaseVersion + '.jar']
+    assets = ['androidannotation-mvp/build/libs/mvp-plugin-' + currentReleaseVersion + '.jar',
+              'androidannotation-mvp-api/build/libs/mvp-plugin-api-' + currentReleaseVersion + '.jar']
 }
