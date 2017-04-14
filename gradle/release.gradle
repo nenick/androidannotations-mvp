@@ -47,7 +47,7 @@ scmVersion {
 publish {
     groupId = 'de.nenick'
     publishVersion = currentReleaseTag().replace("v", "")
-    desc = 'Oh hi, this is a nice description for a project, right?'
+    desc = 'Add annotations for Model View Presenter pattern.'
     website = 'https://github.com/nenick/androidannotations-mvp'
     licences = ['Apache-2.0'] // http://spdx.org/licenses/
     autoPublish = true
