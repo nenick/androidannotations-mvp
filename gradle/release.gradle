@@ -25,7 +25,7 @@ def currentReleaseTag = { ->
         standardOutput = stdout
         ignoreExitValue = true
     }
-    def releaseTag = stdout.toString().trim()
+    def releaseTag = stdout.toString().trim().replaceAll("-.*", "")
     return releaseTag ? releaseTag : "v0.0.0"
 }
 
