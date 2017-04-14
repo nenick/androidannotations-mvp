@@ -5,8 +5,6 @@ buildscript {
     dependencies {
         // publish release artifacts to bintray
         classpath 'com.novoda:bintray-release:0.3.4'
-        // create safely a new release tag
-        classpath 'pl.allegro.tech.build:axion-release-plugin:1.3.4'
         // publish release artifacts to github
         classpath "co.riiid:gradle-github-plugin:0.4.2"
     }

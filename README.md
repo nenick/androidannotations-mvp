@@ -76,5 +76,5 @@ Test and build MVP plugin at command line
 Release MVP plugin
 
 * update `RELEASE_PLAN.md` with new release information
-* from project root execute  `./gradlew release -Prelease.version=X.X.X` and push it
+* from project root execute  `./gradlew release -Prelease.version=X.X.X`
 * after release is done, update `README.md` with latest project version number
