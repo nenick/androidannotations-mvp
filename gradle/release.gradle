@@ -21,22 +21,22 @@ processResources {
 def currentReleaseTag = { ->
     def stdout = new ByteArrayOutputStream()
     exec {
-        commandLine 'git', 'describe', '--tags', '--match', 'release*'
+        commandLine 'git', 'describe', '--tags', '--match', 'v[0-9\\.]*'
         standardOutput = stdout
         ignoreExitValue = true
     }
     def releaseTag = stdout.toString().trim()
-    return releaseTag ? releaseTag : "release-0.0.0"
+    return releaseTag ? releaseTag : "v0.0.0"
 }
 
-ext.currentReleaseVersion = currentReleaseTag().replace("release-", "")
+ext.currentReleaseVersion = currentReleaseTag().replace("v", "")
 
 // ##################################################
 // Plugin configuration to create release tag and push it to github
 //
 scmVersion {
     tag {
-        prefix = 'release'
+        prefix = 'v'
     }
 }
 
@@ -45,7 +45,7 @@ scmVersion {
 //
 publish {
     groupId = 'de.nenick'
-    publishVersion = currentReleaseTag().replace("release-", "")
+    publishVersion = currentReleaseTag().replace("v", "")
     desc = 'Oh hi, this is a nice description for a project, right?'
     website = 'https://github.com/nenick/androidannotations-mvp'
     licences = ['AML'] // AML = MIT license http://spdx.org/licenses/

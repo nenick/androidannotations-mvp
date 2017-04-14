@@ -38,7 +38,7 @@ deployment:
       - ./gradlew sendCoverageToCodacy
 
   release:
-    tag: /release-.*/
+    tag: /v[0-9\.]*/
     owner: nenick
     commands:
 
