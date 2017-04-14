@@ -7,7 +7,7 @@ trait TestProperties implements TestProperties1 {
     def androidProjectName = "test-app"
     String androidApplicationProjectId = "de.nenick.test.application"
     def androidLibraryProjectId = "de.nenick.test.library"
-    def pluginVersion = readProjectVersion() + "-SNAPSHOT"
+    def pluginVersion = readProjectVersion()
     def androidPluginVersion = "2.3.0"
     def compileSdkVersion = "25"
     def buildToolsVersion = "25.0.1"
