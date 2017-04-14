@@ -59,12 +59,12 @@ publish {
 github {
     //noinspection GroovyAssignabilityCheck
     owner = project.hasProperty("githubUser") ? project.property("githubUser") : "undefined"
-    repo = 'androidannotation-mvp'
+    repo = 'androidannotations-mvp'
     token = project.hasProperty("githubKey") ? project.property("githubKey") : "undefined"
     tagName = currentReleaseTag()
     targetCommitish = 'master'
     name = currentReleaseTag()
     body = new File(projectDir, '../RELEASE_PLAN.md').text
-    assets = ['androidannotation-mvp/build/libs/mvp-plugin-' + currentReleaseVersion + '.jar',
-              'androidannotation-mvp-api/build/libs/mvp-plugin-api-' + currentReleaseVersion + '.jar']
+    assets = ['mvp-plugin/build/libs/mvp-plugin-' + currentReleaseVersion + '.jar',
+              'mvp-plugin-api/build/libs/mvp-plugin-api-' + currentReleaseVersion + '.jar']
 }
