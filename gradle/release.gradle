@@ -37,8 +37,8 @@ ext.currentReleaseVersion = currentReleaseTag().replace("v", "")
 scmVersion {
     tag {
         prefix = 'v'
+        versionSeparator = ''
     }
-    nextVersion.separator = ''
 }
 
 // ##################################################
