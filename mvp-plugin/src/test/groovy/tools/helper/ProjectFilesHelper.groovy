@@ -10,8 +10,11 @@ trait ProjectFilesHelper implements TestProperties, GroovyHelper {
                 androidPluginVersion: androidPluginVersion,
                 compileSdkVersion: compileSdkVersion,
                 buildToolsVersion: buildToolsVersion,
+                androidApt: androidApt,
                 pluginVersion: pluginVersion,
-                localRepo: localRepo
+                localRepo: localRepo,
+                androidAnnotations: androidAnnotations,
+                androidAnnotationsApi: androidAnnotationsApi
         )
     }
 

@@ -8,7 +8,10 @@ class GradleScriptBuilder implements Builder {
     String androidPluginVersion
     String compileSdkVersion
     String buildToolsVersion
+    String androidApt
     String pluginVersion
+    String androidAnnotations
+    String androidAnnotationsApi
     File localRepo
 
     @Override
@@ -22,7 +25,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:$androidPluginVersion'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath $androidApt
     }
 }
 
@@ -51,8 +54,8 @@ android {
 }
 
 dependencies {
-    apt "org.androidannotations:androidannotations:4.2.0"
-    compile "org.androidannotations:androidannotations-api:4.2.0"
+    apt $androidAnnotations
+    compile $androidAnnotationsApi
 
     apt 'de.nenick:androidannotations-mvp:$pluginVersion'
     compile 'de.nenick:androidannotations-mvp-api:$pluginVersion'
