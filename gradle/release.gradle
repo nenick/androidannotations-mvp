@@ -38,6 +38,7 @@ scmVersion {
     tag {
         prefix = 'v'
     }
+    nextVersion.separator = ''
 }
 
 // ##################################################
