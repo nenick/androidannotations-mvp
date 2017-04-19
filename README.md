@@ -69,40 +69,42 @@ Example how code may separated ...
     </tr>
     <tr>
         <td><pre><code class="hljs nginx">
-@EActivity(R.layout.activity-my.xml)
-class MyActivity extends Activity {
- 
-    @ViewById(R.id.myEditText)
-    EditText editText;
         
-    @ViewById(R.id.myTextView)
-    TextView textView;
-    
-    @ViewById(R.id.fragmentContainer)
-    Layout container;
-    
-    @Click(R.id.myButton)
-    onTextInput() {
-        String text = editText.getText();
-        // .. do some computing with text
-        textView.setText(text)
+    @EActivity(R.layout.activity-my.xml)
+    class MyActivity extends Activity {
+
+        @ViewById(R.id.myEditText)
+        EditText editText;
+
+        @ViewById(R.id.myTextView)
+        TextView textView;
+
+        @ViewById(R.id.fragmentContainer)
+        Layout container;
+
+        @Click(R.id.myButton)
+        onTextInput() {
+            String text = editText.getText();
+            // .. do some computing with text
+            textView.setText(text)
+        }
+
+        @Click(R.id.myButtonNav)
+        onNavigation() {
+            MySecondActivity_.intent(this).start()
+        }
+
+        @AfterViews
+        showFragment() {
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();   
+
+            Fragment myFragment = new MyFragment();
+            ft.add(container.getId(), myFragment , "my-fragment");
+            ft.commit();
+        }
     }
-    
-    @Click(R.id.myButtonNav)
-    onNavigation() {
-        MySecondActivity_.intent(this).start()
-    }
-    
-    @AfterViews
-    showFragment() {
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();   
-        
-        Fragment myFragment = new MyFragment();
-        ft.add(container.getId(), myFragment , "my-fragment");
-        ft.commit();
-    }
-}
+
         </code></pre></td>
         <td><pre><code class="hljs nginx">
 @EMvpPresenter
