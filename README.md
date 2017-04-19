@@ -105,7 +105,7 @@ Example how code may separated ...
         }
     }
 
-        </code></pre></td>
+</code></pre></td>
         <td><pre><code class="hljs nginx">
 @EMvpPresenter
 @EActivity(R.layout.activity-my.xml)
