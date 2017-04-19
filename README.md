@@ -116,7 +116,7 @@ Example how code may separated ...
         MyView = view;
 
         @MvpActivity
-        ActivityLauncher&lt;MySecondActivity_.IntentBuilder_&gt; mySecondActivity;
+        ActivityLauncher<MySecondActivity_.IntentBuilder_> mySecondActivity;
 
         @MvpFragment
         MyFragment fragment;
