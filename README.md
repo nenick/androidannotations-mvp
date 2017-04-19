@@ -57,6 +57,127 @@ Annotation | Short Description
 * [Show fragments](docs/CookManageFragments.md)
 * [Navigation to another screen](docs/CookViewNavigation.md)
 
+### ShowCase
+
+Example how code may separated ... 
+
+<table>
+    <tr>
+        <th>Typical activity class</td>
+        <th>MVP Presenter</td>
+        <th>MVP View</td>
+    </tr>
+    <tr>
+        <td><pre><code class="hljs nginx">
+@EActivity(R.layout.activity-my.xml)
+class MyActivity extends Activity {
+ 
+    @ViewById(R.id.myEditText)
+    EditText editText;
+        
+    @ViewById(R.id.myTextView)
+    TextView textView;
+    
+    @ViewById(R.id.fragmentContainer)
+    Layout container;
+    
+    @Click(R.id.myButton)
+    onTextInput() {
+        String text = editText.getText();
+        // .. do some computing with text
+        textView.setText(text)
+    }
+    
+    @Click(R.id.myButtonNav)
+    onNavigation() {
+        MySecondActivity_.intent(this).start()
+    }
+    
+    @AfterViews
+    showFragment() {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();   
+        
+        Fragment myFragment = new MyFragment();
+        ft.add(container.getId(), myFragment , "my-fragment");
+        ft.commit();
+    }
+}
+        </code></pre></td>
+        <td><pre><code class="hljs nginx">
+@EMvpPresenter
+@EActivity(R.layout.activity-my.xml)
+class MyActivity extends Activity implements MyView.Callback {
+    
+    @MvpView
+    MyView = view;
+    
+    @MvpActivity
+    ActivityLauncher&lt;MySecondActivity_.IntentBuilder_&gt; mySecondActivity;
+    
+    @MvpFragment
+    MyFragment fragment;
+    
+    @AfterViews
+    void showFragment() {
+        view.show(fragment);
+    }
+    
+    @Override
+    void onTextInput(String text) {
+        // .. do some computing with text
+        view.showComputingResult(text)
+    }
+    
+    @Override
+    void onNavigation() {
+        mySecondActivity.intent(this).start();
+    }
+}
+        </code></pre></td>
+        <td><pre><code class="hljs nginx">
+@EMvpView
+@EBean
+class MyView {
+
+    interface Callback {
+        void onTextInput(String text);
+        void onNavigation();
+        FragmentManager getFragmentManager();
+    }
+
+    @ViewById(R.id.myEditText)
+    EditText editText;
+        
+    @ViewById(R.id.myTextView)
+    TextView textView;
+
+    @ViewById(R.id.fragmentContainer)
+    Layout container;
+    
+    @MvpCallback
+    Callback callback;
+    
+    @Click(R.id.myButton)
+    void onMyButton() {
+        callback.onTextInput(editText.getText());
+    }
+    
+    void showComputingResult(String text) {
+        textView.setText(text)
+    }
+    
+    void show(Fragment fragment) {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();   
+        ft.add(container.getId(), fragment, "my-fragment");
+        ft.commit();
+    }
+}
+        </code></pre></td>
+    </tr>
+</table>
+
 ## Support
 
 For any issue or question please [open an issue](https://github.com/nenick/androidannotations-mvp/issues/new) for support.
@@ -68,7 +189,7 @@ Create a branch, add commits, and [open a pull request](https://github.com/nenic
 
 ### Build Instructions
 
-Test and build MVP plugin at command line
+Build and run MVP plugin tests
 
 * from project root execute `./gradlew check`
 * from project root execute `./gradlew connectedCheck` (needs android device or emulator)
