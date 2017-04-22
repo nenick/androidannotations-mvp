@@ -19,15 +19,15 @@ repositories {
     }
 }
 
-def androidannotations = 4.3.0
-def androidannotations-mvp = 1.0.0 
+def AndroidAnnotations = 4.3.0
+def AndroidAnnotationsMvp = 1.0.0 
 
 deoendencies {
-    apt "org.androidannotations:androidannotations:$androidannotations"
-    compile "org.androidannotations:androidannotations:$androidannotations"
+    apt "org.androidannotations:androidannotations:$AndroidAnnotations"
+    compile "org.androidannotations:androidannotations:$AndroidAnnotations"
     
-    apt "de.nenick:androidannotations-mvp:$androidannotations-mvp"
-    compile "de.nenick:androidannotations-mvp-api:$androidannotations-mvp"
+    apt "de.nenick:androidannotations-mvp:$AndroidAnnotationsMvp"
+    compile "de.nenick:androidannotations-mvp-api:$AndroidAnnotationsMvp"
 }
 ```
 
@@ -35,7 +35,7 @@ deoendencies {
 
 ### Enhance components
 
-Base annotations to enable MVP class injections.
+Base annotations to enable MVP plugin features.
 
 Annotation | Short Description
 ---|---
