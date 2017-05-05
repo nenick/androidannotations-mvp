@@ -59,7 +59,7 @@ Annotation | Short Description
 
 ### ShowCase
 
-Example how code may separated ... 
+Example how typically activity code may be separated into presenter and view ... 
 
 <table>
     <tr>
