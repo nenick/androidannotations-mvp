@@ -63,9 +63,9 @@ Example how code may separated ...
 
 <table>
     <tr>
-        <th>Typical activity class</td>
-        <th>MVP Presenter</td>
-        <th>MVP View</td>
+        <th>Typical activity class without MVP separation</td>
+        <th>Presenter with MVP separation</td>
+        <th>View with MVP separation</td>
     </tr>
     <tr>
 <td><pre>
